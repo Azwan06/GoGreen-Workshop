@@ -1,6 +1,6 @@
 # GoGreen Recycling System 🌱
 
-A web-based recycling system using:
+A web-based recycling system using:1
 - Apache
 - PHP
 - MySQL
