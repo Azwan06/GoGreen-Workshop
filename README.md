@@ -36,7 +36,7 @@ How to run:
 -git remote add origin https://github.com/Azwan06/GoGreen-Workshop.git
 -git pull origin main --allow-unrelated-histories
 
-# yang nama aku tu (AZWAN06) korang tukar dengan nama korang tau 
+yang nama aku tu (AZWAN06) korang tukar dengan nama korang tau 
 
 -git config list 
 
