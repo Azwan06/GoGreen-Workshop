@@ -41,3 +41,5 @@ yang nama aku tu (AZWAN06) korang tukar dengan nama korang tau
 -git config list 
 
 #KALAU TAK TAHU CHAT JE AKU TAU (AZWAN)
+
+tambahan hazeeq
