@@ -1,73 +1,51 @@
-# 🌿 UTeM GoGreen — Campus Recycling Management
+# GoGreen — Modular Native PHP Backend
 
-Native PHP + MySQL system for Universiti Teknikal Malaysia Melaka. No frameworks, no CDNs at runtime.
+## Install (XAMPP)
 
-## ⚙️ Requirements
-- XAMPP (Apache + MySQL + PHP 8.0+)
+1. Copy this folder into `C:\xampp\htdocs\gogreen`.
+2. Start Apache + MySQL in XAMPP.
+3. Create DB & import schema:
+   - Open phpMyAdmin → New → DB name: `gogreen` (utf8mb4_unicode_ci)
+   - Import `database/schema.sql`, then `database/seeds/seed.sql`
+4. Edit `config/db.php` if your MySQL user/password differs (default: root / empty).
+5. Visit `http://localhost/gogreen/public/` (front controller).
 
-## 🚀 Setup (5 min)
-1. **Copy** the `gogreen` folder into `C:\xampp\htdocs\` (or `/opt/lampp/htdocs/`).
-2. Start **Apache** and **MySQL** from the XAMPP Control Panel.
-3. Open phpMyAdmin → click **Import** → choose `gogreen/gogreen.sql` → Go.
-4. Visit **http://localhost/gogreen/**
+> Production: point Apache `DocumentRoot` at `public/` so the rest of the tree is unreachable. On XAMPP dev, `public/index.php` is already the entry point.
 
-If your MySQL has a password, edit `config/db.php`.
+## Demo accounts (after seeding)
 
-## 👤 Demo Accounts (password: `Password123`)
-| Role   | Email                              |
-|--------|------------------------------------|
-| User   | student1@student.utem.edu.my       |
-| Worker | worker1@staff.utem.edu.my          |
-| Admin  | admin1@admin.utem.edu.my           |
+| Role   | Email                          | Password   |
+|--------|--------------------------------|------------|
+| Admin  | admin@admin.utem.edu.my        | Admin@123  |
+| Worker | worker@staff.utem.edu.my       | Worker@123 |
+| User   | student@student.utem.edu.my    | User@123   |
 
-## 📧 Email Domain → Role
-- `@student.utem.edu.my` → User
-- `@staff.utem.edu.my`   → Worker
-- `@admin.utem.edu.my`   → Admin
+(Worker account is a staff user promoted to Worker via the admin panel — already done in seed.)
 
-Role is **auto-assigned** based on email domain. Other domains are rejected at register/login.
+## Email policy
 
-## 🏆 Points System
-| Category | Points / KG |
-|----------|-------------|
-| Plastic  | 10          |
-| Paper    | 5           |
-| Glass    | 2           |
+Only these domains can register/login:
+- `@student.utem.edu.my` → role `user`
+- `@staff.utem.edu.my`   → role `user` (admin can promote to worker)
+- `@admin.utem.edu.my`   → role `admin`
 
-Every **10 points = 1 Tuah Indeks**. Points only awarded after admin approval.
+## Points
 
-## 📂 Structure
+| Material  | Points / kg |
+|-----------|-------------|
+| Plastic   | 10 |
+| Paper     | 5 |
+| Aluminium | 15 |
+| Glass     | 2 |
+
+10 points = 1 Tuah Indeks (configurable in `settings.points_per_indeks`).
+
+## Cron (optional)
+
 ```
-gogreen/
-├── index.php · about.php · contact.php · login.php · register.php · logout.php
-├── toggle_theme.php
-├── config/db.php
-├── includes/ (auth, helpers, header, footer, sidebar, profile_form)
-├── assets/css · assets/js (incl. local Leaflet) · assets/images
-├── uploads/ (profile, submissions, pickups, worker)
-├── user/    (dashboard, submit, history, pickup, map, notifications, report, profile)
-├── worker/  (dashboard, pickups, bins, reports, profile)
-├── admin/   (dashboard, analytics, verify, pickups, bins, users, reports, profile)
-└── gogreen.sql
+* * * * * php C:\xampp\htdocs\gogreen\scripts\send_notifications.php
+0 2 * * * php C:\xampp\htdocs\gogreen\scripts\rebuild_analytics.php
+0 3 * * * php C:\xampp\htdocs\gogreen\scripts\prune_logs.php
 ```
 
-## 🔒 Security
-- Prepared statements everywhere (mysqli)
-- `password_hash` / `password_verify` (bcrypt)
-- Role-based access via `require_role()`
-- File-upload MIME validation + size limit (5 MB)
-- HTML output escaped through `e()`
-- Session-based auth; banned users blocked at login
-
-## ✨ Features
-- 🌗 Dark mode (saved per-user in DB)
-- 📱 Fully responsive (desktop / tablet / mobile hamburger sidebar)
-- 🗺️ Campus bin map (local Leaflet + OSM tiles)
-- 📈 Pure SVG analytics charts (no dependencies)
-- 🔔 In-app notifications
-- 🚚 Pickup workflow with worker assignment
-- ✅ Manual admin verification
-- 👤 Profile picture upload / remove
-- 🔍 Search + pagination on tables
-
-Enjoy building a greener UTeM 🌱
+See `.lovable/plan.md` for the full architecture blueprint.
