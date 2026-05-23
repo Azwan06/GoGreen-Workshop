@@ -1,0 +1,1 @@
+header untuk about dengan media tak static macam lain 
