@@ -175,6 +175,29 @@ nav a:hover{
   font-weight: 600;
 }
 
+footer{
+  background:#111;
+  color:#bbb;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:25px 60px;
+  font-size:14px;
+
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.left-footer{
+  text-align:left;
+}
+
+.right-footer{
+  text-align:right;
+}
+
 @media(max-width:768px){
 
   header{
