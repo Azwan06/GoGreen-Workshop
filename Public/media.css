@@ -173,6 +173,31 @@ nav a:hover{
   margin-bottom:20px;
 }
 
+/* FOOTER */
+
+footer{
+  background:#111;
+  color:#bbb;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:25px 60px;
+  font-size:14px;
+
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.left-footer{
+  text-align:left;
+}
+
+.right-footer{
+  text-align:right;
+}
+
 @media(max-width:768px){
 
   header{
@@ -212,9 +237,6 @@ nav a:hover{
     padding:35px 25px;
   }
 
-  footer{
-    flex-direction:column;
-    text-align:center;
-  }
+  
 
 }
