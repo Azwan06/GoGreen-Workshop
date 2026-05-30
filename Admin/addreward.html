@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reward Management | GoGreen</title>
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="addreward.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </div>
+
+        <div class="logo">
+
+            <img src="image/recycle_imag.png" alt="GoGreen Logo">
+
+            GoGreen
+
+        </div>
+
+    </header>
+
+    <!-- SIDEBAR -->
+ <div class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="toggleMenu()">✕</button>
+        <h2 class="sidebar-logo">GoGreen</h2>
+
+          <a href="dashboard.html">Dashboard</a>
+        <a href="reqsub.html">Submissions</a>
+        <a href="reqreward.html">Redemptions</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="addbin.html">Bin Map</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="pickups.html">Pickups</a>
+        <a href="reports.html">Reports</a>
+        <a href="addreward.html">Rewards</a>
+        <a href="userrole.html">Users</a>
+        <a href="media.html">Media</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="settings.html">Settings</a>
+        <button class="sidebar-btn">Sign In</button>
+    </div>
+
+    <!-- PAGE HEADER -->
+
+    <section class="page-header">
+
+        <div>
+
+            <h1>
+                Reward management
+            </h1>
+
+            <p>
+                Create, edit, and remove rewards in the catalog.
+            </p>
+
+        </div>
+
+        <button class="add-btn" onclick="openModal()">
+            + Add reward
+        </button>
+
+    </section>
+
+    <!-- REWARD GRID -->
+
+    <div class="reward-grid">
+
+        <!-- CARD -->
+
+        <div class="reward-item">
+
+            <span class="stock-badge">
+                24 left
+            </span>
+
+            <div class="reward-image">
+                🛍️
+            </div>
+
+            <div class="reward-content">
+
+                <div class="reward-top">
+
+                    <div>
+
+                        <h3>
+                            GoGreen Tote Bag
+                        </h3>
+
+                        <p>
+                            Merchandise
+                        </p>
+
+                    </div>
+
+                    <span class="points">
+                        500 pts
+                    </span>
+
+                </div>
+
+                <div class="reward-actions">
+
+                    <button class="edit-btn" onclick="openEditModal()">
+                        ✏ Edit
+                    </button>
+
+                    <button class="delete-btn" onclick="openDeleteModal()">
+                        🗑
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CARD -->
+
+        <div class="reward-item">
+
+            <span class="stock-badge">
+                12 left
+            </span>
+
+            <div class="reward-image">
+                🧴
+            </div>
+
+            <div class="reward-content">
+
+                <div class="reward-top">
+
+                    <div>
+
+                        <h3>
+                            Reusable Water Bottle
+                        </h3>
+
+                        <p>
+                            Lifestyle
+                        </p>
+
+                    </div>
+
+                    <span class="points">
+                        800 pts
+                    </span>
+
+                </div>
+
+                <div class="reward-actions">
+
+                    <button class="edit-btn" onclick="openEditModal()">
+                        ✏ Edit
+                    </button>
+
+                    <button class="delete-btn" onclick="openDeleteModal()">
+                        🗑
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CARD -->
+
+        <div class="reward-item">
+
+            <span class="stock-badge">
+                50 left
+            </span>
+
+            <div class="reward-image">
+                🎟️
+            </div>
+
+            <div class="reward-content">
+
+                <div class="reward-top">
+
+                    <div>
+
+                        <h3>
+                            UTeM Cafeteria Voucher RM10
+                        </h3>
+
+                        <p>
+                            Voucher
+                        </p>
+
+                    </div>
+
+                    <span class="points">
+                        1000 pts
+                    </span>
+
+                </div>
+
+                <div class="reward-actions">
+
+                    <button class="edit-btn" onclick="openEditModal()">
+                        ✏ Edit
+                    </button>
+
+                    <button class="delete-btn" onclick="openDeleteModal()">
+                        🗑
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ADD MODAL -->
+
+    <div class="modal" id="rewardModal">
+
+        <div class="modal-box">
+
+            <button class="close-modal" onclick="closeModal()">
+                ✕
+            </button>
+
+            <div class="modal-header">
+
+                <h2>Add reward</h2>
+
+                <p>
+                    Configure points, stock and visuals.
+                </p>
+
+            </div>
+
+            <form>
+
+                <div class="upload-section">
+
+                    <div class="preview-box">
+                        🎁
+                    </div>
+
+                    <div class="upload-content">
+
+                        <label>
+                            Upload image
+                        </label>
+
+                        <input type="file">
+
+                        <div class="icon-picker">
+
+                            <button type="button">🎁</button>
+                            <button type="button">🛍️</button>
+                            <button type="button">🧴</button>
+                            <button type="button">🎟️</button>
+                            <button type="button">👕</button>
+                            <button type="button">🌳</button>
+                            <button type="button">📚</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="input-group">
+
+                        <label>Name</label>
+
+                        <input 
+                            type="text"
+                            placeholder="Reward name"
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Category</label>
+
+                        <select>
+
+                            <option>Merchandise</option>
+                            <option>Voucher</option>
+                            <option>Lifestyle</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="input-group">
+
+                        <label>Required points</label>
+
+                        <input 
+                            type="number"
+                            value="100"
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Stock quantity</label>
+
+                        <input 
+                            type="number"
+                            value="10"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Description</label>
+
+                    <textarea 
+                        placeholder="Optional details for users..."
+                    ></textarea>
+
+                </div>
+
+                <div class="modal-actions">
+
+                    <button 
+                        type="button"
+                        class="cancel-btn"
+                        onclick="closeModal()"
+                    >
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="save-btn">
+                        Save reward
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- EDIT MODAL -->
+
+    <div class="modal" id="editRewardModal">
+
+        <div class="modal-box">
+
+            <button class="close-modal" onclick="closeEditModal()">
+                ✕
+            </button>
+
+            <div class="modal-header">
+
+                <h2>Edit reward</h2>
+
+                <p>
+                    Configure points, stock and visuals.
+                </p>
+
+            </div>
+
+            <form>
+
+                <div class="upload-section">
+
+                    <div class="preview-box">
+                        🛍️
+                    </div>
+
+                    <div class="upload-content">
+
+                        <label>
+                            Upload image
+                        </label>
+
+                        <input type="file">
+
+                        <div class="icon-picker">
+
+                            <button type="button">🎁</button>
+
+                            <button 
+                                type="button"
+                                class="active-icon"
+                            >
+                                🛍️
+                            </button>
+
+                            <button type="button">🧴</button>
+                            <button type="button">🎟️</button>
+                            <button type="button">👕</button>
+                            <button type="button">🌳</button>
+                            <button type="button">📚</button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="input-group">
+
+                        <label>Name</label>
+
+                        <input 
+                            type="text"
+                            value="GoGreen Tote Bag"
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Category</label>
+
+                        <select>
+
+                            <option selected>
+                                Merchandise
+                            </option>
+
+                            <option>
+                                Voucher
+                            </option>
+
+                            <option>
+                                Lifestyle
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="form-row">
+
+                    <div class="input-group">
+
+                        <label>Required points</label>
+
+                        <input 
+                            type="number"
+                            value="500"
+                        >
+
+                    </div>
+
+                    <div class="input-group">
+
+                        <label>Stock quantity</label>
+
+                        <input 
+                            type="number"
+                            value="24"
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Description</label>
+
+                    <textarea 
+                        placeholder="Optional details for users..."
+                    ></textarea>
+
+                </div>
+
+                <div class="modal-actions">
+
+                    <button 
+                        type="button"
+                        class="cancel-btn"
+                        onclick="closeEditModal()"
+                    >
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="save-btn">
+                        Save reward
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- DELETE MODAL -->
+
+    <div class="delete-modal" id="deleteModal">
+
+        <div class="delete-box">
+
+            <button 
+                class="close-delete"
+                onclick="closeDeleteModal()"
+            >
+                ✕
+            </button>
+
+            <div class="delete-content">
+
+                <h2>
+                    Delete reward?
+                </h2>
+
+                <p>
+                    This will permanently remove 
+                    "GoGreen Tote Bag" from the catalog.
+                </p>
+
+            </div>
+
+            <div class="delete-actions">
+
+                <button 
+                    class="cancel-delete"
+                    onclick="closeDeleteModal()"
+                >
+                    Cancel
+                </button>
+
+                <button class="confirm-delete">
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p class="left-footer">
+            © GoGreen. All rights reserved.
+        </p>
+
+        <p class="right-footer">
+            Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
+        </p>
+
+    </footer>
+
+    <script>
+
+        // SIDEBAR
+
+        function toggleMenu(){
+
+            document
+            .getElementById("sidebar")
+            .classList.toggle("active");
+
+        }
+
+        // ADD MODAL
+
+        function openModal(){
+
+            document
+            .getElementById("rewardModal")
+            .classList.add("active");
+
+        }
+
+        function closeModal(){
+
+            document
+            .getElementById("rewardModal")
+            .classList.remove("active");
+
+        }
+
+        // EDIT MODAL
+
+        function openEditModal(){
+
+            document
+            .getElementById("editRewardModal")
+            .classList.add("active");
+
+        }
+
+        function closeEditModal(){
+
+            document
+            .getElementById("editRewardModal")
+            .classList.remove("active");
+
+        }
+
+        // DELETE MODAL
+
+        function openDeleteModal(){
+
+            document
+            .getElementById("deleteModal")
+            .classList.add("active");
+
+        }
+
+        function closeDeleteModal(){
+
+            document
+            .getElementById("deleteModal")
+            .classList.remove("active");
+
+        }
+
+    </script>
+
+</body>
+</html>
