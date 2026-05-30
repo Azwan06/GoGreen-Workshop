@@ -84,7 +84,7 @@ header{
 .sidebar::-webkit-scrollbar-thumb:hover{
     background: #aaa;
 }
-.sidebar.active{
+.sidebar.actives{
     transform: translateX(0);
     box-shadow: -5px 0 15px rgba(0,0,0,0.1);
 }
@@ -269,26 +269,6 @@ footer{
     header{
         padding:0 25px;
     }
-
-    /* nav{
-        position:absolute;
-        top:80px;
-        left:0;
-
-        width:100%;
-
-        background:white;
-
-        flex-direction:column;
-
-        padding:30px 0;
-
-        display:none;
-    }
-
-    nav.active{
-        display:flex;
-    } */
 
     .menu-toggle{
         /* display:block; */
