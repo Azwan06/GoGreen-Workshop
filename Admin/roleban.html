@@ -15,29 +15,35 @@
 
 <body>
     <header>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </div>
         <div class="logo">
         <img src="image/recycle_imag.png" alt="GoGreen Logo">
             GoGreen
         </div>
-
-        <nav id="navMenu">
-
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="media.html">Media</a>
-            <a href="map.html">Map</a>
-            <a href="leaderboard.html">Leaderboard</a>
-            <a href="contactus.html">Contact</a>
-
-            <button class="sign-btn" onclick="window.location.href='login.html'">
-                Sign In
-            </button>
-
-        </nav>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            ☰
-        </div>
     </header>
+
+    <div class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="toggleMenu()">✕</button>
+        <h2 class="sidebar-logo">GoGreen</h2>
+
+        <a href="#">Dashboard</a>
+        <a href="reqsub.html">Submissions</a>
+        <a href="#">Redemptions</a>
+        <a href="#">Schedule</a>
+        <a href="#">Bin Map</a>
+        <a href="#">Bins</a>
+        <a href="#">Analytics</a>
+        <a href="#">Pickups</a>
+        <a href="#">Reports</a>
+        <a href="#">Rewards</a>
+        <a href="roleban.html">Users</a>
+        <a href="#">Media</a>
+        <a href="#">Notifications</a>
+        <a href="#">Settings</a>
+        <button class="sidebar-btn">Sign In</button>
+    </div>
 
     <section class="page-title">
         <h1>User Management</h1>
@@ -65,9 +71,10 @@
     </footer>
 
     <script>
+        // sidebar
         function toggleMenu(){
             document
-            .getElementById("navMenu")
+            .getElementById("sidebar")
             .classList.toggle("active");
         }
 
