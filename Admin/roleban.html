@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoGreen</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="roleban.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+        <img src="image/recycle_imag.png" alt="GoGreen Logo">
+            GoGreen
+        </div>
+
+        <nav id="navMenu">
+
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="media.html">Media</a>
+            <a href="map.html">Map</a>
+            <a href="leaderboard.html">Leaderboard</a>
+            <a href="contactus.html">Contact</a>
+
+            <button class="sign-btn" onclick="window.location.href='login.html'">
+                Sign In
+            </button>
+
+        </nav>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </div>
+    </header>
+
+    <section class="page-title">
+        <h1>User Management</h1>
+        <p>View and manage platform members</p>
+    </section>
+
+    <div class="search-container">
+
+        <input type="text" 
+        id="searchInput"
+        placeholder="Search user by name..."
+        onkeyup="searchUser()">
+
+        <div id="searchResult"></div>
+    </div>
+    
+    <footer>
+        <p class="left-footer">
+            © GoGreen. All rights reserved.
+        </p>
+
+        <p class="right-footer">
+            Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
+        </p>
+    </footer>
+
+    <script>
+        function toggleMenu(){
+            document
+            .getElementById("navMenu")
+            .classList.toggle("active");
+        }
+
+        const users =[
+            {
+                name:"Nurul Aina",
+                email:"nurul@student.utem.edu.my",
+                initials:"NA",
+                role:"User",
+                active:true
+            },
+            {
+                name:"Arif Danial",
+                email:"arif@student.utem.edu.my",
+                initials:"AD",
+                role:"Worker",
+                active:false
+            },
+            {
+                name:"Mira Hanani",
+                email:"mira@student.utem.edu.my",
+                initials:"MH",
+                role:"Admin",
+                active:true
+            }
+        ];
+
+        function displayUsers(userList){
+            let result = document.getElementById("searchResult");
+            result.innerHTML = "";
+            
+            if(userList.length === 0){
+                result.innerHTML = `
+                    <p class="no-user">
+                        No user found.
+                    </p>
+                `;
+
+                return;
+            }
+
+            userList.forEach(user => {
+                result.innerHTML +=`
+                
+                <div class="user-card">
+
+                    <div class="user-left">
+
+                        <div class="user-avatar">
+                            ${user.initials}
+                        </div>
+
+                        <div>
+                            <h3>${user.name}</h3>
+                            <p>${user.email}</p>
+                        </div>
+
+                    </div>
+
+                    <div class="user-right">
+
+                        <select class="role-select">
+
+                            <option 
+                            ${user.role === "User" ? "selected" : ""}>
+                            User
+                            </option>
+
+                            <option 
+                            ${user.role === "Worker" ? "selected" : ""}>
+                            Worker
+                            </option>
+
+                            <option 
+                            ${user.role === "Admin" ? "selected" : ""}>
+                            Admin
+                            </option>
+
+                        </select>
+
+                        <button 
+                            class ="status ${user.active ? "active" : "inactive"}"
+                            onclick="toggleStatus('${user.email}')"
+                        >
+
+                            ${user.active ? "Active" : "Inactive"}
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                `;
+            });
+        }
+
+        function searchUser(){
+            let input = document
+            .getElementById("searchInput")
+            .value.toLowerCase();
+
+            let filtered = users.filter(user =>
+                user.name.toLowerCase().includes(input) ||
+                user.email.toLowerCase().includes(input)
+            );
+
+            displayUsers(filtered);
+        }
+
+        displayUsers(users);
+
+        function toggleStatus(email){
+            let user = users.find(user => user.email === email);
+            user.active =!user.active;
+            searchUser();
+        }
+    </script>
+
+</body>
+</html>
