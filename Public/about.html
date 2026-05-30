@@ -19,24 +19,47 @@
         GoGreen
     </div>
 
-    <nav id="navMenu">
+        <!-- avatar -->
+        <div class="header-right">
+            <div class="user-avatar-container">
 
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="media.html">Media</a>
-      <a href="map.html">Map</a>
-      <a href="leaderboard.html">Leaderboard</a>
-      <a href="contactus.html">Contact</a>
+                <div class="user-avatar" onclick="toggleProfileMenu()">
+                    <img src="image/avatar.png" alt="User Avatar">
+                </div>
 
-      <button class="sign-btn" onclick="window.location.href='login.html'">
-        Sign In
-      </button>
+                <div class="profile-menu" id="profileMenu">
 
-    </nav>
+                    <div class="profile-info">
+                        <h4>John Doe</h4>
+                        <p>johndoe@student.utem.edu.my</p>
+                    </div>
 
-    <div class="menu-toggle" onclick="toggleMenu()">
-      ☰
-    </div>
+                    <a href="#">Profile</a>
+                    <a href="#">Settings</a>
+                    <a href="login.html">Sign Out</a>
+
+                </div>
+
+            </div>
+
+            <nav id="navMenu">
+
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="media.html">Media</a>
+                <a href="map.html">Map</a>
+                <a href="leaderboard.html">Leaderboard</a>
+                <a href="contactus.html">Contact</a>
+
+                <button class="sign-btn"  onclick="window.location.href='login.html'">
+                    Sign In
+                </button>
+
+            </nav>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                ☰
+            </div>            
+        </div>
 
   </header>
 <body>
@@ -152,6 +175,19 @@
 
     }
 
+        // toggle avatar
+        function toggleProfileMenu(){
+            document.getElementById("profileMenu").classList.toggle("show");
+        }
+
+        document.addEventListener("click",function(event){
+            const container = document.querySelector(".user-avatar-container");
+            const menu = document.getElementById("profileMenu");
+            
+            if(!container.contains(event.target)){
+                menu.classList.remove("show");
+            }
+        });
   </script>
 
 </body>

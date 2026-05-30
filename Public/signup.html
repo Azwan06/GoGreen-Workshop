@@ -19,23 +19,48 @@
             GoGreen
         </div>
 
-        <nav id="navMenu">
+        <!-- avatar -->
+        <div class="header-right">
+            <div class="user-avatar-container">
 
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="media.html">Media</a>
-            <a href="map.html">Map</a>
-            <a href="leaderboard.html">Leaderboard</a>
-            <a href="contactus.html">Contact</a>
+                <div class="user-avatar" onclick="toggleProfileMenu()">
+                    <img src="image/avatar.png" alt="User Avatar">
+                </div>
 
-            <button class="sign-btn"  onclick="window.location.href='login.html'">
-                Sign In
-            </button>
+                <div class="profile-menu" id="profileMenu">
 
-        </nav>
-        <div class="menu-toggle" onclick="toggleMenu()">
-            ☰
+                    <div class="profile-info">
+                        <h4>John Doe</h4>
+                        <p>johndoe@student.utem.edu.my</p>
+                    </div>
+
+                    <a href="#">Profile</a>
+                    <a href="#">Settings</a>
+                    <a href="login.html">Sign Out</a>
+
+                </div>
+
+            </div>
+
+            <nav id="navMenu">
+
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="media.html">Media</a>
+                <a href="map.html">Map</a>
+                <a href="leaderboard.html">Leaderboard</a>
+                <a href="contactus.html">Contact</a>
+
+                <button class="sign-btn"  onclick="window.location.href='login.html'">
+                    Sign In
+                </button>
+
+            </nav>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                ☰
+            </div>            
         </div>
+
     </header>
 
     <section class="login-container">
@@ -45,22 +70,32 @@
             </div>
             <h1>Join GoGreen</h1>
             <p>Create an account to start tracking</p>
+            <label class="input-label">Enter Your Full Name</label>
             <input type="fullname" placeholder="Full Name" class="input-box">
+            <label class="input-label">Enter Your Username</label>
             <input type="username" placeholder="Username" class="input-box">
-            <input type="email" placeholder="Email" class="input-box">
+            <label class="input-label">Enter Your Email</label>
+            <input type="email" placeholder="youid@student.utem.edu.my" class="input-box">
+            <label class="input-label">Enter Your Password</label>
             <input type="password" placeholder="Password" class="input-box">
                         
             <button class="signin-btn">
                 Sign Up
             </button>
 
-            <div class="or">
+            <div class="demo-buttons">
+                <button class="demo-btn">User Demo</button>
+                <button class="demo-btn">Worker Demo</button>
+                <button class="demo-btn">Admin Demo</button>
+            </div>
+
+            <!-- <div class="or">
                 OR
             </div>
 
             <button class="google-btn">
                 Continue with Google
-            </button>
+            </button> -->
 
             <div class="bottom-text">
                 Already have an account?
@@ -87,6 +122,20 @@
         .getElementById("navMenu")
         .classList.toggle("active");
         }
+
+        // toggle avatar
+        function toggleProfileMenu(){
+            document.getElementById("profileMenu").classList.toggle("show");
+        }
+
+        document.addEventListener("click",function(event){
+            const container = document.querySelector(".user-avatar-container");
+            const menu = document.getElementById("profileMenu");
+            
+            if(!container.contains(event.target)){
+                menu.classList.remove("show");
+            }
+        });
 
     </script>
 </body>
