@@ -94,7 +94,9 @@
                 </div>
 
                 <div class="submission-actions">
-                    <button class="btn preview-btn">Preview</button>
+                    <button class="btn preview-btn" onclick="openModal('image/bottle.jpg')">
+                        Preview
+                    </button>
                     <button class="btn review-btn">Review</button>
                     <button class="btn approve-btn">Approve</button>
                 </div>
@@ -122,13 +124,13 @@
             <div class="submission-right">
                 <div class="submission-user">
                     <div class="user-avatar">MH</div>
-                    <span class="user-name">Mira Hananispan>
+                    <span class="user-name">Mira Hanani</span>
                     <span class="status approved">Approved</span>
                 </div>
 
                 <div class="submission-actions">
 
-                    <button class="btn preview-btn">
+                    <button class="btn preview-btn" onclick="openModal('image/alumcan.jpg')">
                         Preview
                     </button>
                 </div>
@@ -141,12 +143,29 @@
         <p class="right-footer">Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia</p>
     </footer>
 
+    <div id="imageModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">✕</span>
+            <img id="modalImg" src="" alt="Preview Image">
+        </div>
+    </div>
+
     <script>
         // sidebar
         function toggleMenu(){
             document
             .getElementById("sidebar")
             .classList.toggle("active");
+        }
+
+        function openModal(imgSrc){
+            document.getElementById("modalImg").src = imgSrc;
+            document.getElementById("imageModal").style.display = "flex";
+
+        }
+
+        function closeModal(){
+            document.getElementById("imageModal").style.display = "none"
         }
 
         function filterTab(status, btn){
