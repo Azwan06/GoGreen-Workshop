@@ -358,20 +358,24 @@ footer {
     padding: 0 25px;
   }
 
-  nav {
-    position: absolute;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    background: white;
-    flex-direction: column;
-    padding: 30px 0;
-    display: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  nav{
+    position:absolute;
+    top:80px;
+    left:-250px;
+    width:250px;
+    height:calc(100vh - 80px);
+    background:white;
+    flex-direction:column;
+    align-items:flex-start;
+    padding:40px 30px;
+    transition:0.4s;
   }
-
-  nav.active { display: flex; }
-  .menu-toggle { display: block; }
+  nav.active{
+    left: 0;
+  }
+  .menu-toggle{
+    display:block;
+  }
 
   /* Ubah susunan grid menjadi 1 column */
   .setting-layout:nth-of-type(2) {
