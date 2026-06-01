@@ -22,52 +22,58 @@
   <!-- HEADER -->
   <header>
 
-    <div class="logo">
-      <img src="image/recycle_imag.png" alt="GoGreen Logo">
-      GoGreen
+
+    <!-- avatar -->
+    <div class="header-left">
+
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </div> 
+
+        <div class="logo">
+            <img src="image/recycle_imag.png" alt="GoGreen Logo">
+            GoGreen
+        </div>
+
     </div>
 
-        <!-- avatar -->
-        <div class="header-right">
-            <div class="user-avatar-container">
+    <div class="header-right">
+        <div class="user-avatar-container">
 
-                <div class="user-avatar" onclick="toggleProfileMenu()">
-                    <img src="image/avatar.png" alt="User Avatar">
+            <div class="user-avatar" onclick="toggleProfileMenu()">
+                <img src="image/avatar.png" alt="User Avatar">
+            </div>
+
+            <div class="profile-menu" id="profileMenu">
+
+                <div class="profile-info">
+                    <h4>John Doe</h4>
+                    <p>johndoe@student.utem.edu.my</p>
                 </div>
 
-                <div class="profile-menu" id="profileMenu">
-
-                    <div class="profile-info">
-                        <h4>John Doe</h4>
-                        <p>johndoe@student.utem.edu.my</p>
-                    </div>
-
-                    <a href="#">Profile</a>
-                    <a href="#">Settings</a>
-                    <a href="login.html">Sign Out</a>
-
-                </div>
+                <a href="#">Profile</a>
+                <a href="#">Settings</a>
+                <a href="login.html">Sign Out</a>
 
             </div>
 
-            <nav id="navMenu">
-
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="media.html">Media</a>
-                <a href="map.html">Map</a>
-                <a href="leaderboard.html">Leaderboard</a>
-                <a href="contactus.html">Contact</a>
-
-                <button class="sign-btn"  onclick="window.location.href='login.html'">
-                    Sign In
-                </button>
-
-            </nav>
-            <div class="menu-toggle" onclick="toggleMenu()">
-                ☰
-            </div>            
         </div>
+
+        <nav id="navMenu">
+
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="media.html">Media</a>
+            <a href="map.html">Map</a>
+            <a href="leaderboard.html">Leaderboard</a>
+            <a href="contactus.html">Contact</a>
+
+            <button class="sign-btn"  onclick="window.location.href='login.html'">
+                Sign In
+            </button>
+
+        </nav>           
+    </div>
 
   </header>
 
