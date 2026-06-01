@@ -74,6 +74,7 @@
         <section class="info-widgets-grid">
             <div class="widget-card">
                 <h3 class="widget-title">Account Settings</h3>
+                
                 <form class="settings-form" onsubmit="event.preventDefault();">
                     <div class="form-group">
                         <label for="username">Display Name</label>
@@ -84,7 +85,10 @@
                         <input type="email" id="email" value="user@example.com">
                     </div>
                     <button type="button" class="btn-save">Save Changes</button>
-                     <button type="button" class="btn-save2">Log Out</button>
+                     <button type="button" class="btn-save2"
+                     onclick="window.location.href='../Public/login.html'">
+                        Log Out
+                    </button>
                 </form>
             </div>
        
