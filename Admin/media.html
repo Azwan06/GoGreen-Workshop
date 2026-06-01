@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Media | GoGreen</title>
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="media.css">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+
+        <div class="header-left">
+
+            <div class="menu-toggle"
+            onclick="toggleMenu()">
+
+                ☰
+
+            </div>
+
+            <div class="logo">
+
+                <img src="image/recycle_imag.png">
+
+                GoGreen
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar"
+    id="sidebar">
+
+        <button class="close-btn"
+        onclick="toggleMenu()">
+
+            ✕
+
+        </button>
+
+        <h2 class="sidebar-logo">
+            GoGreen
+        </h2>
+
+        <a href="dashboard.html">
+            Dashboard
+        </a>
+
+        <a href="reqsub.html">
+            Submissions
+        </a>
+
+        <a href="reqreward.html">
+            Redemptions
+        </a>
+
+        <a href="schedule.html">
+            Schedule
+        </a>
+
+        <a href="addbin.html">
+            Bin Map
+        </a>
+
+        <a href="analytics.html">
+            Analytics
+        </a>
+
+        <a href="pickups.html">
+            Pickups
+        </a>
+
+        <a href="reports.html">
+            Reports
+        </a>
+
+        <a href="addreward.html">
+            Rewards
+        </a>
+
+        <a href="userrole.html">
+            Users
+        </a>
+
+        <a href="media.html">
+            Media
+        </a>
+
+        <a href="notifications.html">
+            Notifications
+        </a>
+
+        <a href="settings.html">
+            Settings
+        </a>
+
+        <button class="sidebar-btn">
+            Sign In
+        </button>
+
+    </div>
+
+    <!-- MAIN -->
+    <section class="media-section">
+
+        <!-- TITLE -->
+        <div class="page-title">
+
+            <h1>
+                Media Blasts
+            </h1>
+
+            <p>
+                Send posters, videos and ads to users and workers.
+            </p>
+
+        </div>
+
+        <!-- GRID -->
+        <div class="media-grid">
+
+            <!-- LEFT -->
+            <div class="media-form-card">
+
+                <h2>
+                    New Media
+                </h2>
+
+                <!-- TYPES -->
+                <div class="media-types">
+
+                    <div class="media-type active"
+                    onclick="selectType(this,'Poster','🖼')">
+
+                        <span>
+                            🖼
+                        </span>
+
+                        <p>
+                            Poster
+                        </p>
+
+                    </div>
+
+                    <div class="media-type"
+                    onclick="selectType(this,'Video','🎥')">
+
+                        <span>
+                            🎥
+                        </span>
+
+                        <p>
+                            Video
+                        </p>
+
+                    </div>
+
+                    <div class="media-type"
+                    onclick="selectType(this,'Ad','📢')">
+
+                        <span>
+                            📢
+                        </span>
+
+                        <p>
+                            Ad
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- FORM -->
+                <form id="mediaForm">
+
+                    <!-- AUDIENCE -->
+                    <div class="form-group">
+
+                        <label>
+                            Audience
+                        </label>
+
+                        <select id="audience">
+
+                            <option>
+                                Everyone
+                            </option>
+
+                            <option>
+                                Users
+                            </option>
+
+                            <option>
+                                Workers
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- TITLE -->
+                    <div class="form-group">
+
+                        <label>
+                            Title
+                        </label>
+
+                        <input type="text"
+                        id="mediaTitle"
+                        placeholder="Recycle-A-Thon this Friday">
+
+                    </div>
+
+                    <!-- MESSAGE -->
+                    <div class="form-group">
+
+                        <label>
+                            Message
+                        </label>
+
+                        <textarea
+                        id="mediaMessage"
+                        placeholder="Write your media content...">
+                        </textarea>
+
+                    </div>
+
+                    <!-- FILE -->
+                    <div class="form-group">
+
+                        <label>
+                            Upload Media
+                        </label>
+
+                        <label class="upload-box">
+
+                            <input type="file"
+                            id="mediaFile"
+                            accept="image/*,video/*"
+                            hidden>
+
+                            <span>
+                                ⬆
+                            </span>
+
+                            <p>
+                                Click to upload
+                            </p>
+
+                        </label>
+
+                    </div>
+
+                    <!-- BUTTON -->
+                    <button type="submit"
+                    class="publish-btn">
+
+                        Publish & Blast
+
+                    </button>
+
+                </form>
+
+            </div>
+
+            <!-- RIGHT -->
+            <div class="published-section">
+
+                <h3>
+                    Published Media
+                </h3>
+
+                <!-- LIST -->
+                <div id="mediaList">
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+
+        <p>
+            © GoGreen. All rights reserved.
+        </p>
+
+        <p>
+            Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
+        </p>
+
+    </footer>
+
+    <!-- SCRIPT -->
+    <script>
+
+        function toggleMenu(){
+
+            document
+            .getElementById("sidebar")
+            .classList.toggle("active");
+
+        }
+
+        // SELECT TYPE
+
+        let currentType = "Poster";
+        let currentIcon = "🖼";
+
+        function selectType(card,type,icon){
+
+            document
+            .querySelectorAll(".media-type")
+            .forEach(item => {
+
+                item.classList.remove("active");
+
+            });
+
+            card.classList.add("active");
+
+            currentType = type;
+            currentIcon = icon;
+
+        }
+
+        // ADD MEDIA
+
+        document
+        .getElementById("mediaForm")
+        .addEventListener("submit", function(e){
+
+            e.preventDefault();
+
+            const title =
+            document
+            .getElementById("mediaTitle")
+            .value;
+
+            const audience =
+            document
+            .getElementById("audience")
+            .value;
+
+            const message =
+            document
+            .getElementById("mediaMessage")
+            .value;
+
+            const file =
+            document
+            .getElementById("mediaFile")
+            .files[0];
+
+            let previewHTML = `
+
+                <div class="media-preview">
+
+                    ${currentIcon}
+
+                </div>
+
+            `;
+
+            // FILE PREVIEW
+
+            if(file){
+
+                const fileURL =
+                URL.createObjectURL(file);
+
+                if(file.type.startsWith("image")){
+
+                    previewHTML = `
+
+                        <div class="media-preview">
+
+                            <img src="${fileURL}">
+
+                        </div>
+
+                    `;
+
+                }
+
+                else if(file.type.startsWith("video")){
+
+                    previewHTML = `
+
+                        <div class="media-preview">
+
+                            <video src="${fileURL}"
+                            controls>
+                            </video>
+
+                        </div>
+
+                    `;
+
+                }
+
+            }
+
+            // CREATE CARD
+
+            const card =
+            document.createElement("div");
+
+            card.classList.add("media-card");
+
+            card.innerHTML = `
+
+                ${previewHTML}
+
+                <div class="media-info">
+
+                    <div class="media-tags">
+
+                        <span class="tag">
+
+                            ${currentType}
+
+                        </span>
+
+                        <span class="tag green">
+
+                            ${audience}
+
+                        </span>
+
+                        <small>
+
+                            Now
+
+                        </small>
+
+                    </div>
+
+                    <h2>
+
+                        ${title}
+
+                    </h2>
+
+                    <p>
+
+                        ${message}
+
+                    </p>
+
+                </div>
+
+                <div class="delete-btn"
+                onclick="deleteCard(this)">
+
+                    🗑
+
+                </div>
+
+            `;
+
+            document
+            .getElementById("mediaList")
+            .prepend(card);
+
+            // RESET FORM
+
+            document
+            .getElementById("mediaForm")
+            .reset();
+
+        });
+
+        // DELETE CARD
+
+        function deleteCard(btn){
+
+            btn.parentElement.remove();
+
+        }
+
+    </script>
+
+</body>
+</html>
