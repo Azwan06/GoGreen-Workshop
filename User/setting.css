@@ -352,7 +352,7 @@ footer {
 .left-footer { text-align: left; }
 .right-footer { text-align: right; }
 
-@media(max-width: 768px) {
+@media(max-width: 900px) {
 
   header {
     padding: 0 25px;

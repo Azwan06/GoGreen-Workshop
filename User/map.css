@@ -325,15 +325,11 @@ footer{
   }
 
   nav.active{
-
-    right:0;
-
+    display: flex;
   }
 
   .menu-toggle{
-
     display:block;
-
   }
 
 }

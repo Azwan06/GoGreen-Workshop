@@ -481,7 +481,7 @@ footer{
 
 /* RESPONSIVE */
 
-@media(max-width:768px){
+@media(max-width:900px){
 
   header{
     padding:0 25px;
@@ -530,7 +530,7 @@ footer{
   }
 
 }
-
+/* 
 @media(max-width:480px){
 
   .hero-content h1{
@@ -542,4 +542,4 @@ footer{
     width:100%;
   }
 
-}
+} */
