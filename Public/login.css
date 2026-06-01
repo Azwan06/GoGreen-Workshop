@@ -386,3 +386,24 @@ footer{
   }
 
 }
+
+.forgot-password{
+    width:100%;
+    text-align:right;
+    margin-top:-8px;
+    margin-bottom:20px;
+}
+
+.forgot-password a{
+    text-decoration:none;
+    color:#2f9e44;
+    font-size:14px;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.forgot-password a:hover{
+    color:#237a35;
+    text-decoration:underline;
+}
+

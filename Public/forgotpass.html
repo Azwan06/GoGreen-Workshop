@@ -1,32 +1,44 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoGreen</title>
-    
+
+    <title>Forgot Password | GoGreen</title>
+
+    <!-- GOOGLE FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="login.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="forgotpass.css">
 </head>
+
 <body>
+
+    <!-- HEADER -->
     <header>
+
+        <!-- LOGO -->
         <div class="logo">
-        <img src="image/recycle_imag.png" alt="GoGreen Logo">
+            <img src="image/recycle_imag.png" alt="GoGreen Logo">
             GoGreen
         </div>
 
-        <!-- avatar -->
+        <!-- RIGHT SIDE -->
         <div class="header-right">
+
+            <!-- AVATAR -->
             <div class="user-avatar-container">
 
                 <div class="user-avatar" onclick="toggleProfileMenu()">
                     <img src="image/avatar.png" alt="User Avatar">
                 </div>
 
+                <!-- PROFILE MENU -->
                 <div class="profile-menu" id="profileMenu">
 
                     <div class="profile-info">
@@ -42,6 +54,7 @@
 
             </div>
 
+            <!-- NAVIGATION -->
             <nav id="navMenu">
 
                 <a href="index.html">Home</a>
@@ -51,107 +64,117 @@
                 <a href="leaderboard.html">Leaderboard</a>
                 <a href="contactus.html">Contact</a>
 
-                <button class="sign-btn"  onclick="window.location.href='login.html'">
+                <button 
+                    class="sign-btn"
+                    onclick="window.location.href='login.html'">
                     Sign In
                 </button>
 
             </nav>
+
+            <!-- MOBILE MENU -->
             <div class="menu-toggle" onclick="toggleMenu()">
                 ☰
-            </div>            
+            </div>
+
         </div>
+
     </header>
 
+    <!-- FORGOT PASSWORD SECTION -->
     <section class="login-container">
+
         <div class="login-box">
+
+            <!-- LOGO -->
             <div class="logosign">
                 <img src="image/recycle_imag.png" alt="GoGreen Logo">
             </div>
-            <h1>Welcome Back</h1>
-            <p>Sign in with email or username</p>
-            <label class="input-label">Email or Username</label>
-            <input type="text" placeholder="" class="input-box">
-            <label class="input-label">Password</label>
-            <input type="password" placeholder="" class="input-box">
-            <label class="input-label">Password</label>
-<input type="password" placeholder="" class="input-box">
 
-<div class="forgot-password">
-    <a href="forgotpass.html">
-        Forgot Password?
-    </a>
-</div>
+            <!-- TITLE -->
+            <h1>Forgot Password</h1>
 
-            <button class="signin-btn">
-                Sign In
-            </button>
+            <p>
+                Enter your email address and we'll send you a reset link.
+            </p>
 
-            <div class="demo-buttons">
-                <button class="demo-btn" type="button"
-                    onclick="window.location.href='../User/home.html'">
-                    User Demo
+            <!-- FORM -->
+            <form>
+
+                <label class="input-label">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    class="input-box"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <button type="submit" class="signin-btn">
+                    Send Reset Link
                 </button>
 
-                <button class="demo-btn" type="button"
-                    onclick="window.location.href='../User/home.html'">
-                    Worker Demo
+            </form>
 
-                </button>
-                <button class="demo-btn" type="button"
-                    onclick="window.location.href='../User/home.html'">
-                    Admin Demo
-
-                </button>
-            </div>
-
-            <!-- <div class="or">
-                OR
-            </div>
-
-            <button class="google-btn">
-                Continue with Google
-            </button> -->
-
+            <!-- BOTTOM TEXT -->
             <div class="bottom-text">
-                Don't have an account
-                <a href="signup.html" class="signup">Sign Up</a>
+                Remember your password?
+                <a href="login.html">
+                    Back to Login
+                </a>
             </div>
-
 
         </div>
+
     </section>
 
+    <!-- FOOTER -->
     <footer>
+
         <p class="left-footer">
-            © GoGreen. All rights reserved.
+            © 2026 GoGreen. All Rights Reserved.
         </p>
+
         <p class="right-footer">
-            Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
+            Make the earth greener together.
         </p>
+
     </footer>
-    
+
+    <!-- SCRIPT -->
     <script>
 
+        // MOBILE MENU
         function toggleMenu(){
-        document
-        .getElementById("navMenu")
-        .classList.toggle("active");
+            document
+                .getElementById("navMenu")
+                .classList
+                .toggle("active");
         }
 
-        // toggle avatar
+        // PROFILE MENU
         function toggleProfileMenu(){
-            document.getElementById("profileMenu").classList.toggle("show");
+            document
+                .getElementById("profileMenu")
+                .classList
+                .toggle("show");
         }
 
-        document.addEventListener("click",function(event){
+        // CLOSE MENU WHEN CLICK OUTSIDE
+        document.addEventListener("click", function(event){
+
             const container = document.querySelector(".user-avatar-container");
             const menu = document.getElementById("profileMenu");
-            
+
             if(!container.contains(event.target)){
                 menu.classList.remove("show");
             }
+
         });
 
     </script>
+
 </body>
 </html>
