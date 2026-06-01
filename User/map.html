@@ -172,6 +172,20 @@
       .classList.toggle("active");
 
     }
+    
+    // toggle avatar
+    function toggleProfileMenu(){
+        document.getElementById("profileMenu").classList.toggle("show");
+    }
+
+    document.addEventListener("click",function(event){
+        const container = document.querySelector(".user-avatar-container");
+        const menu = document.getElementById("profileMenu");
+        
+        if(!container.contains(event.target)){
+            menu.classList.remove("show");
+        }
+    });
 
     // DEFAULT LOCATION
     const map = L.map('map').setView([2.3137, 102.3200], 16);
