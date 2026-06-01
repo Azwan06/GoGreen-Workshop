@@ -13,24 +13,51 @@
 </head>
 <body>
     
+  <!-- HEADER -->
     <header>
 
-      <div class="menu-toggle" onclick="toggleMenu()">
-        ☰
-      </div>
+    <!-- avatar -->
+    <div class="header-left">
 
-      <div class="logo">
-        <img src="image/recycle_imag.png" alt="GoGreen Logo">
-        GoGreen
-      </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </div> 
+
+        <div class="logo">
+            <img src="image/recycle_imag.png" alt="GoGreen Logo">
+            GoGreen
+        </div>
+
+    </div>
+
+    <div class="header-right">
 
       <nav id="navMenu">
         <a href="">Dashboard</a>
         <a href="schedule.html">Schedule</a>
         <a href="status.html">Pickup</a>
-        <button class="sign-btn" onclick="window.location.href = '../Public/login.html'">Sign Out</button>
       </nav>
+    
+      <div class="user-avatar-container">
+          <div class="user-avatar" onclick="toggleProfileMenu()">
+              <img src="image/avatar.png" alt="User Avatar">
+          </div>
 
+          <div class="profile-menu" id="profileMenu">
+
+              <div class="profile-info">
+                  <h4>John Doe</h4>
+                  <p>johndoe@student.utem.edu.my</p>
+              </div>
+
+              <a href="profile.html">Profile</a>
+              <a href="notification.html">Notification</a>
+              <a href="setting.html">Settings</a>
+              <a href="../Public/login.html">Sign Out</a>
+              
+          </div>
+      </div>
+    </div>
 
     </header>
 
@@ -102,6 +129,19 @@
           document.getElementById("navMenu").classList.toggle("active");
         }
 
+    // toggle avatar
+    function toggleProfileMenu(){
+        document.getElementById("profileMenu").classList.toggle("show");
+    }
+
+    document.addEventListener("click",function(event){
+        const container = document.querySelector(".user-avatar-container");
+        const menu = document.getElementById("profileMenu");
+        
+        if(!container.contains(event.target)){
+            menu.classList.remove("show");
+        }
+    });
     </script>
 </body>
 </html>
