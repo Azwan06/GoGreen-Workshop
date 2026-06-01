@@ -42,10 +42,6 @@
             <a href="leaderboard.html">Leaderboard</a>
             <a href="contact.html">Contact</a>
 
-            <!-- <button class="sign-btn"  onclick="window.location.href='login.html'">
-                Sign In
-            </button> -->
-
         </nav>  
         <div class="user-avatar-container">
             <div class="user-avatar" onclick="toggleProfileMenu()">
@@ -59,9 +55,10 @@
                     <p>johndoe@student.utem.edu.my</p>
                 </div>
 
-                <a href="#">Profile</a>
-                <a href="#">Settings</a>
-                <a href="login.html">Sign Out</a>
+                <a href="profile.html">Profile</a>
+                <a href="setting.html">Settings</a>
+                <a href="../Public/login.html">Sign Out</a>
+                
             </div>
         </div>
     </div>
@@ -187,7 +184,7 @@
         .getElementById("navMenu")
         .classList.toggle("active");
         }
-        
+
         // toggle avatar
         function toggleProfileMenu(){
             document.getElementById("profileMenu").classList.toggle("show");
