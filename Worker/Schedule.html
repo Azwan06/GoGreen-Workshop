@@ -15,37 +15,26 @@
     <link rel="stylesheet" href="Worker.css" />
   </head>
   <body>
+
     <header>
 
-    <div class="logo">
-      <img src="image/recycle_imag.png" alt="GoGreen Logo">
-      GoGreen
-    </div>
+      <div class="menu-toggle" onclick="toggleMenu()">
+        ☰
+      </div>
 
-    <nav id="navMenu">
+      <div class="logo">
+        <img src="image/recycle_imag.png" alt="GoGreen Logo">
+        GoGreen
+      </div>
 
-      <a href="../Public/index.html">Home</a>
-      <a href="../Public/about.html">About</a>
-      <a href="../Public/media.html">Media</a>
-      <a href="../Public/map.html">Map</a>
-      <a href="../Public/leaderboard.html">Leaderboard</a>
-      <a href="../Public/contactus.html">Contact</a>
-      <a href="Schedule.html">Schedule</a>
-      <a href="status.html">Pickup</a>
+      <nav id="navMenu">
+        <a href="">Dashboard</a>
+        <a href="schedule.html">Schedule</a>
+        <a href="status.html">Pickup</a>
+        <button class="sign-btn" onclick="window.location.href = '../Public/login.html'">Sign Out</button>
+      </nav>
 
-            <button class="sign-btn">Logout</button>
-
-
-    </nav>
-
-    <div class="menu-toggle" onclick="toggleMenu()">
-      ☰
-    </div>
-
-</header>
- 
-
-   
+    </header>
 
     <section class="dashboard">
       <div class="schedule-header">
@@ -88,20 +77,22 @@
 
     <footer>
 
-    <p class="left-footer">
-      © GoGreen. All rights reserved.
-    </p>
+      <p class="left-footer">
+        © GoGreen. All rights reserved.
+      </p>
 
-    <p class="right-footer">
-      Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
-    </p>
+      <p class="right-footer">
+        Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
+      </p>
 
-  </footer>
+    </footer>
 
     <script>
-      function toggleMenu() {
-        document.getElementById("navMenu").classList.toggle("active");
-      }
+        
+        function toggleMenu() {
+          document.getElementById("navMenu").classList.toggle("active");
+        }
+
     </script>
   </body>
 </html>

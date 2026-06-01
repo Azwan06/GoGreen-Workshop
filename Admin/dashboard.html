@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoGreen</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </div>
+        <div class="logo">
+        <img src="image/recycle_imag.png" alt="GoGreen Logo">
+            GoGreen
+        </div>
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="toggleMenu()">✕</button>
+        <h2 class="sidebar-logo">GoGreen</h2>
+
+        <a href="dashboard.html">Dashboard</a>
+        <a href="reqsub.html">Submissions</a>
+        <a href="reqreward.html">Redemptions</a>
+        <a href="addschedule.html">Schedule</a>
+        <a href="addbin.html">Bin Map</a>
+        <a href="analytics.html">Analytics</a>
+        <a href="pickups.html">Pickups</a>
+        <a href="reports.html">Reports</a>
+        <a href="addreward.html">Rewards</a>
+        <a href="userrole.html">Users</a>
+        <a href="media.html">Media</a>
+        <a href="notifications.html">Notifications</a>
+        <a href="settings.html">Settings</a>
+        <button class="sidebar-btn">Sign In</button>
+    </div>
+    
+    <!-- footer -->
+    <footer>
+        <p class="left-footer">© GoGreen. All rights reserved.</p>
+        <p class="right-footer">Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia</p>
+    </footer>
+
+    <div id="imageModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">✕</span>
+            <img id="modalImg" src="" alt="Preview Image">
+        </div>
+    </div>
+
+    <script>
+        // sidebar
+        function toggleMenu(){
+            document
+            .getElementById("sidebar")
+            .classList.toggle("active");
+        }
+
+    </script>
+
+</body>
+</html>
