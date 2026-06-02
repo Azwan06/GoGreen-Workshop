@@ -181,9 +181,9 @@ nav a:hover{
     border-bottom:none;
 }
 
-.profile-menu a:hover{
-    background:#f6f6f6;
-    padding-left:18px;
+.profile-menu a:hover {
+    background: #58d878;
+    padding-left: 18px; 
 }
 
 /* ================= SIDEBAR ================= */
