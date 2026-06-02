@@ -18,7 +18,6 @@
 
     <header>
             
-        <!-- avatar -->
         <div class="header-left">
 
             <div class="menu-toggle" onclick="toggleMenu()">
@@ -58,25 +57,20 @@
 
     </header>
 
-    <!-- SIDEBAR -->
- <div class="sidebar" id="sidebar">
+    <div class="sidebar" id="sidebar">
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <h2 class="sidebar-logo">GoGreen</h2>
 
-          <a href="dashboard.html">Dashboard</a>
+        <a href="dashboard.html">Dashboard</a>
         <a href="reqsub.html">Submissions</a>
         <a href="reqreward.html">Redemptions</a>
         <a href="addschedule.html">Schedule</a>
         <a href="addbin.html">Bin Map</a>
-        <a href="analytics.html">Analytics</a>
         <a href="pickups.html">Pickups</a>
         <a href="reports.html">Reports</a>
         <a href="addreward.html">Rewards</a>
         <a href="userrole.html">Users</a>
         <a href="media.html">Media</a>
-        <a href="notifications.html">Notifications</a>
-        <a href="settings.html">Settings</a>
-        <button class="sidebar-btn">Sign In</button>
     </div>
 
     <!-- PAGE HEADER -->
@@ -611,16 +605,26 @@
 
     <script>
 
-        // SIDEBAR
-
+        // sidebar
         function toggleMenu(){
-
             document
             .getElementById("sidebar")
             .classList.toggle("active");
-
         }
 
+        function toggleProfileMenu(){
+            document.getElementById("profileMenu").classList.toggle("show");
+        }
+
+        document.addEventListener("click",function(event){
+            const container = document.querySelector(".user-avatar-container");
+            const menu = document.getElementById("profileMenu");
+            
+            if(!container.contains(event.target)){
+                menu.classList.remove("show");
+            }
+        });
+        
         // ADD MODAL
 
         function openModal(){
