@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ms">
+    <head>
+        <meta charset="UTF-8">
+        <title>Admin Dashboard-GoGreen</title>
+        <link rel="stylesheet" href="about.css">
+    </head>
+    <body>
+
+       
+        <div class="sidebar">
+            <div class="logo-section"> GoGreen </div>
+            <div class="role-badge">Sistem Admin</div>
+            <ul class="sidebar-menu">
+            <li> Dashboard</li>
+            <li> User management</li>
+            <li> Report collection</li>
+            <li> Generate report</li>
+            </ul>   
+        </div>
+
+  
+    <div class="main-content">
+
+        <section id="dashboard" class="page-section"></section>
+        <div class="page-header">
+            <h1>Selamat Datang, Admin</h1>
+            <p>Ringkasan aktiviti platform kitar semula UTeM hari ini.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card"><h3>Total Users</h3></div>
+            <div class="stat-card"><h3>Total Reports</h3></div>
+            <div class="stat-card"><h3>Pending</h3></div>
+            <div class="stat-card"><h3>Completed</h3></div>
+        </div>
+
+        <div class="page-header" style="margin-bottom: 1rem;"><h2>Laporan Terbaru Masuk</h2></div>
+        <div class="data-card">
+            <table class="data-table">
+                <thead>
+                    <tr><th>ID</th><th>User</th><th>Kategori</th><th>Tarikh</th><th>Status</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>#1024</td><td>Ahmad Fauzi</td><td>Plastik</td><td>1 Jun 2026</td><td><span class="badge pending">Pending</span></td></tr>
+                    <tr><td>#1023</td><td>Siti Nurhaliza</td><td>E-Waste (FKEKK)</td><td>31 Mei 2026</td><td><span class="badge completed">Completed</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+     
+       </section>  
+
+       <section id="users" class="page-section">
+        <div class="page-header">
+            <h1>Penggurusan</h1>
+            <p>Urus kebenaran akaun Pelajar, Staf, dan Worker UTeM</p>
+        </div>
+        <div class="data-card">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID Matrik</th>
+                        <th>Nama</th>
+                        <th>Peranan</th>
+                        <th>Tuah Points</th>
+                        <th>Tindakan</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+       </section>
+
+       <section id="reports" class="page-section">
+        <div class="page-header">
+            <h1>Koleksi Laporan</h1>
+            <p>Agihkan tugasan kutipan kitar semula kepada pekerja</p>
+        </div>
+        <div class="data-card">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Kategori</th>
+                        <th>Pekerja</th>
+                        <th>Status</th>
+                        <th>Tindakan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1024</td>
+                        <td>Ahmad Fauzi</td>
+                        <td>Plastik (KK1)</td>
+                        <td>Belum Ditugaskan</td>
+                        <td><span class="badge pending">Pending</span></td>
+                        <td><a href="#report_detail" class="btn btn-primary">Urus</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+       </section>
+       
+       <section id="report_detail" class="page-section">
+        <div class="page-header">
+            <h1> Butiran Semakan Laporan #1024</h1>
+            <p><a href="#reports"> Kembali ke Senarai Laporan</a> </p>
+        </div>
+
+        <div class="data-card" style="max-width: 600px;">
+            <p style="margin-bottom: 0.8rem;"><strong>Pengadu:</strong> Ahmad Fauzi</p>
+            <p style="margin-bottom: 0.8rem;"><strong>Kategori:</strong> Botol Plastik (Zon KK1)</p>
+            <p style="margin-bottom: 1.5rem;"><strong>Keterangan:</strong> Terdapat 3 plastik besar botol minuman kosong.</p>
+            <label>Tugaskan Kepada Worker:</label>
+            <select class="form-select"><option>Zulkifli Razak</option></select>
+                <label>Tukar Status:</label>
+                <select class="form-select"><option>Pending</option><option>In Progress</option></select>
+                <a href="#reports" class="btn btn-primary" style="display:block; text-align:center; padding:0.8rem;">Sahkan Tugasan</a>
+        </div>
+        </section>
+
+        <section id="generate" class="page-section">
+            <div class="page-header">
+                <h1>Penjana Laporan Kitar Semula</h1>
+                <p> Eksport data untuk semakan pihak pengurusan.</p>
+            </div>
+            <div class="data-card" style="max-width: 500px;"></div>
+            <label>Jenis Laporan:</label>
+            <select class="form-select"><option>Laporan Bulanan Keseluruhan</option></select>
+            <button class="btn btn-primary" style="width: 100%;padding: 0.8rem;"> Muat Turun Laporan (CSV)</button>
+        </section>
+    </div>
+    </body>
+</html>

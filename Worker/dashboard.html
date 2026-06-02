@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <title>GoGreen - Worker Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo-section"> GoGreen</div>
+        <div class="role-badge">Sistem Worker</div>
+        <ul class="sidebar-menu">
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#assigned">Assigned Tasks</a></li>
+            <li><a href="#reports">Report Collection</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+
+        <section id="dashboard" class="page-section">
+            <div class="page-header">
+                <h1>Selamat Kembali, Krew Worker</h1>
+                <p>Pantau status tugasan kutipan zon kitar semula anda.</p>
+            </div>
+            <div class="stats-grid">
+            <div class="stat-card"><h3>Tugasan Aktif</h3><div class="number" style="color: var(--progress);">1</div></div>
+             <div class="stat-card"><h3>Selesai Hari Ini</h3><div class="number" style="color: var(--progress);">1</div></div>
+            </div>
+        </section>
+
+        <section id="assigned" class="page-section">
+            <div class="page header">
+                <h1>Tugasan Anda Semasa</h1>
+                <p>Selesai kutipan sisa mengikut lokasi yang ditetapkan.</p>
+            </div>
+            <div class="data-card">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID Tugas</th>
+                            <th>Lokasi Kitar</th>
+                            <th>Kategori</th>
+                            <th>Status</th>
+                            <th>Tindakan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#1024</td>
+                            <td>Kolej Kediaman Lestari</td>
+                            <td>Plastik</td>
+                            <td><span class="badge progress">In Progress</span></td>
+                            <td><a href="#update_status" class="btn-primary">Kemas Kini</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="reports" class="page-section">
+            <div class="page-header">
+                <h1>Koleksi Laporan Ditugaskan</h1>
+                <p> Senarai arkib semua tugasan yang pernah diserahkan kepada anda.</p>
+            </div>
+            <div class="data-card">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>Lokasi Zon</th>
+                        <th> Kategori Sisa</th>
+                        <th> Status Am</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#1024</td>
+                            <td>Blok B</td>
+                            <td>Plastik</td>
+                            <td><span class="badge progress">In Progress</span></td>
+                        </tr>
+                        <tr>
+                            <td>#1019</td>
+                            <td>Fakulti FTMK</td>
+                            <td>Kertas / Kotak</td>
+                            <td><span class="badge completed">Completed</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="update_status" class="page-section">
+            <div class="page-header">
+                <h1>Borang Kemas Kini Tugas #1024</h1>
+                <p><a href="#assigned">Kembali ke Senarai Tugas</a></p>
+            </div>
+
+            <div class="data-card" style="max-width: 500px;">
+                <label>Tukar Status Kemajuan: </label>
+                <select class="form-select">
+                    <option> Sedang Dikutip(In Progress) </option>
+                    <option> Berjaya Selesai Kitar(Completed)</option>
+                </select>
+                <label>Berat Sebenar Ditimbang (Kg):</label>
+                <input type="number" class="form-control" placeholder="Contoh: 5.2">
+                <a href="#assigned" class="btn btn-primary" style="display:block; text-align:center; padding:0.8rem;">Simpan Status</a>
+            </div>
+        </section>
+
+        </div>
+    </body>
+</html>
