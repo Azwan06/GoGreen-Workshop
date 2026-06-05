@@ -1,89 +1,199 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Go Green Admin Dashboard</title>
-        <link rel="stylesheet" href="report.css">
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoGreen</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        <div class="dashboard-container">
-        <header class="dashboard-header">
-            <div class="logo-area">
-                <span class="logo-icon"></span>
-                <h1>Go Green<span class="highlight">Admin</span></h1>
-            </div>
-            <p class="subtitle">Admin sees<strong>all reports</strong>in the system.</p>
-        </header>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        <hr class="divider">
+    <link rel="stylesheet" href="report.css">
+</head>
 
-        <main class="cards-grid">'
+<body>
+
+    <header>
             
-            <div class="card">
-                <div class="card-icon"></div>
-                 <div class="card-content">
-                <h3>Total Reports</h3>
-                <p class="desc">Total reports submitted by users</p>
-                <div class="stat-placeholder">0</div>
-            </div>
+        <div class="header-left">
+
+            <div class="menu-toggle" onclick="toggleMenu()">
+                ☰
             </div>
 
-            <div class="card warning">
-                <div class="card-icon"></div>
-                <div class="card-content">
-                    <h3>Pending Reports</h3>
-                    <p class="desc">Reports not assignrd or not started</p>
-                    <div class="stat-placeholder">0</div>
-                </div>
+            <div class="logo">
+                <img src="image/recycle_imag.png" alt="GoGreen Logo">
+                GoGreen
             </div>
 
-            <div class="card info">
-                <div class="card-icon"></div>
-                <div class="card-content">
-                    <h3>Pending Reports</h3>
-                    <p class="desc">Reports not assigned or not started</p>
-                    <div class="stat-placeholder">0</div>
-                </div>
-            </div>
-            
-            <div class="card success">
-                <div class="card-icon"></div>
-                <div class="card-content">
-                    <h3>Completed Reports</h3>
-                    <p class="desc">Reports successfully resolved</p>
-                    <div class="stat-placeholder">0</div>
-                </div>
-            </div>
-           
-            <div class="card">
-                <div class="card-icon"></div>
-                <div class="card-content">
-                    <h3>Total Workers</h3>
-                    <p class="desc"> Number of active workers</p>
-                    <div class="stat-placeholder">0</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-icon"></div>
-                <div class="card-content">
-                    <h3> Report This Month</h3>
-                    <p class="desc">Number of reports submitted this month</p>
-                    <div class="stat-placeholder">0</div>
-                </div>
-            </div>
-
-            <div class="card highlight-card">
-                <div class="card-icon"></div>
-                <div class="card-content">
-                    <h3> Most Reported Category</h3>
-                    <p class="desc">Category with the highest number of reports</p>
-                    <div class="stat-placeholder text-stat">-</div>
-                </div>
-            </div>
-        </main>
         </div>
-    </body>
+
+
+        <div class="header-right">
+        
+            <div class="user-avatar-container">
+                <div class="user-avatar" onclick="toggleProfileMenu()">
+                    <img src="image/avatar.png" alt="User Avatar">
+                </div>
+
+                <div class="profile-menu" id="profileMenu">
+
+                    <div class="profile-info">
+                        <h4>John Doe</h4>
+                        <p>johndoe@student.utem.edu.my</p>
+                    </div>
+
+                    <a href="profile.html">Profile</a>
+                    <a href="notification.html">Notification</a>
+                    <a href="setting.html">Settings</a>
+                    <a href="../Public/login.html">Sign Out</a>
+
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="sidebar" id="sidebar">
+        <button class="close-btn" onclick="toggleMenu()">✕</button>
+        <h2 class="sidebar-logo">GoGreen</h2>
+
+        <a href="dashboard.html">Dashboard</a>
+        <a href="reqsub.html">Submissions</a>
+        <a href="reqreward.html">Redemptions</a>
+        <a href="addschedule.html">Schedule</a>
+        <a href="addbin.html">Bin Map</a>
+        <a href="pickups.html">Pickups</a>
+        <a href="reports.html">Reports</a>
+        <a href="addreward.html">Rewards</a>
+        <a href="userrole.html">Users</a>
+        <a href="media.html">Media</a>
+        
+    </div>
+
+    <section class="page-title">
+        <h1>Reports & Issues</h1>
+        <p>User-submitted reports across bins and zones.</p>
+    </section>
+
+    <div class="stats">
+        <div class="card"><h3>Open Reports</h3><p>14</p></div>
+        <div class="card"><h3>Resolved</h3><p>42</p></div>
+        <div class="card"><h3>Avg Response</h3><p>2.4h</p></div>
+        <div class="card"><h3>Damaged Bins</h3><p>5</p></div>
+    </div>
+
+    <div class="report-controls">
+
+        <input id="searchInput" placeholder="Search report..." onkeyup="searchReport()">
+
+        <div class="filters">
+            <button class="active" onclick="filter('All')">All</button>
+            <button onclick="filter('Pending')">Pending</button>
+            <button onclick="filter('Assigned')">Assigned</button>
+            <button onclick="filter('Collecting')">Collecting</button>
+            <button onclick="filter('Completed')">Completed</button>
+            <button onclick="filter('Cancelled')">Cancelled</button>
+            <button onclick="filter('Maintenance')">Maintenance</button>
+        </div>
+
+    </div>
+
+    <div class="report-list" id="list">
+
+        <div class="report" data-status="Pending">
+            <div>Bin FT-04 lid broken</div>
+            <span class="status Pending">Pending</span>
+        </div>
+
+        <div class="report" data-status="Collecting">
+            <div>Overflowing trash near DKG cafeteria</div>
+            <span class="status Collecting">Collecting</span>
+        </div>
+
+        <div class="report" data-status="Assigned">
+            <div>Wrong material mixed in recycling bin</div>
+            <span class="status Assigned">Assigned</span>
+        </div>
+
+        <div class="report" data-status="Maintenance">
+            <div>Bin sensor offline</div>
+            <span class="status Maintenance">Maintenance</span>
+        </div>
+
+    </div>
+
+    <footer>
+        <p class="left-footer">
+            © GoGreen. All rights reserved.
+        </p>
+
+        <p class="right-footer">
+            Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
+        </p>
+    </footer>
+
+    <script>
+        
+        // sidebar
+        function toggleMenu(){
+            document
+            .getElementById("sidebar")
+            .classList.toggle("active");
+        }
+
+        function toggleProfileMenu(){
+            document.getElementById("profileMenu").classList.toggle("show");
+        }
+
+        document.addEventListener("click",function(event){
+            const container = document.querySelector(".user-avatar-container");
+            const menu = document.getElementById("profileMenu");
+            
+            if(!container.contains(event.target)){
+                menu.classList.remove("show");
+            }
+        });
+        
+
+        function filter(status){
+
+            let items = document.querySelectorAll(".report");
+            let buttons = document.querySelectorAll(".filters button");
+
+            buttons.forEach(b => b.classList.remove("active"));
+
+            event.target.classList.add("active");
+
+            items.forEach(item=>{
+                if(status === "All" || item.dataset.status === status){
+                    item.style.display = "flex";
+                }else{
+                    item.style.display = "none";
+                }
+            });
+        }
+
+        function searchReport(){
+
+            let input = document.getElementById("searchInput").value.toLowerCase();
+            let items = document.querySelectorAll(".report");
+
+            items.forEach(item => {
+
+                let text = item.querySelector("div").innerText.toLowerCase();
+
+                if(text.includes(input)){
+                    item.style.display = "flex";
+                }else{
+                    item.style.display = "none";
+                }
+            });
+        }
+
+    </script>
+
+</body>
 </html>
