@@ -369,6 +369,82 @@ header{
     box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 
+.report-left{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.warning-icon{
+    width:50px;
+    height:50px;
+
+    border-radius:14px;
+
+    background:#f1f1f1;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:22px;
+}
+
+.report-details h3{
+    font-size:17px;
+    margin-bottom:4px;
+}
+
+.report-details p{
+    font-size:13px;
+    color:#777;
+}
+
+.report-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.assign-btn{
+    padding:9px 16px;
+
+    border:none;
+    border-radius:20px;
+
+    background:#2e8b57;
+    color:white;
+
+    font-size:13px;
+    font-weight:500;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.assign-btn:hover{
+    background:#256f46;
+}
+
+.worker-select{
+    display:none;
+
+    padding:10px 14px;
+
+    border:none;
+    border-radius:12px;
+
+    background:white;
+
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+
+    outline:none;
+
+    font-family:Poppins;
+    cursor:pointer;
+}
+
 .status{
     padding:6px 12px;
     border-radius:20px;
@@ -481,6 +557,100 @@ header{
     color: #777;
     margin-top: 20px;
     font-size: 16px;
+}
+
+.assign-popup{
+    position:fixed;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:100vh;
+
+    background:rgba(0,0,0,0.4);
+
+    display:none;
+    justify-content:center;
+    align-items:center;
+
+    z-index:5000;
+}
+
+.popup-box{
+    width:350px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    text-align:center;
+
+    animation:popupShow .25s ease;
+}
+
+.popup-box h2{
+    margin-bottom:8px;
+}
+
+.popup-box p{
+    color:#777;
+    margin-bottom:20px;
+}
+
+.worker-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.worker-list button{
+    padding:14px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#f2f2f2;
+
+    cursor:pointer;
+
+    font-family:Poppins;
+    font-size:15px;
+
+    transition:.2s;
+}
+
+.worker-list button:hover{
+    background:#2e8b57;
+    color:white;
+}
+
+.close-popup{
+    margin-top:20px;
+
+    padding:12px 20px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#ff4d4d;
+    color:white;
+
+    cursor:pointer;
+}
+
+@keyframes popupShow{
+
+    from{
+        transform:scale(.8);
+        opacity:0;
+    }
+
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
 }
 
 /* f */
