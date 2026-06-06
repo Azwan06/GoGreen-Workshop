@@ -545,6 +545,44 @@ header{
     color:white;
 }
 
+/* FLOATING ADD BUTTON */
+
+.floating-add-btn{
+    position:fixed;
+
+    bottom:100px;
+    right:35px;
+
+    width:70px;
+    height:70px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#16a34a;
+    color:white;
+
+    font-size:42px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+
+    z-index:9999;
+
+    transition:0.3s;
+}
+
+.floating-add-btn:hover{
+    transform:scale(1.1);
+    background:#15803d;
+}
+
 /* FOOTER */
 
 footer{

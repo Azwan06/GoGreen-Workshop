@@ -14,10 +14,10 @@
 </head>
 
 <body>
-  <!-- HEADER -->
-  <header>
 
-    <!-- avatar -->
+<!-- HEADER -->
+<header>
+
     <div class="header-left">
 
         <div class="menu-toggle" onclick="toggleMenu()">
@@ -38,12 +38,14 @@
             <a href="home.html">Home</a>
             <a href="map.html">Map</a>
             <a href="media.html">Media</a>
-            <a href="recycle.html">Recylce</a>
+            <a href="recycle.html">Recycle</a>
             <a href="redeem.html">Redeem</a>
             <a href="contact.html">Contact</a>
 
         </nav>  
+
         <div class="user-avatar-container">
+
             <div class="user-avatar" onclick="toggleProfileMenu()">
                 <img src="image/avatar.png" alt="User Avatar">
             </div>
@@ -62,140 +64,461 @@
                 <a href="../Public/login.html">Sign Out</a>
                 
             </div>
+
         </div>
+
     </div>
 
-  </header>
+</header>
+<!-- DASHBOARD -->
+<section class="reward-dashboard">
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>
-                Redeem Points<br>
+    <!-- TOP -->
+    <div class="reward-top">
+
+        <!-- WALLET -->
+        <div class="wallet-card">
+
+            <p class="wallet-title">
+                POINTS WALLET
+            </p>
+
+            <h1 id="pointDisplay">
+                2840 <span>pts</span>
             </h1>
-            <p>
-                Convert your recycling points into Tuah Indeks
-            </p>
+
+            <div class="wallet-stats">
+
+                <div class="wallet-box">
+                    <h3>18.4</h3>
+                    <p>kg/mo</p>
+                </div>
+
+                <div class="wallet-box">
+                    <h3>42.1</h3>
+                    <p>kg CO₂</p>
+                </div>
+
+                <div class="wallet-box">
+                    <h3>12</h3>
+                    <p>day streak</p>
+                </div>
+
+            </div>
+
         </div>
-    </section>
 
-    <section class="content">
-        <h3>
-            10 Points --> 1 Tuah Indeks
-        </h3>
-    </section>
+        <!-- TUAH -->
+        <div class="tuah-card">
 
-    <section class="features">
-        <div class="feature-card">
             <h3>
-                0
+                ✨ Tuah Indeks
             </h3>
+
+            <h1 id="tiDisplay">
+                712
+            </h1>
+
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+
             <p>
-                Available Points
+                Conversion: 1 indeks = 5 points
             </p>
+
+            <div class="convert-box">
+
+                <input
+                type="number"
+                id="redeemInput"
+                placeholder="100">
+
+                <button onclick="convertPoints()">
+                    Convert →
+                </button>
+
+            </div>
+
         </div>
 
-        <div class="feature-card">
-            <h3>
-                0 TI
-            </h3>
-            <p>
-                Max Redeemable
-            </p>
+    </div>
+<!-- TABS -->
+<div class="tabs">
+
+    <button class="tab-btn active"
+    onclick="showCatalog()">
+
+        Catalog
+
+    </button>
+
+    <button class="tab-btn"
+    onclick="showHistory()">
+
+        History
+
+    </button>
+
+</div>
+
+<!-- REWARD GRID -->
+<div class="reward-grid" id="catalogSection">
+
+    <!-- CARD 1 -->
+    <div class="reward-card">
+
+        <div class="reward-image">
+            👜
         </div>
 
-        <div class="feature-card">
-            <h3>
-                0 TI
-            </h3>
-            <p>
-                Total Redeemed
-            </p>
-        </div>
-    </section>
+        <div class="reward-content">
 
-    <section class="redeem">
-        <h3>
-            Redeem Now
-        </h3>
-        <p>
-            Enter how many Tuah Indeks you want to redeem
-        </p>
-        <div class="redeem-box">
-            <input type="number" 
-            id="redeemInput"
-            required 
-            placeholder="Max 0 Tuah Indeks"
-            min="1">
-            <button onclick="addHistory()">
+            <div class="reward-header">
+
+                <h3>
+                    GoGreen Tote Bag
+                </h3>
+
+                <span>
+                    500 pts
+                </span>
+
+            </div>
+
+            <p>
+                Merchandise · 24 left
+            </p>
+
+            <button onclick="redeemReward('GoGreen Tote Bag', 500)">
                 Redeem
             </button>
+
         </div>
-    </section>
 
-    <section class="history">
-        <h3>
-            Redemption History
-        </h3>
-        <div id="history-list"></div>
-    </section>
+    </div>
 
-    <footer>
+    <!-- CARD 2 -->
+    <div class="reward-card">
 
-        <p class="left-footer">
-            © GoGreen. All rights reserved.
-        </p>
+        <div class="reward-image">
+            🧴
+        </div>
 
-        <p class="right-footer">
-            Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
-        </p>
+        <div class="reward-content">
 
-    </footer>
+            <div class="reward-header">
 
-    <script>
-        
+                <h3>
+                    Reusable Water Bottle
+                </h3>
+
+                <span>
+                    800 pts
+                </span>
+
+            </div>
+
+            <p>
+                Lifestyle · 12 left
+            </p>
+
+            <button onclick="redeemReward('Reusable Water Bottle', 800)">
+                Redeem
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="reward-card">
+
+        <div class="reward-image">
+            🎟️
+        </div>
+
+        <div class="reward-content">
+
+            <div class="reward-header">
+
+                <h3>
+                    UTeM Cafeteria Voucher
+                </h3>
+
+                <span>
+                    1000 pts
+                </span>
+
+            </div>
+
+            <p>
+                Voucher · 50 left
+            </p>
+
+            <button onclick="redeemReward('UTeM Cafeteria Voucher', 1000)">
+                Redeem
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- HISTORY -->
+<div class="history" id="historySection">
+
+    <h3>
+        Redemption History
+    </h3>
+
+    <div id="history-list"></div>
+
+</div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+    <p class="left-footer">
+        © GoGreen. All rights reserved.
+    </p>
+
+    <p class="right-footer">
+        Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
+    </p>
+
+</footer>
+
+<!-- SCRIPT -->
+<script>
+
     // MOBILE MENU
+
     function toggleMenu(){
 
-      document
-      .getElementById("navMenu")
-      .classList.toggle("active");
+        document
+        .getElementById("navMenu")
+        .classList.toggle("active");
 
     }
-    
-    // toggle avatar
+
+    // PROFILE MENU
+
     function toggleProfileMenu(){
-        document.getElementById("profileMenu").classList.toggle("show");
+
+        document
+        .getElementById("profileMenu")
+        .classList.toggle("show");
+
     }
 
     document.addEventListener("click",function(event){
-        const container = document.querySelector(".user-avatar-container");
-        const menu = document.getElementById("profileMenu");
-        
+
+        const container =
+        document.querySelector(".user-avatar-container");
+
+        const menu =
+        document.getElementById("profileMenu");
+
         if(!container.contains(event.target)){
+
             menu.classList.remove("show");
+
         }
+
     });
-        
-        function addHistory(){
-            let input = document.getElementById("redeemInput");
-            let historylist = document.getElementById("history-list");
-            let value = input.value;
-            if (value !== ""){
-                let newHistory = document.createElement("div");
 
-                let today = new Date();
-                let date = today.getDate() + "/" + (today.getMonth() + 1) + "/" + today.getFullYear();
-                newHistory.innerHTML = `
-                    <strong>${value} Tuah Indeks Redeemed</strong>
-                    <br>
-                    <small>${date}</small>
-                `;
+    // POINT SYSTEM
 
-                historylist.prepend(newHistory);
-                input.value = "";
-            }
+    let totalPoints = 2840;
+
+    let tuahIndeks = 712;
+
+    // UPDATE DISPLAY
+
+    function updateDisplay(){
+
+        document
+        .getElementById("pointDisplay")
+        .innerHTML =
+        `${totalPoints} <span>pts</span>`;
+
+        document
+        .getElementById("tiDisplay")
+        .innerHTML =
+        tuahIndeks;
+
+    }
+
+    // CONVERT POINTS
+
+    function convertPoints(){
+
+        let input =
+        document.getElementById("redeemInput");
+
+        let value =
+        parseInt(input.value);
+
+        if(isNaN(value) || value <= 0){
+
+            alert("Enter valid points");
+            return;
+
         }
 
-    </script>
+        if(totalPoints < value){
+
+            alert("Not enough points!");
+            return;
+
+        }
+
+        let tiEarned =
+        Math.floor(value / 5);
+
+        totalPoints -= value;
+
+        tuahIndeks += tiEarned;
+
+        alert(
+            `${value} points converted into ${tiEarned} Tuah Indeks`
+        );
+
+        updateDisplay();
+
+        addHistory(
+            "Points Conversion",
+            value
+        );
+
+        input.value = "";
+
+    }
+
+    // REDEEM REWARD
+
+    function redeemReward(itemName, cost){
+
+        if(totalPoints < cost){
+
+            alert("Not enough points!");
+            return;
+
+        }
+
+        let confirmRedeem =
+        confirm(
+            `Redeem ${itemName} for ${cost} points?`
+        );
+
+        if(confirmRedeem){
+
+            totalPoints -= cost;
+
+            alert(
+                `${itemName} redeemed successfully!`
+            );
+
+            updateDisplay();
+
+            addHistory(
+                itemName,
+                cost
+            );
+
+        }
+
+    }
+
+    // HISTORY
+
+    function addHistory(name, cost){
+
+        const history =
+        document.getElementById("history-list");
+
+        const item =
+        document.createElement("div");
+
+        item.classList.add("history-item");
+
+        let today =
+        new Date();
+
+        let date =
+        today.getDate() + "/" +
+        (today.getMonth()+1) + "/" +
+        today.getFullYear();
+
+        item.innerHTML = `
+
+            <strong>
+                ${name}
+            </strong>
+
+            <br>
+
+            <small>
+                ${cost} pts • ${date}
+            </small>
+
+        `;
+
+        history.prepend(item);
+
+    }
+
+    // INITIAL
+
+    updateDisplay();
+
+
+// TAB FUNCTIONS
+
+function showCatalog(){
+
+    document
+    .getElementById("catalogSection")
+    .style.display = "grid";
+
+    document
+    .getElementById("historySection")
+    .style.display = "none";
+
+    document
+    .querySelectorAll(".tab-btn")[0]
+    .classList.add("active");
+
+    document
+    .querySelectorAll(".tab-btn")[1]
+    .classList.remove("active");
+
+}
+
+function showHistory(){
+
+    document
+    .getElementById("catalogSection")
+    .style.display = "none";
+
+    document
+    .getElementById("historySection")
+    .style.display = "block";
+
+    document
+    .querySelectorAll(".tab-btn")[1]
+    .classList.add("active");
+
+    document
+    .querySelectorAll(".tab-btn")[0]
+    .classList.remove("active");
+
+}
+</script>
+
 </body>
 </html>

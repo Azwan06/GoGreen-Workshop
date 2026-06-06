@@ -82,22 +82,37 @@
         </div>
 
         <div class="table-row">
-            <span>8:00 AM</span>
-            <span>Fakulti Teknologi Maklumat dan Komunikasi</span>
-            <span class="completed">Completed</span>
-        </div>
+    <span>8:00 AM</span>
+    <span>Fakulti Teknologi Maklumat dan Komunikasi</span>
 
-        <div class="table-row">
-            <span>10:00 AM</span>
-            <span>Masjid UTeM</span>
-            <span class="accepted">Accepted</span>
-        </div>
-        <div class="table-row">
-            <span>12:00 PM</span>
-            <span>Kolej Satria</span>
-            <span class="pending">Pending</span>
+    <select class="status-select completed" onchange="changeStatus(this)">
+        <option value="completed">Completed</option>
+        <option value="accepted">Accepted</option>
+        <option value="pending">Pending</option>
+    </select>
+</div>
 
-        </div>
+<div class="table-row">
+    <span>10:00 AM</span>
+    <span>Masjid UTeM</span>
+
+    <select class="status-select accepted" onchange="changeStatus(this)">
+        <option value="accepted" selected>Accepted</option>
+        <option value="completed">Completed</option>
+        <option value="pending">Pending</option>
+    </select>
+</div>
+
+<div class="table-row">
+    <span>12:00 PM</span>
+    <span>Kolej Satria</span>
+
+    <select class="status-select pending" onchange="changeStatus(this)">
+        <option value="pending" selected>Pending</option>
+        <option value="accepted">Accepted</option>
+        <option value="completed">Completed</option>
+    </select>
+</div>
       </div>
      
       </div>
@@ -139,7 +154,21 @@
             menu.classList.remove("show");
         }
     });
-    
-  </script>
+
+    // STATUS COLOR CHANGE
+
+    function changeStatus(select){
+
+        select.classList.remove(
+            "completed",
+            "accepted",
+            "pending"
+        );
+
+        select.classList.add(select.value);
+
+    }
+
+</script>
   </body>
 </html>

@@ -636,6 +636,105 @@ header nav a:hover {
 .btn-submit-form:active { 
   transform: scale(0.98); 
 }
+
+/* ADD MATERIAL BUTTON */
+
+.add-material-btn{
+    margin-top:15px;
+
+    border:none;
+
+    background:#16a34a;
+    color:white;
+
+    padding:12px 18px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    font-family:"Poppins", sans-serif;
+    font-weight:600;
+
+    transition:0.3s;
+}
+
+.add-material-btn:hover{
+    background:#15803d;
+}
+
+/* MATERIAL ROW */
+
+.material-row{
+    margin-bottom:15px;
+}
+
+/* WEIGHT INPUT + DELETE */
+
+.weight-input-wrapper{
+    display:flex;
+    gap:10px;
+}
+
+.weight-input-wrapper input{
+    flex:1;
+}
+
+/* DELETE BUTTON */
+
+.delete-row-btn{
+    width:50px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#ef4444;
+    color:white;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:0.3s;
+}
+
+.delete-row-btn:hover{
+    background:#dc2626;
+}/* WEIGHT INPUT + DELETE */
+
+.weight-input-wrapper{
+    display:flex;
+    gap:10px;
+}
+
+.weight-input-wrapper input{
+    flex:1;
+}
+
+/* DELETE BUTTON */
+
+.delete-row-btn{
+    width:50px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#ef4444;
+    color:white;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:0.3s;
+}
+
+.delete-row-btn:hover{
+    background:#dc2626;
+}
+
 footer {
     background-color: #ffffff;
     padding: 20px 40px;

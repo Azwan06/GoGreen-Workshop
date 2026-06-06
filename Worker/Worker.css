@@ -205,31 +205,40 @@ nav a:hover{
   font-size:18px;
 }
 
-.pending, .completed, .accepted{
-    padding:8px 14px;
-    border-radius:5px;
+/* STATUS DROPDOWN */
+
+.status-select{
+    border:none;
+
+    padding:10px 15px;
+
+    border-radius:8px;
+
+    font-family:"Poppins", sans-serif;
     font-size:14px;
     font-weight:600;
+
+    color:white;
+
+    cursor:pointer;
+
+    outline:none;
+
+    width:140px;
 }
 
+/* STATUS COLORS */
 
-
-
-
-.pending{
+.status-select.pending{
     background:#f39c12;
-    color:white;
-   
 }
-.completed{
+
+.status-select.completed{
     background:#2ecc71;
-    color:white;
-   
 }
-.accepted{
+
+.status-select.accepted{
     background:#3498db;
-    color:white;
-  
 }
 
 .date-picker{
@@ -293,13 +302,6 @@ footer{
     overflow-x:auto;
   }
 
-  .status{
-    display:inline-block;
-    padding:6px 12px;
-    border-radius:5px;
-    font-size:16px;
-    font-weight:700;
-  }
 
 @media(max-width:768px){
 
