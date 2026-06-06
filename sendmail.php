@@ -21,6 +21,7 @@ try {
 
     $mail->setFrom('fahrulazwan89@gmail.com', 'GoGreen');
     $mail->addAddress('EMAIL_PENERIMA');
+    // $mail->addAddress('d032410282@student.utem.edu.my');
 
     $mail->isHTML(true);
     $mail->Subject = 'Test Email';
