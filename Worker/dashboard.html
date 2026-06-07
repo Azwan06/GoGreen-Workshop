@@ -1,31 +1,37 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
+
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>GoGreen - Worker Panel</title>
+    <title>Dashboard | GoGreen</title>
+
     <!-- GOOGLE FONT -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <!-- CHART JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="dashboard.css">
+
 </head>
+
 <body>
-  <!-- HEADER -->
-    <header>
+
+<!-- ================= HEADER ================= -->
+ <header>
 
     <!-- avatar -->
     <div class="header-left">
-
-        <div class="menu-toggle" onclick="toggleMenu()">
-            ☰
-        </div> 
 
         <div class="logo">
             <img src="image/recycle_imag.png" alt="GoGreen Logo">
@@ -65,119 +71,506 @@
 
     </header>
 
-    <div class="main-content">
+<!-- ================= MAIN ================= -->
 
-        <section id="dashboard" class="page-section">
-            <div class="page-header">
-                <h1>Selamat Kembali, Krew Worker</h1>
-                <p>Pantau status tugasan kutipan zon kitar semula anda.</p>
-            </div>
-            <div class="stats-grid">
-            <div class="stat-card"><h3>Tugasan Aktif</h3><div class="number" style="color: var(--progress);">1</div></div>
-             <div class="stat-card"><h3>Selesai Hari Ini</h3><div class="number" style="color: var(--progress);">1</div></div>
-            </div>
-        </section>
+<div class="main">
 
-        <section id="assigned" class="page-section">
-            <div class="page header">
-                <h1>Tugasan Anda Semasa</h1>
-                <p>Selesai kutipan sisa mengikut lokasi yang ditetapkan.</p>
-            </div>
-            <div class="data-card">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>ID Tugas</th>
-                            <th>Lokasi Kitar</th>
-                            <th>Kategori</th>
-                            <th>Status</th>
-                            <th>Tindakan</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#1024</td>
-                            <td>Kolej Kediaman Lestari</td>
-                            <td>Plastik</td>
-                            <td><span class="badge progress">In Progress</span></td>
-                            <td><a href="#update_status" class="btn-primary">Kemas Kini</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+    <!-- TOPBAR -->
 
-        <section id="reports" class="page-section">
-            <div class="page-header">
-                <h1>Koleksi Laporan Ditugaskan</h1>
-                <p> Senarai arkib semua tugasan yang pernah diserahkan kepada anda.</p>
-            </div>
-            <div class="data-card">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                        <th>ID</th>
-                        <th>Lokasi Zon</th>
-                        <th> Kategori Sisa</th>
-                        <th> Status Am</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>#1024</td>
-                            <td>Blok B</td>
-                            <td>Plastik</td>
-                            <td><span class="badge progress">In Progress</span></td>
-                        </tr>
-                        <tr>
-                            <td>#1019</td>
-                            <td>Fakulti FTMK</td>
-                            <td>Kertas / Kotak</td>
-                            <td><span class="badge completed">Completed</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+    <div class="topbar">
 
-        <section id="update_status" class="page-section">
-            <div class="page-header">
-                <h1>Borang Kemas Kini Tugas #1024</h1>
-                <p><a href="#assigned">Kembali ke Senarai Tugas</a></p>
+        <div class="welcome">
+            <h1>Welcome back, Worker! 🌱</h1>
+            <p>Here's what's happening with GoGreen today.</p>
+        </div>
+
+    </div>
+
+    <!-- ================= CARDS ================= -->
+
+    <div class="cards">
+
+        <!-- CARD 1 -->
+
+        <div class="card">
+
+            <div class="card-info">
+                <p>Total Users</p>
+                <h2>1,245</h2>
+                <span>+12% from last month</span>
             </div>
 
-            <div class="data-card" style="max-width: 500px;">
-                <label>Tukar Status Kemajuan: </label>
-                <select class="form-select">
-                    <option> Sedang Dikutip(In Progress) </option>
-                    <option> Berjaya Selesai Kitar(Completed)</option>
-                </select>
-                <label>Berat Sebenar Ditimbang (Kg):</label>
-                <input type="number" class="form-control" placeholder="Contoh: 5.2">
-                <a href="#assigned" class="btn btn-primary" style="display:block; text-align:center; padding:0.8rem;">Simpan Status</a>
+            <div class="icon green">
+                <i class="fa-solid fa-users"></i>
             </div>
-        </section>
 
         </div>
 
-        <script>
-            function toggleMenu() {
-            document.getElementById("navMenu").classList.toggle("active");
+        <!-- CARD 2 -->
+
+        <div class="card">
+
+            <div class="card-info">
+                <p>Total Recycled</p>
+                <h2>3,420 kg</h2>
+                <span>+18% from last month</span>
+            </div>
+
+            <div class="icon green">
+                <i class="fa-solid fa-recycle"></i>
+            </div>
+
+        </div>
+
+        <!-- CARD 3 -->
+
+        <div class="card">
+
+            <div class="card-info">
+                <p>Pending Review</p>
+                <h2>12</h2>
+                <span>Submissions</span>
+            </div>
+
+            <div class="icon orange">
+                <i class="fa-solid fa-file-circle-check"></i>
+            </div>
+
+        </div>
+
+        <!-- CARD 4 -->
+
+        <div class="card">
+
+            <div class="card-info">
+                <p>Points Redeemed</p>
+                <h2>25,400 pts</h2>
+                <span>+8% from last month</span>
+            </div>
+
+            <div class="icon green">
+                <i class="fa-solid fa-gift"></i>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= GRID ================= -->
+
+    <div class="grid">
+
+        <!-- CHART -->
+
+        <div class="box">
+
+            <div class="box-header">
+                <h3>Recycling Activity</h3>
+            </div>
+
+            <div class="chart-container">
+    <canvas id="recycleChart"></canvas>
+</div>
+
+        </div>
+
+        <!-- ACTIVITY -->
+
+        <div class="box">
+
+            <div class="box-header">
+                <h3>Recent Activities</h3>
+            </div>
+
+            <!-- ACTIVITY 1 -->
+
+            <div class="activity">
+
+                <div class="activity-left">
+
+                    <div class="activity-icon">
+                        <i class="fa-solid fa-upload"></i>
+                    </div>
+
+                    <div>
+                        <h4>Nurul submitted plastic bottles</h4>
+                        <span>10 min ago</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ACTIVITY 2 -->
+
+            <div class="activity">
+
+                <div class="activity-left">
+
+                    <div class="activity-icon">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+
+                    <div>
+                        <h4>Mira redeemed points</h4>
+                        <span>1 hour ago</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ACTIVITY 3 -->
+
+            <div class="activity">
+
+                <div class="activity-left">
+
+                    <div class="activity-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <div>
+                        <h4>Bin A-03 reported full</h4>
+                        <span>3 hours ago</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= SECOND GRID ================= -->
+
+<div class="grid">
+
+    <!-- BIN STATUS -->
+
+    <div class="box">
+
+        <div class="box-header">
+            <h3>Bin Status</h3>
+        </div>
+
+        <!-- BIN 1 -->
+
+        <div class="bin">
+
+            <div class="bin-top">
+                <span>Bin A-01</span>
+                <span>80%</span>
+            </div>
+
+            <div class="progress">
+                <div class="green-bar" style="width:80%"></div>
+            </div>
+
+        </div>
+
+        <!-- BIN 2 -->
+
+        <div class="bin">
+
+            <div class="bin-top">
+                <span>Bin A-02</span>
+                <span>45%</span>
+            </div>
+
+            <div class="progress">
+                <div class="yellow-bar" style="width:45%"></div>
+            </div>
+
+        </div>
+
+        <!-- BIN 3 -->
+
+        <div class="bin">
+
+            <div class="bin-top">
+                <span>Bin A-03</span>
+                <span>100%</span>
+            </div>
+
+            <div class="progress">
+                <div class="red-bar" style="width:100%"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TOP RECYCLERS -->
+
+    <div class="box">
+
+        <div class="box-header">
+            <h3>Top Recyclers</h3>
+        </div>
+
+        <!-- USER 1 -->
+
+        <div class="leader">
+
+            <div class="leader-left">
+
+                <div class="avatar">
+                    NA
+                </div>
+
+                <div>
+                    <h4>Nurul Aina</h4>
+                </div>
+
+            </div>
+
+            <div class="points">
+                1200 pts
+            </div>
+
+        </div>
+
+        <!-- USER 2 -->
+
+        <div class="leader">
+
+            <div class="leader-left">
+
+                <div class="avatar">
+                    AB
+                </div>
+
+                <div>
+                    <h4>Ali Bin</h4>
+                </div>
+
+            </div>
+
+            <div class="points">
+                980 pts
+            </div>
+
+        </div>
+
+        <!-- USER 3 -->
+
+        <div class="leader">
+
+            <div class="leader-left">
+
+                <div class="avatar">
+                    MH
+                </div>
+
+                <div>
+                    <h4>Mira Hanani</h4>
+                </div>
+
+            </div>
+
+            <div class="points">
+                850 pts
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+   
+    <footer>
+
+        <p class="left-footer">
+            © GoGreen. All rights reserved.
+        </p>
+
+        <p class="right-footer">
+            Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
+        </p>
+
+    </footer>
+
+
+<!--======script======== -->
+
+<script>
+
+ // sidebar
+        function toggleMenu(){
+            document
+            .getElementById("sidebar")
+            .classList.toggle("active");
+        }
+
+        function toggleProfileMenu(){
+            document.getElementById("profileMenu").classList.toggle("show");
+        }
+
+        document.addEventListener("click",function(event){
+            const container = document.querySelector(".user-avatar-container");
+            const menu = document.getElementById("profileMenu");
+            
+            if(!container.contains(event.target)){
+                menu.classList.remove("show");
             }
-                
-            // toggle avatar
-            function toggleProfileMenu(){
-                document.getElementById("profileMenu").classList.toggle("show");
+        });
+        
+
+
+const ctx = document.getElementById('recycleChart');
+
+new Chart(ctx, {
+
+    type: 'bar',
+
+    data: {
+
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+
+        datasets: [
+
+            {
+                label: 'Plastic',
+                data: [200, 400, 650, 420, 700, 520, 300],
+
+                backgroundColor: '#2f9e63',
+                borderRadius: 8,
+                borderSkipped:false,
+                barThickness:28
+            },
+
+            {
+                label: 'Paper',
+                data: [120, 250, 300, 240, 350, 280, 180],
+
+                backgroundColor: '#3b82f6',
+                borderRadius: 8,
+                borderSkipped:false,
+                barThickness:28
+            },
+
+            {
+                label: 'Glass',
+                data: [80, 150, 220, 170, 260, 180, 120],
+
+                backgroundColor: '#14b8a6',
+                borderRadius: 8,
+                borderSkipped:false,
+                barThickness:28
+            },
+
+            {
+                label: 'Aluminum',
+                data: [50, 100, 140, 110, 190, 130, 90],
+
+                backgroundColor: '#f59e0b',
+                borderRadius: 8,
+                borderSkipped:false,
+                barThickness:28
             }
 
-            document.addEventListener("click",function(event){
-                const container = document.querySelector(".user-avatar-container");
-                const menu = document.getElementById("profileMenu");
-                
-                if(!container.contains(event.target)){
-                    menu.classList.remove("show");
+        ]
+    },
+
+    options: {
+
+        responsive:true,
+        maintainAspectRatio:false,
+
+        layout:{
+            padding:{
+                top:10,
+                right:10,
+                bottom:0,
+                left:10
+            }
+        },
+
+        plugins:{
+
+            legend:{
+                position:'bottom',
+
+                labels:{
+                    usePointStyle:true,
+                    pointStyle:'circle',
+                    padding:25,
+                    font:{
+                        size:13,
+                        family:'Poppins'
+                    }
                 }
-            });
-        </script>
-    </body>
+            },
+
+            tooltip:{
+                backgroundColor:'#111',
+                titleFont:{
+                    size:14
+                },
+                bodyFont:{
+                    size:13
+                },
+                padding:12,
+                cornerRadius:10
+            }
+
+        },
+
+        scales:{
+
+            x:{
+                grid:{
+                    display:false
+                },
+
+                ticks:{
+                    color:'#666',
+                    font:{
+                        size:12,
+                        family:'Poppins'
+                    }
+                }
+            },
+
+            y:{
+                beginAtZero:true,
+
+                grid:{
+                    color:'rgba(0,0,0,0.05)'
+                },
+
+                border:{
+                    display:false
+                },
+
+                ticks:{
+                    color:'#777',
+                    font:{
+                        size:12,
+                        family:'Poppins'
+                    }
+                }
+            }
+
+        },
+
+        animation:{
+            duration:1500,
+            easing:'easeOutQuart'
+        }
+
+    }
+
+});
+
+</script>
+
+</body>
 </html>

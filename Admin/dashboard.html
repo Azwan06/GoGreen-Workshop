@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="ms">
-    <head>
-        <meta charset="UTF-8">
-        <title>Schedule | GoGreen</title>
+<head>
 
-        <!-- GOOGLE FONT -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Dashboard | GoGreen</title>
 
-        <link rel="stylesheet" href="dashboard.css">
-    </head>
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <body>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <header>
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <!-- CHART JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="dashboard.css">
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
             
         <div class="header-left">
 
@@ -71,144 +85,340 @@
         <a href="userrole.html">Users</a>
         <a href="media.html">Media</a>
         
+</div>
+
+<!-- ================= MAIN ================= -->
+
+<div class="main">
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div class="welcome">
+            <h1>Welcome back, Admin! 🌱</h1>
+            <p>Here's what's happening with GoGreen today.</p>
+        </div>
+
     </div>
-    
-        <!-- <div class="sidebar">
-            <div class="logo-section"> GoGreen </div>
-            <div class="role-badge">Sistem Admin</div>
-            <ul class="sidebar-menu">
-            <li> Dashboard</li>
-            <li> User management</li>
-            <li> Report collection</li>
-            <li> Generate report</li>
-            </ul>   
-        </div> -->
 
-  
-    <div class="main-content">
+    <!-- ================= CARDS ================= -->
 
-        <section id="dashboard" class="page-section"></section>
-        <div class="page-header">
-            <h1>Selamat Datang, Admin</h1>
-            <p>Ringkasan aktiviti platform kitar semula UTeM hari ini.</p>
-        </div>
+    <div class="cards">
 
-        <div class="stats-grid">
-            <div class="stat-card"><h3>Total Users</h3></div>
-            <div class="stat-card"><h3>Total Reports</h3></div>
-            <div class="stat-card"><h3>Pending</h3></div>
-            <div class="stat-card"><h3>Completed</h3></div>
-        </div>
+        <!-- CARD 1 -->
 
-        <div class="page-header" style="margin-bottom: 1rem;"><h2>Laporan Terbaru Masuk</h2></div>
-        <div class="data-card">
-            <table class="data-table">
-                <thead>
-                    <tr><th>ID</th><th>User</th><th>Kategori</th><th>Tarikh</th><th>Status</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td>#1024</td><td>Ahmad Fauzi</td><td>Plastik</td><td>1 Jun 2026</td><td><span class="badge pending">Pending</span></td></tr>
-                    <tr><td>#1023</td><td>Siti Nurhaliza</td><td>E-Waste (FKEKK)</td><td>31 Mei 2026</td><td><span class="badge completed">Completed</span></td></tr>
-                </tbody>
-            </table>
-        </div>
-     
-       </section>  
+        <div class="card">
 
-       <section id="users" class="page-section">
-        <div class="page-header">
-            <h1>Penggurusan</h1>
-            <p>Urus kebenaran akaun Pelajar, Staf, dan Worker UTeM</p>
-        </div>
-        <div class="data-card">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>ID Matrik</th>
-                        <th>Nama</th>
-                        <th>Peranan</th>
-                        <th>Tuah Points</th>
-                        <th>Tindakan</th>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-       </section>
-
-       <section id="reports" class="page-section">
-        <div class="page-header">
-            <h1>Koleksi Laporan</h1>
-            <p>Agihkan tugasan kutipan kitar semula kepada pekerja</p>
-        </div>
-        <div class="data-card">
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Kategori</th>
-                        <th>Pekerja</th>
-                        <th>Status</th>
-                        <th>Tindakan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>#1024</td>
-                        <td>Ahmad Fauzi</td>
-                        <td>Plastik (KK1)</td>
-                        <td>Belum Ditugaskan</td>
-                        <td><span class="badge pending">Pending</span></td>
-                        <td><a href="#report_detail" class="btn btn-primary">Urus</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-       </section>
-       
-       <section id="report_detail" class="page-section">
-        <div class="page-header">
-            <h1> Butiran Semakan Laporan #1024</h1>
-            <p><a href="#reports"> Kembali ke Senarai Laporan</a> </p>
-        </div>
-
-        <div class="data-card" style="max-width: 600px;">
-            <p style="margin-bottom: 0.8rem;"><strong>Pengadu:</strong> Ahmad Fauzi</p>
-            <p style="margin-bottom: 0.8rem;"><strong>Kategori:</strong> Botol Plastik (Zon KK1)</p>
-            <p style="margin-bottom: 1.5rem;"><strong>Keterangan:</strong> Terdapat 3 plastik besar botol minuman kosong.</p>
-            <label>Tugaskan Kepada Worker:</label>
-            <select class="form-select"><option>Zulkifli Razak</option></select>
-                <label>Tukar Status:</label>
-                <select class="form-select"><option>Pending</option><option>In Progress</option></select>
-                <a href="#reports" class="btn btn-primary" style="display:block; text-align:center; padding:0.8rem;">Sahkan Tugasan</a>
-        </div>
-        </section>
-
-        <section id="generate" class="page-section">
-            <div class="page-header">
-                <h1>Penjana Laporan Kitar Semula</h1>
-                <p> Eksport data untuk semakan pihak pengurusan.</p>
+            <div class="card-info">
+                <p>Total Users</p>
+                <h2>1,245</h2>
+                <span>+12% from last month</span>
             </div>
-            <div class="data-card" style="max-width: 500px;"></div>
-            <label>Jenis Laporan:</label>
-            <select class="form-select"><option>Laporan Bulanan Keseluruhan</option></select>
-            <button class="btn btn-primary" style="width: 100%;padding: 0.8rem;"> Muat Turun Laporan (CSV)</button>
-        </section>
+
+            <div class="icon green">
+                <i class="fa-solid fa-users"></i>
+            </div>
+
+        </div>
+
+        <!-- CARD 2 -->
+
+        <div class="card">
+
+            <div class="card-info">
+                <p>Total Recycled</p>
+                <h2>3,420 kg</h2>
+                <span>+18% from last month</span>
+            </div>
+
+            <div class="icon green">
+                <i class="fa-solid fa-recycle"></i>
+            </div>
+
+        </div>
+
+        <!-- CARD 3 -->
+
+        <div class="card">
+
+            <div class="card-info">
+                <p>Pending Review</p>
+                <h2>12</h2>
+                <span>Submissions</span>
+            </div>
+
+            <div class="icon orange">
+                <i class="fa-solid fa-file-circle-check"></i>
+            </div>
+
+        </div>
+
+        <!-- CARD 4 -->
+
+        <div class="card">
+
+            <div class="card-info">
+                <p>Points Redeemed</p>
+                <h2>25,400 pts</h2>
+                <span>+8% from last month</span>
+            </div>
+
+            <div class="icon green">
+                <i class="fa-solid fa-gift"></i>
+            </div>
+
+        </div>
+
     </div>
 
+    <!-- ================= GRID ================= -->
+
+    <div class="grid">
+
+        <!-- CHART -->
+
+        <div class="box">
+
+            <div class="box-header">
+                <h3>Recycling Activity</h3>
+            </div>
+
+            <div class="chart-container">
+    <canvas id="recycleChart"></canvas>
+</div>
+
+        </div>
+
+        <!-- ACTIVITY -->
+
+        <div class="box">
+
+            <div class="box-header">
+                <h3>Recent Activities</h3>
+            </div>
+
+            <!-- ACTIVITY 1 -->
+
+            <div class="activity">
+
+                <div class="activity-left">
+
+                    <div class="activity-icon">
+                        <i class="fa-solid fa-upload"></i>
+                    </div>
+
+                    <div>
+                        <h4>Nurul submitted plastic bottles</h4>
+                        <span>10 min ago</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ACTIVITY 2 -->
+
+            <div class="activity">
+
+                <div class="activity-left">
+
+                    <div class="activity-icon">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+
+                    <div>
+                        <h4>Mira redeemed points</h4>
+                        <span>1 hour ago</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ACTIVITY 3 -->
+
+            <div class="activity">
+
+                <div class="activity-left">
+
+                    <div class="activity-icon">
+                        <i class="fa-solid fa-location-dot"></i>
+                    </div>
+
+                    <div>
+                        <h4>Bin A-03 reported full</h4>
+                        <span>3 hours ago</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= SECOND GRID ================= -->
+
+<div class="grid">
+
+    <!-- BIN STATUS -->
+
+    <div class="box">
+
+        <div class="box-header">
+            <h3>Bin Status</h3>
+        </div>
+
+        <!-- BIN 1 -->
+
+        <div class="bin">
+
+            <div class="bin-top">
+                <span>Bin A-01</span>
+                <span>80%</span>
+            </div>
+
+            <div class="progress">
+                <div class="green-bar" style="width:80%"></div>
+            </div>
+
+        </div>
+
+        <!-- BIN 2 -->
+
+        <div class="bin">
+
+            <div class="bin-top">
+                <span>Bin A-02</span>
+                <span>45%</span>
+            </div>
+
+            <div class="progress">
+                <div class="yellow-bar" style="width:45%"></div>
+            </div>
+
+        </div>
+
+        <!-- BIN 3 -->
+
+        <div class="bin">
+
+            <div class="bin-top">
+                <span>Bin A-03</span>
+                <span>100%</span>
+            </div>
+
+            <div class="progress">
+                <div class="red-bar" style="width:100%"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- TOP RECYCLERS -->
+
+    <div class="box">
+
+        <div class="box-header">
+            <h3>Top Recyclers</h3>
+        </div>
+
+        <!-- USER 1 -->
+
+        <div class="leader">
+
+            <div class="leader-left">
+
+                <div class="avatar">
+                    NA
+                </div>
+
+                <div>
+                    <h4>Nurul Aina</h4>
+                </div>
+
+            </div>
+
+            <div class="points">
+                1200 pts
+            </div>
+
+        </div>
+
+        <!-- USER 2 -->
+
+        <div class="leader">
+
+            <div class="leader-left">
+
+                <div class="avatar">
+                    AB
+                </div>
+
+                <div>
+                    <h4>Ali Bin</h4>
+                </div>
+
+            </div>
+
+            <div class="points">
+                980 pts
+            </div>
+
+        </div>
+
+        <!-- USER 3 -->
+
+        <div class="leader">
+
+            <div class="leader-left">
+
+                <div class="avatar">
+                    MH
+                </div>
+
+                <div>
+                    <h4>Mira Hanani</h4>
+                </div>
+
+            </div>
+
+            <div class="points">
+                850 pts
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+
+   
     <footer>
-        <p class="left-footer">© GoGreen. All rights reserved.</p>
-        <p class="right-footer">Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia</p>
+
+        <p class="left-footer">
+            © GoGreen. All rights reserved.
+        </p>
+
+        <p class="right-footer">
+            Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
+        </p>
+
     </footer>
 
-    <div id="imageModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">✕</span>
-            <img id="modalImg" src="" alt="Preview Image">
-        </div>
-    </div>
-    
-    <script>
+
+<!--======script======== -->
+
+<script>
+
+ // sidebar
         function toggleMenu(){
             document
             .getElementById("sidebar")
@@ -228,7 +438,155 @@
             }
         });
         
-    </script>
 
-    </body>
+
+const ctx = document.getElementById('recycleChart');
+
+new Chart(ctx, {
+
+    type: 'bar',
+
+    data: {
+
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+
+        datasets: [
+
+            {
+                label: 'Plastic',
+                data: [200, 400, 650, 420, 700, 520, 300],
+
+                backgroundColor: '#2f9e63',
+                borderRadius: 8,
+                borderSkipped:false,
+                barThickness:28
+            },
+
+            {
+                label: 'Paper',
+                data: [120, 250, 300, 240, 350, 280, 180],
+
+                backgroundColor: '#3b82f6',
+                borderRadius: 8,
+                borderSkipped:false,
+                barThickness:28
+            },
+
+            {
+                label: 'Glass',
+                data: [80, 150, 220, 170, 260, 180, 120],
+
+                backgroundColor: '#14b8a6',
+                borderRadius: 8,
+                borderSkipped:false,
+                barThickness:28
+            },
+
+            {
+                label: 'Aluminum',
+                data: [50, 100, 140, 110, 190, 130, 90],
+
+                backgroundColor: '#f59e0b',
+                borderRadius: 8,
+                borderSkipped:false,
+                barThickness:28
+            }
+
+        ]
+    },
+
+    options: {
+
+        responsive:true,
+        maintainAspectRatio:false,
+
+        layout:{
+            padding:{
+                top:10,
+                right:10,
+                bottom:0,
+                left:10
+            }
+        },
+
+        plugins:{
+
+            legend:{
+                position:'bottom',
+
+                labels:{
+                    usePointStyle:true,
+                    pointStyle:'circle',
+                    padding:25,
+                    font:{
+                        size:13,
+                        family:'Poppins'
+                    }
+                }
+            },
+
+            tooltip:{
+                backgroundColor:'#111',
+                titleFont:{
+                    size:14
+                },
+                bodyFont:{
+                    size:13
+                },
+                padding:12,
+                cornerRadius:10
+            }
+
+        },
+
+        scales:{
+
+            x:{
+                grid:{
+                    display:false
+                },
+
+                ticks:{
+                    color:'#666',
+                    font:{
+                        size:12,
+                        family:'Poppins'
+                    }
+                }
+            },
+
+            y:{
+                beginAtZero:true,
+
+                grid:{
+                    color:'rgba(0,0,0,0.05)'
+                },
+
+                border:{
+                    display:false
+                },
+
+                ticks:{
+                    color:'#777',
+                    font:{
+                        size:12,
+                        family:'Poppins'
+                    }
+                }
+            }
+
+        },
+
+        animation:{
+            duration:1500,
+            easing:'easeOutQuart'
+        }
+
+    }
+
+});
+
+</script>
+
+</body>
 </html>
