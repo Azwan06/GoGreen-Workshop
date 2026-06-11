@@ -81,30 +81,32 @@
         <div class="table-row">
             <span>8:00 AM</span>
             <span>Fakulti Teknologi Maklumat dan Komunikasi</span>
-            <select class="status">
-                <option value="pending" selected>Pending</option>
-                <option value="accepted">Accepted</option>
-                <option value="completed">Completed</option>
+            <select class="status-select completed" onchange="changeStatus(this)">
+        <option value="completed" selected>Completed</option>
+        <option value="accepted">Accepted</option>
+        <option value="pending">Pending</option>
+    </select>
+
             </select>
         </div>
 
         <div class="table-row">
             <span>10:00 AM</span>
             <span>Masjid UTeM</span>
-            <select class="status">
-                <option value="pending" selected>Pending</option>
-                <option value="accepted">Accepted</option>
-                <option value="completed">Completed</option>
-            </select>
+            <select class="status-select accepted" onchange="changeStatus(this)">
+        <option value="accepted" selected>Accepted</option>
+        <option value="completed">Completed</option>
+        <option value="pending">Pending</option>
+    </select>
         </div>
         <div class="table-row">
             <span>12:00 PM</span>
             <span>Kolej Satria</span>
-            <select class="status">
-                <option value="pending" selected>Pending</option>
-                <option value="accepted">Accepted</option>
-                <option value="completed">Completed</option>
-            </select>
+            <select class="status-select pending" onchange="changeStatus(this)">
+        <option value="pending" selected>Pending</option>
+        <option value="accepted">Accepted</option>
+        <option value="completed">Completed</option>
+    </select>
         </div>
       </div>
      
@@ -142,6 +144,18 @@
             menu.classList.remove("show");
         }
     });
+
+    function changeStatus(select){
+
+        select.classList.remove(
+            "completed",
+            "accepted",
+            "pending"
+        );
+
+        select.classList.add(select.value);
+
+    }
     </script>
 </body>
 </html>
