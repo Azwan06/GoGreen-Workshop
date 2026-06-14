@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contact Us</title>
+
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FONT AWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/contactus.css">
+
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+
+    <div class="logo">
+
+      <img src="image/recycle_imag.png" alt="GoGreen Logo">
+
+      <span>GoGreen</span>
+
+    </div>
+
+    <nav id="navMenu">
+
+      <a href="index.php">Home</a>
+      <a href="about.php">About</a>
+      <a href="media.php">Media</a>
+      <a href="map.php">Map</a>
+      <a href="leaderboard.php">Leaderboard</a>
+      <a href="contactus.php">Contact</a>
+
+      <button class="sign-btn" onclick="window.location.href='login.php'">
+
+        Sign In
+
+      </button>
+
+    </nav>
+
+    <div class="menu-toggle" onclick="toggleMenu()">
+
+      ☰
+
+    </div>
+
+  </header>
+
+  <!-- CONTACT SECTION -->
+
+  <section class="contact-section">
+
+    <!-- TITLE -->
+
+    <div class="contact-header">
+
+      <h1>
+
+        Contact GoGreen
+
+      </h1>
+
+      <p>
+
+        We'd love to hear from you. Reach out for support,
+        collaborations, or any inquiries regarding GoGreen.
+
+      </p>
+
+    </div>
+
+    <!-- CONTENT -->
+
+    <div class="contact-wrapper">
+
+      <!-- LEFT -->
+
+      <div class="contact-info">
+
+        <!-- LOCATION -->
+
+        <div class="contact-card">
+
+          <div class="icon">
+
+            <i class="fa-solid fa-location-dot"></i>
+
+          </div>
+
+          <h3>
+
+            Location
+
+          </h3>
+
+          <p>
+
+            Universiti Teknikal Malaysia Melaka (UTeM)
+
+          </p>
+
+        </div>
+
+        <!-- EMAIL -->
+
+        <div class="contact-card">
+
+          <div class="icon">
+
+            <i class="fa-regular fa-envelope"></i>
+
+          </div>
+
+          <h3>
+
+            Email
+
+          </h3>
+
+          <p>
+
+            gogreen@gmail.com
+
+          </p>
+
+        </div>
+
+        <!-- PHONE -->
+
+        <div class="contact-card">
+
+          <div class="icon">
+
+            <i class="fa-solid fa-phone"></i>
+
+          </div>
+
+          <h3>
+
+            Phone
+
+          </h3>
+
+          <p>
+
+            +60 12-345 6789
+
+          </p>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT -->
+
+      <div class="contact-form">
+
+        <h2>
+
+          Send Us A Message
+
+        </h2>
+
+        <form>
+
+          <input
+            type="text"
+            placeholder="Your Name"
+            required
+          >
+
+          <input
+            type="email"
+            placeholder="Your Email"
+            required
+          >
+
+          <textarea
+            rows="7"
+            placeholder="Your Message"
+          ></textarea>
+
+          <button type="submit">
+
+            Send Message
+
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+ <!-- FOOTER -->
+  <footer>
+
+  <p class="left-footer">
+    © GoGreen. All rights reserved.
+  </p>
+
+  <p class="right-footer">
+    Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
+  </p>
+
+</footer>
+
+  <!-- JS -->
+
+  <script>
+
+    function toggleMenu(){
+
+      document
+      .getElementById("navMenu")
+      .classList.toggle("active");
+
+    }
+
+  </script>
+
+</body>
+</html>
