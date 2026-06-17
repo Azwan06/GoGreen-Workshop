@@ -1,3 +1,19 @@
+<?php
+
+session_start();
+
+include "../config/database.php";
+
+if (
+    !isset($_SESSION['user_id']) ||
+    $_SESSION['role'] != 'admin'
+) {
+
+    header("Location: ../Public/login.php");
+    exit();
+}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -56,7 +72,7 @@
               <a href="profile.html">Profile</a>
               <a href="notification.html">Notification</a>
               <a href="setting.html">Settings</a>
-              <a href="../Public/login.html">Sign Out</a>
+              <a href="../Public/login.php">Sign Out</a>
               
           </div>
       </div>

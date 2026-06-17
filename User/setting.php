@@ -52,7 +52,7 @@ if (!isset($_SESSION['user_id'])) {
             <a href="redeem.php">Redeem</a>
             <a href="contact.php">Contact</a>
 
-          <!-- <button class="sign-btn" onclick="window.location.href = '../Public/login.html'">
+          <!-- <button class="sign-btn" onclick="window.location.href = '../Public/login.php'">
             Sign Out
           </button> -->
 

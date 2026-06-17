@@ -86,7 +86,7 @@
                     </div>
                     <button type="button" class="btn-save">Save Changes</button>
                      <button type="button" class="btn-save2"
-                     onclick="window.location.href='../Public/login.html'">
+                     onclick="window.location.href='../Public/login.php'">
                         Log Out
                     </button>
                 </form>
