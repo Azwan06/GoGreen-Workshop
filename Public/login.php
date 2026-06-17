@@ -31,27 +31,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['user_id']  = $user['id'];
                 $_SESSION['fullname'] = $user['fullname'];
                 $_SESSION['email']    = $user['email'];
-                $_SESSION['role']     = $user['role'];
+                //$_SESSION['role']     = $user['role'];
 
                 // Redirect berdasarkan domain email
-                if (str_ends_with($email_lower, '@student.utem.edu.my')) {
-
-                    header("Location: ../User/home.php");
-                    exit();
-
-                } elseif (str_ends_with($email_lower, '@utem.edu.my')) {
+                if (str_ends_with($email_lower, '@.utem.edu.my')) {
 
                     header("Location: ../Admin/dashboard.php");
                     exit();
 
-                } else {
+                } elseif (str_ends_with($email_lower, '@student.utem.edu.my')) {
 
-                    echo "<script>
-                            alert('Domain email tidak sah!');
-                            window.location.href='../Public/login.php';
-                          </script>";
+                    header("Location: ../User/home.php");
+                    // Change this URL to your "should page" if needed
                     exit();
-                }
+
+                } 
 
             } else {
 

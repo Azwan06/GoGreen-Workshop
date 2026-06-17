@@ -28,20 +28,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $user['email'];
             $_SESSION['role'] = $user['role'];
 
-            // Redirect by role
-            if ($user['role'] == 'admin') {
+            // Redirect based on email domain
+            $email_lower = strtolower($user['email']);
 
+            if (str_ends_with($email_lower, '@student.utem.edu.my')) {
+                header("Location: ../User/home.php");
+                exit();
+
+            } elseif (str_ends_with($email_lower, '@utem.edu.my')) {
                 header("Location: ../Admin/dashboard.php");
-
-            } elseif ($user['role'] == 'worker') {
-
-                header("Location: ../Worker/dashboard.php");
+                exit();
 
             } else {
-
+                // fallback
                 header("Location: ../User/home.php");
-
+                exit();
             }
+
 
             exit();
 
