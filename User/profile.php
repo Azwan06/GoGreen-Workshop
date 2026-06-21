@@ -8,6 +8,16 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+include "../config/database.php";
+
+$user_id = $_SESSION['user_id'];
+
+$user = mysqli_fetch_assoc(
+    mysqli_query(
+        $conn,
+        "SELECT * FROM users WHERE id='$user_id'"
+    )
+);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,15 +79,23 @@ if (!isset($_SESSION['user_id'])) {
     
         <section class="user-card-section">
             <div class="avatar-wrapper">
-                <div class="user-avatar"></div>
+                <div class="user-avatar">
+
+    <img
+src="../uploads/profile/<?php echo htmlspecialchars(!empty($user['profile_image']) ? $user['profile_image'] : 'default.jpg'); ?>"
+alt="Profile">
+
+</div>
             </div>
             
             <div class="user-card-body">
-                <h1 class="user-name">User Name</h1>
+                <h1 class="user-name">
+    <?php echo htmlspecialchars($user['fullname']); ?>
+</h1>
                 <div class="user-meta-grid">
-                    <p><strong>Email:</strong> user@example.com</p>
-                    <p><strong>Location:</strong> Melaka, MY</p>
-                    <p><strong>Status:</strong> Student</p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
+                    <p><strong>Location:</strong> <?php echo !empty($user['address']) ? $user['address'] : 'Not Set'; ?></p>
+                    <p><strong>Status:</strong> <?php echo ucfirst($user['role']); ?></p>
                 </div>
             </div>
         </section>
@@ -89,18 +107,33 @@ if (!isset($_SESSION['user_id'])) {
                 <form class="settings-form" onsubmit="event.preventDefault();">
                     <div class="form-group">
                         <label for="username">Display Name</label>
-                        <input type="text" id="username" value="User Name">
+                        <input type="text" id="username" value="<?php echo $user['fullname']; ?>">
                     </div>
                     <div class="form-group">
                         <label for="email">Email Address</label>
-                        <input type="email" id="email" value="user@example.com">
+                        <input type="email" id="email" value="<?php echo $user['email']; ?>">
                     </div>
                     <button type="button" class="btn-save">Save Changes</button>
                      <button type="button" class="btn-save2"
-                     onclick="window.location.href='../Public/login.php'">
+                     onclick="window.location.href='../auth/logout.php'">
                         Log Out
                     </button>
                 </form>
+                <form
+action="../auth/update_profile_image.php"
+method="POST"
+enctype="multipart/form-data">
+
+    <input
+    type="file"
+    name="profile_image"
+    accept="image/*">
+
+    <button type="submit">
+        Upload Photo
+    </button>
+
+</form>
             </div>
        
 
@@ -108,48 +141,45 @@ if (!isset($_SESSION['user_id'])) {
         </section>
 
         <section class="history-section">
-            <h2 class="section-title">Recycle History</h2>
-            
-            <div class="history-summary-container">
-                <div class="summary-card metrics-card">
-                    <div class="summary-label">Plastic Total</div>
-                    <div class="summary-value">12.5 kg</div>
-                </div>
 
-                <div class="summary-card metrics-total-points">
+    <h2 class="section-title">
+        Recycle History
+    </h2>
 
-                    <div class="summary-label">Total Earned</div>
-                    <div class="summary-value">7,210 pts</div>
-                </div>
+    <div class="summary-card metrics-total-points">
 
-                <div class="summary-card metrics-card">
-                    <div class="summary-label">Paper Total</div>
-                    <div class="summary-value">24.0 kg</div>
-                </div>
-            </div>
+        <div class="summary-label">
+            Total Earned
+        </div>
 
-            <div class="history-list">
-                <div class="list-heading-row">
-                    <span>Date</span>
-                    <span>Item Deposited</span>
-                    <span>Points Awarded</span>
-                </div>
-                <div class="list-row">
-                    <span class="row-date">28 May 2026</span>
-                    <span class="row-details">Plastic Bottles (x15)</span>
-                    <span class="row-points">+150 pts</span>
-                </div>
-                <div class="list-row">
-                    <span class="row-date">22 May 2026</span>
-                    <span class="row-details">Cardboard Boxes (5kg)</span>
-                    <span class="row-points">+500 pts</span>
-                </div>
-                <div class="list-row">
-                    <span class="row-date">15 May 2026</span>
-                    <span class="row-details">Aluminum Cans (x20)</span>
-                    <span class="row-points">+300 pts</span>
-                </div>
-            </div>
+        <div class="summary-value">
+
+            <?php echo number_format($user['points']); ?>
+
+            pts
+
+        </div>
+    </div>
+
+           <div class="history-list">
+
+    <div class="list-row">
+
+        <span
+        style="
+        width:100%;
+        text-align:center;
+        color:#888;
+        padding:20px;
+        ">
+
+            No recycle history available.
+
+        </span>
+
+    </div>
+
+</div>
         </section>
 
     </main>

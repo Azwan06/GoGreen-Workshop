@@ -1,3 +1,29 @@
+<?php
+
+include "../config/database.php";
+
+$leaderboard = mysqli_query(
+
+    $conn,
+
+    "SELECT *
+    FROM users
+    WHERE role = 'user'
+    ORDER BY points DESC
+    LIMIT 10"
+
+);
+
+$topUsers = [];
+
+while($row = mysqli_fetch_assoc($leaderboard)){
+
+    $topUsers[] = $row;
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,63 +79,32 @@
   <!-- TOP 3 -->
   <section class="top-users">
 
-    <!-- SECOND -->
+    <?php if(isset($topUsers[1])){ ?>
     <div class="top-card second">
-
-      <div class="rank">
-        🥈
-      </div>
-
-
-      <h3>
-        Sarah Lee
-      </h3>
-
-      <p>
-        4,850 Points
-      </p>
-
+        <div class="rank">🥈</div>
+        <h3><?php echo $topUsers[1]['fullname']; ?></h3>
+        <p><?php echo number_format($topUsers[1]['points']); ?> Points</p>
     </div>
+    <?php } ?>
 
-    <!-- FIRST -->
+    <?php if(isset($topUsers[0])){ ?>
     <div class="top-card first">
-
-      <div class="crown">
-        👑
-      </div>
-
-      <div class="rank">
-        🥇
-      </div>
-
-      <h3>
-        Daniel Wong
-      </h3>
-
-      <p>
-        6,320 Points
-      </p>
-
+        <div class="crown">👑</div>
+        <div class="rank">🥇</div>
+        <h3><?php echo $topUsers[0]['fullname']; ?></h3>
+        <p><?php echo number_format($topUsers[0]['points']); ?> Points</p>
     </div>
+    <?php } ?>
 
-    <!-- THIRD -->
+    <?php if(isset($topUsers[2])){ ?>
     <div class="top-card third">
-
-      <div class="rank">
-        🥉
-      </div>
-
-      <h3>
-        Aina Sofea
-      </h3>
-
-      <p>
-        4,120 Points
-      </p>
-
+        <div class="rank">🥉</div>
+        <h3><?php echo $topUsers[2]['fullname']; ?></h3>
+        <p><?php echo number_format($topUsers[2]['points']); ?> Points</p>
     </div>
+    <?php } ?>
 
-  </section>
+</section>
 
   <!-- TABLE -->
   <section class="leaderboard-table-section">
@@ -123,7 +118,6 @@
           <tr>
             <th>Rank</th>
             <th>User</th>
-            <th>Items Recycled</th>
             <th>Total Points</th>
           </tr>
 
@@ -131,47 +125,39 @@
 
         <tbody>
 
-          <tr>
-            <td>#1</td>
-            <td>Daniel Wong</td>
-            <td>580</td>
-            <td>6,320</td>
-          </tr>
+          <?php
 
-          <tr>
-            <td>#2</td>
-            <td>Sarah Lee</td>
-            <td>510</td>
-            <td>4,850</td>
-          </tr>
+$rank = 1;
 
-          <tr>
-            <td>#3</td>
-            <td>Aina Sofea</td>
-            <td>470</td>
-            <td>4,120</td>
-          </tr>
+foreach($topUsers as $user){
 
-          <tr>
-            <td>#4</td>
-            <td>Hakim</td>
-            <td>420</td>
-            <td>3,980</td>
-          </tr>
+?>
 
-          <tr>
-            <td>#5</td>
-            <td>Faris</td>
-            <td>390</td>
-            <td>3,650</td>
-          </tr>
+<tr>
 
-          <tr>
-            <td>#6</td>
-            <td>Nurul</td>
-            <td>340</td>
-            <td>3,210</td>
-          </tr>
+    <td>
+        #<?php echo $rank; ?>
+    </td>
+
+    <td>
+        <?php echo $user['fullname']; ?>
+    </td>
+
+    <td>
+        <?php echo number_format($user['points']); ?>
+    </td>
+
+</tr>
+
+<?php
+
+$rank++;
+
+}
+
+?>
+
+          
 
         </tbody>
 

@@ -1,6 +1,7 @@
 <?php
-
 session_start();
+
+include "../config/database.php";
 
 if (!isset($_SESSION['user_id'])) {
 
@@ -8,7 +9,15 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$bins = mysqli_query(
+    $conn,
+    "SELECT * FROM bins ORDER BY id DESC"
+);
+
+$totalBins = mysqli_num_rows($bins);
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,8 +82,13 @@ if (!isset($_SESSION['user_id'])) {
             <div class="profile-menu" id="profileMenu">
 
                 <div class="profile-info">
-                    <h4>John Doe</h4>
-                    <p>johndoe@student.utem.edu.my</p>
+                    <h4>
+                        <?php echo $_SESSION['fullname']; ?>
+                    </h4>
+
+                    <p>
+                        <?php echo $_SESSION['email']; ?>
+                    </p>
                 </div>
 
                 <a href="profile.php">Profile</a>
@@ -114,43 +128,40 @@ if (!isset($_SESSION['user_id'])) {
     <!-- MAP -->
     <div id="map"></div>
 
-    <!-- CARDS -->
     <div class="location-container">
 
-      <div class="location-card">
+<?php
+while($bin = mysqli_fetch_assoc($bins)){
+?>
 
-        <h3>Fakulti Teknologi dan Maklumat (FTMK)</h3>
+    <div class="location-card">
 
-        <p>
-          Full-service recycling for plastic,
-          paper, glass and e-waste.
-        </p>
-
-      </div>
-
-      <div class="location-card">
-
-        <h3>Kediaman Satria</h3>
+        <h3>
+            <?php echo $bin['bin_name']; ?>
+        </h3>
 
         <p>
-          Community drop-off point for
-          household recyclables.
+            <?php echo $bin['address']; ?>
         </p>
 
-      </div>
+        <button
+        class="location-btn"
+        onclick="focusBin(
+            <?php echo $bin['latitude']; ?>,
+            <?php echo $bin['longitude']; ?>
+        )">
 
-      <div class="location-card">
+            View Location
 
-        <h3>Masjid UTeM</h3>
-
-        <p>
-          Specialized e-waste collection
-          and recycling facility.
-        </p>
-
-      </div>
+        </button>
 
     </div>
+
+<?php
+}
+?>
+
+</div>
 
   </section>
 
@@ -207,61 +218,74 @@ if (!isset($_SESSION['user_id'])) {
 
     }).addTo(map);
 
-    // MARKERS
-    const locations = [
+    <?php
+mysqli_data_seek($bins,0);
 
-      {
-        name:"Fakulti Teknologi dan Maklumat (FTMK)",
-        coords:[2.308140,102.319239]
-      },
+while($bin = mysqli_fetch_assoc($bins)){
+?>
 
-      {
-        name:"Kediaman Satria",
-        coords:[2.308718,102.315039]
-      },
+L.marker([
+    <?php echo $bin['latitude']; ?>,
+    <?php echo $bin['longitude']; ?>
+])
 
-      {
-        name:"Masjid UTeM",
-        coords:[2.311972, 102.318583]
-      }
+.addTo(map)
 
-    ];
+.bindPopup(`
 
-    locations.forEach(location => {
+<b>
+<?php echo addslashes($bin['bin_name']); ?>
+</b>
 
-      L.marker(location.coords)
+<br>
 
-      .addTo(map)
+<?php echo addslashes($bin['address']); ?>
 
-      .bindPopup(`<b>${location.name}</b>`);
+<br>
 
-    });
+Status:
+<?php echo $bin['status']; ?>
+
+`);
+
+<?php
+}
+?>
 
     // USER LOCATION
-    function getLocation(){
+function getLocation(){
 
-      if(navigator.geolocation){
+    if(navigator.geolocation){
 
         navigator.geolocation.getCurrentPosition(position => {
 
-          const lat = position.coords.latitude;
-          const lng = position.coords.longitude;
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
 
-          map.setView([lat,lng],15);
+            map.setView([lat,lng],15);
 
-          L.marker([lat,lng])
+            L.marker([lat,lng])
 
-          .addTo(map)
+            .addTo(map)
 
-          .bindPopup("You are here")
+            .bindPopup("You are here")
 
-          .openPopup();
+            .openPopup();
 
         });
 
-      }
-
     }
+
+}
+
+function focusBin(lat,lng){
+
+    map.flyTo(
+    [lat,lng],
+    18
+);
+
+}
 
   </script>
 

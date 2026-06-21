@@ -259,9 +259,10 @@
       a cleaner future for everyone.
     </p>
 
-    <button>
-      Get Started →
-    </button>
+      <a href="login.php" class="primary-btn">
+          Get Started →
+        </a>
+    
 
   </section>
 

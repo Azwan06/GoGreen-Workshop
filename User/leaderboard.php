@@ -1,5 +1,27 @@
 <?php
 
+include "../config/database.php";
+
+$leaderboard = mysqli_query(
+
+    $conn,
+
+    "SELECT *
+    FROM users
+    WHERE role = 'user'
+    ORDER BY points DESC
+    LIMIT 10"
+
+);
+
+$topUsers = [];
+
+while($row = mysqli_fetch_assoc($leaderboard)){
+
+    $topUsers[] = $row;
+
+}
+
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
@@ -65,8 +87,13 @@ if (!isset($_SESSION['user_id'])) {
             <div class="profile-menu" id="profileMenu">
 
                 <div class="profile-info">
-                    <h4>John Doe</h4>
-                    <p>johndoe@student.utem.edu.my</p>
+                    <h4>
+    <?php echo $_SESSION['fullname']; ?>
+</h4>
+
+<p>
+    <?php echo $_SESSION['email']; ?>
+</p>
                 </div>
 
                 <a href="profile.php">Profile</a>
@@ -91,62 +118,62 @@ if (!isset($_SESSION['user_id'])) {
   <section class="top-users">
 
     <!-- SECOND -->
+    <?php if(isset($topUsers[1])){ ?>
     <div class="top-card second">
 
-      <div class="rank">
-        🥈
-      </div>
+        <div class="rank">🥈</div>
 
+        <h3>
+            <?php echo $topUsers[1]['fullname']; ?>
+        </h3>
 
-      <h3>
-        Sarah Lee
-      </h3>
-
-      <p>
-        4,850 Points
-      </p>
+        <p>
+            <?php echo number_format($topUsers[1]['points']); ?>
+            Points
+        </p>
 
     </div>
+    <?php } ?>
 
     <!-- FIRST -->
+    <?php if(isset($topUsers[0])){ ?>
     <div class="top-card first">
 
-      <div class="crown">
-        👑
-      </div>
+        <div class="crown">👑</div>
 
-      <div class="rank">
-        🥇
-      </div>
+        <div class="rank">🥇</div>
 
-      <h3>
-        Daniel Wong
-      </h3>
+        <h3>
+            <?php echo $topUsers[0]['fullname']; ?>
+        </h3>
 
-      <p>
-        6,320 Points
-      </p>
+        <p>
+            <?php echo number_format($topUsers[0]['points']); ?>
+            Points
+        </p>
 
     </div>
+    <?php } ?>
 
     <!-- THIRD -->
+    <?php if(isset($topUsers[2])){ ?>
     <div class="top-card third">
 
-      <div class="rank">
-        🥉
-      </div>
+        <div class="rank">🥉</div>
 
-      <h3>
-        Aina Sofea
-      </h3>
+        <h3>
+            <?php echo $topUsers[2]['fullname']; ?>
+        </h3>
 
-      <p>
-        4,120 Points
-      </p>
+        <p>
+            <?php echo number_format($topUsers[2]['points']); ?>
+            Points
+        </p>
 
     </div>
+    <?php } ?>
 
-  </section>
+</section>
 
   <!-- TABLE -->
   <section class="leaderboard-table-section">
@@ -160,7 +187,6 @@ if (!isset($_SESSION['user_id'])) {
           <tr>
             <th>Rank</th>
             <th>User</th>
-            <th>Items Recycled</th>
             <th>Total Points</th>
           </tr>
 
@@ -168,47 +194,37 @@ if (!isset($_SESSION['user_id'])) {
 
         <tbody>
 
-          <tr>
-            <td>#1</td>
-            <td>Daniel Wong</td>
-            <td>580</td>
-            <td>6,320</td>
-          </tr>
+          <?php
 
-          <tr>
-            <td>#2</td>
-            <td>Sarah Lee</td>
-            <td>510</td>
-            <td>4,850</td>
-          </tr>
+$rank = 1;
 
-          <tr>
-            <td>#3</td>
-            <td>Aina Sofea</td>
-            <td>470</td>
-            <td>4,120</td>
-          </tr>
+foreach($topUsers as $user){
 
-          <tr>
-            <td>#4</td>
-            <td>Hakim</td>
-            <td>420</td>
-            <td>3,980</td>
-          </tr>
+?>
 
-          <tr>
-            <td>#5</td>
-            <td>Faris</td>
-            <td>390</td>
-            <td>3,650</td>
-          </tr>
+<tr>
 
-          <tr>
-            <td>#6</td>
-            <td>Nurul</td>
-            <td>340</td>
-            <td>3,210</td>
-          </tr>
+    <td>
+        #<?php echo $rank; ?>
+    </td>
+
+    <td>
+        <?php echo $user['fullname']; ?>
+    </td>
+
+    <td>
+        <?php echo number_format($user['points']); ?>
+    </td>
+
+</tr>
+
+<?php
+
+$rank++;
+
+}
+
+?>
 
         </tbody>
 
