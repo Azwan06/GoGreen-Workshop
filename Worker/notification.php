@@ -6,7 +6,7 @@ include "../config/database.php";
 
 if (
     !isset($_SESSION['user_id']) ||
-    $_SESSION['role'] != 'admin'
+    $_SESSION['role'] != 'worker'
 ) {
 
     header("Location: ../Public/login.php");
@@ -55,9 +55,9 @@ if (
     <div class="header-right">
 
       <nav id="navMenu">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="schedule.html">Schedule</a>
-        <a href="status.html">Pickup</a>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="schedule.php">Schedule</a>
+        <a href="status.php">Pickup</a>
       </nav>
     
       <div class="user-avatar-container">

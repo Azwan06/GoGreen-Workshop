@@ -35,9 +35,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // Redirect berdasarkan domain email
                 if (str_ends_with($email_lower, '@utem.edu.my')) {
+                    if (
+                         !isset($_SESSION['user_id']) ||
+                          $_SESSION['role'] != 'worker'
+                          
+                       ) {
+                        header("Location: ../Worker/dashboard.php");
+                        exit();
+                       }
+                       else{
+                        header("Location: ../Admin/dashboard.php");
+                        exit();
+                       }
 
-                    header("Location: ../Admin/dashboard.php");
-                    exit();
+                    
+                    
 
                 } elseif (str_ends_with($email_lower, '@student.utem.edu.my')) {
 
