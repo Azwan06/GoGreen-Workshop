@@ -75,24 +75,25 @@
             </p>
 
             <!-- FORM -->
-            <form>
+            <form action="../auth/send_reset_otp.php" method="POST">
 
                 <label class="input-label">
                     Email Address
                 </label>
 
-                <input
-                    type="email"
-                    class="input-box"
-                    placeholder="Enter your email"
-                    required
+               <input
+                type="email"
+                name="email"
+                class="input-box"
+                placeholder="Enter your email"
+                required
                 >
 
                 <button type="submit" class="signin-btn">
                     Send Reset Link
                 </button>
 
-            </form>
+            </formaction=>
 
             <!-- BOTTOM TEXT -->
             <div class="bottom-text">
