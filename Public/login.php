@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 //$_SESSION['role']     = $user['role'];
 
                 // Redirect berdasarkan domain email
-                if (str_ends_with($email_lower, '@.utem.edu.my')) {
+                if (str_ends_with($email_lower, '@utem.edu.my')) {
 
                     header("Location: ../Admin/dashboard.php");
                     exit();
@@ -334,60 +334,6 @@ mysqli_close($conn);
 
 
         </form>
-
-
-
-        <!-- DEMO BUTTONS -->
-
-
-
-        <div class="demo-buttons">
-
-
-
-            <button class="demo-btn" type="button"
-
-                onclick="window.location.href='../User/home.php'">
-
-
-
-                User Demo
-
-
-
-            </button>
-
-
-
-            <button class="demo-btn" type="button"
-
-                onclick="window.location.href='../Worker/dashboard.php'">
-
-
-
-                Worker Demo
-
-
-
-            </button>
-
-
-
-            <button class="demo-btn" type="button"
-
-                onclick="window.location.href='../Admin/dashboard.php'">
-
-
-
-                Admin Demo
-
-
-
-            </button>
-
-
-
-        </div>
 
 
 

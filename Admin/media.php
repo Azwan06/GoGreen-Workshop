@@ -1,3 +1,25 @@
+<?php
+
+session_start();
+
+include "../config/database.php";
+
+// if (
+//     !isset($_SESSION['user_id']) ||
+//     $_SESSION['role'] != 'admin'
+// ) {
+
+//     header("Location: ../Public/login.php");
+//     exit();
+// }
+
+$result = mysqli_query(
+    $conn,
+    "SELECT * FROM media_posts ORDER BY id DESC"
+);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,9 +73,14 @@
                 <div class="profile-menu" id="profileMenu">
 
                     <div class="profile-info">
-                        <h4>John Doe</h4>
-                        <p>johndoe@student.utem.edu.my</p>
-                    </div>
+                    <h4>
+    <?php echo $_SESSION['fullname']; ?>
+</h4>
+
+<p>
+    <?php echo $_SESSION['email']; ?>
+</p>
+                </div>
 
                     <a href="profile.php">Profile</a>
                     <a href="notification.php">Notification</a>
@@ -154,7 +181,16 @@
                 </div>
 
                 <!-- FORM -->
-                <form id="mediaForm">
+                <form
+action="../auth/process_media.php"
+method="POST"
+enctype="multipart/form-data">
+
+<input
+type="hidden"
+id="media_type"
+name="media_type"
+value="Poster">
 
                     <!-- AUDIENCE -->
                     <div class="form-group">
@@ -163,7 +199,9 @@
                             Audience
                         </label>
 
-                        <select id="audience">
+                        <select
+id="audience"
+name="audience">
 
                             <option>
                                 Everyone
@@ -188,9 +226,11 @@
                             Title
                         </label>
 
-                        <input type="text"
-                        id="mediaTitle"
-                        placeholder="Recycle-A-Thon this Friday">
+                        <input
+type="text"
+name="title"
+placeholder="Recycle-A-Thon this Friday"
+required>
 
                     </div>
 
@@ -202,11 +242,33 @@
                         </label>
 
                         <textarea
-                        id="mediaMessage"
-                        placeholder="Write your media content...">
-                        </textarea>
+name="content"
+placeholder="Write your media content..."
+required>
+</textarea>
 
                     </div>
+
+                    <div class="form-group">
+
+    <label>
+        YouTube Link
+    </label>
+
+    <input
+    type="url"
+    id="youtube_link"
+    name="youtube_link"
+    placeholder="https://youtube.com/watch?v=..."
+    >
+
+    <small id="youtubeHint">
+
+        Required for Video only
+
+    </small>
+
+</div>
 
                     <!-- FILE -->
                     <div class="form-group">
@@ -217,10 +279,11 @@
 
                         <label class="upload-box">
 
-                            <input type="file"
-                            id="mediaFile"
-                            accept="image/*,video/*"
-                            hidden>
+                            <input
+type="file"
+name="image"
+accept="image/*"
+hidden>
 
                             <span>
                                 ⬆
@@ -256,11 +319,80 @@
                 <!-- LIST -->
                 <div id="mediaList">
 
-                </div>
+<?php while($row = mysqli_fetch_assoc($result)){ ?>
 
-            </div>
+<div class="media-card">
+
+    <div class="media-preview">
+
+        <?php if(!empty($row['image'])){ ?>
+
+        <img
+        src="../uploads/<?php echo $row['image']; ?>"
+        style="
+        width:100%;
+        height:220px;
+        object-fit:cover;">
+
+        <?php } ?>
+
+    </div>
+
+    <div class="media-info">
+
+        <div class="media-tags">
+
+            <span class="tag">
+                <?php echo $row['media_type']; ?>
+            </span>
+
+            <span class="tag green">
+                <?php echo $row['audience']; ?>
+            </span>
+
+            <small>
+                <?php echo $row['created_at']; ?>
+            </small>
 
         </div>
+
+        <h2>
+            <?php echo $row['title']; ?>
+        </h2>
+
+        <p>
+            <?php echo $row['content']; ?>
+        </p>
+
+        <?php if(!empty($row['youtube_link'])){ ?>
+
+        <a
+        href="<?php echo $row['youtube_link']; ?>"
+        target="_blank"
+        class="youtube-link">
+
+            ▶ Watch Video
+
+        </a>
+
+        <?php } ?>
+
+    </div>
+
+    <a
+    class="delete-btn"
+    href="../auth/delete_media.php?id=<?php echo $row['id']; ?>"
+    onclick="return confirm('Delete media?')">
+
+        🗑
+
+    </a>
+
+</div>
+
+<?php } ?>
+
+</div>
 
     </section>
 
@@ -278,206 +410,86 @@
     </footer>
 
     <!-- SCRIPT -->
-    <script>
+ <script>
 
-        // sidebar
-        function toggleMenu(){
-            document
-            .getElementById("sidebar")
-            .classList.toggle("active");
+function toggleMenu(){
+    document
+    .getElementById("sidebar")
+    .classList.toggle("active");
+}
+
+function toggleProfileMenu(){
+    document
+    .getElementById("profileMenu")
+    .classList.toggle("show");
+}
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const container =
+        document.querySelector(
+            ".user-avatar-container"
+        );
+
+        const menu =
+        document.getElementById(
+            "profileMenu"
+        );
+
+        if(
+            !container.contains(event.target)
+        ){
+            menu.classList.remove("show");
         }
 
-        function toggleProfileMenu(){
-            document.getElementById("profileMenu").classList.toggle("show");
-        }
+    }
+);
 
-        document.addEventListener("click",function(event){
-            const container = document.querySelector(".user-avatar-container");
-            const menu = document.getElementById("profileMenu");
-            
-            if(!container.contains(event.target)){
-                menu.classList.remove("show");
-            }
-        });
-        
-        // SELECT TYPE
+let currentType = "Poster";
+let currentIcon = "🖼";
 
-        let currentType = "Poster";
-        let currentIcon = "🖼";
+function selectType(card,type,icon){
 
-        function selectType(card,type,icon){
+    document
+    .querySelectorAll(".media-type")
+    .forEach(item => {
 
-            document
-            .querySelectorAll(".media-type")
-            .forEach(item => {
+        item.classList.remove("active");
 
-                item.classList.remove("active");
+    });
 
-            });
+    card.classList.add("active");
 
-            card.classList.add("active");
+    currentType = type;
+    currentIcon = icon;
 
-            currentType = type;
-            currentIcon = icon;
+    document
+    .getElementById("media_type")
+    .value = type;
 
-        }
+    console.log(type);
 
-        // ADD MEDIA
+    const youtubeField =
+document.getElementById(
+    "youtube_link"
+);
 
-        document
-        .getElementById("mediaForm")
-        .addEventListener("submit", function(e){
+if(type === "Video"){
 
-            e.preventDefault();
+    youtubeField.required = true;
 
-            const title =
-            document
-            .getElementById("mediaTitle")
-            .value;
+}
+else{
 
-            const audience =
-            document
-            .getElementById("audience")
-            .value;
+    youtubeField.required = false;
 
-            const message =
-            document
-            .getElementById("mediaMessage")
-            .value;
+}
 
-            const file =
-            document
-            .getElementById("mediaFile")
-            .files[0];
+}
 
-            let previewHTML = `
-
-                <div class="media-preview">
-
-                    ${currentIcon}
-
-                </div>
-
-            `;
-
-            // FILE PREVIEW
-
-            if(file){
-
-                const fileURL =
-                URL.createObjectURL(file);
-
-                if(file.type.startsWith("image")){
-
-                    previewHTML = `
-
-                        <div class="media-preview">
-
-                            <img src="${fileURL}">
-
-                        </div>
-
-                    `;
-
-                }
-
-                else if(file.type.startsWith("video")){
-
-                    previewHTML = `
-
-                        <div class="media-preview">
-
-                            <video src="${fileURL}"
-                            controls>
-                            </video>
-
-                        </div>
-
-                    `;
-
-                }
-
-            }
-
-            // CREATE CARD
-
-            const card =
-            document.createElement("div");
-
-            card.classList.add("media-card");
-
-            card.innerHTML = `
-
-                ${previewHTML}
-
-                <div class="media-info">
-
-                    <div class="media-tags">
-
-                        <span class="tag">
-
-                            ${currentType}
-
-                        </span>
-
-                        <span class="tag green">
-
-                            ${audience}
-
-                        </span>
-
-                        <small>
-
-                            Now
-
-                        </small>
-
-                    </div>
-
-                    <h2>
-
-                        ${title}
-
-                    </h2>
-
-                    <p>
-
-                        ${message}
-
-                    </p>
-
-                </div>
-
-                <div class="delete-btn"
-                onclick="deleteCard(this)">
-
-                    🗑
-
-                </div>
-
-            `;
-
-            document
-            .getElementById("mediaList")
-            .prepend(card);
-
-            // RESET FORM
-
-            document
-            .getElementById("mediaForm")
-            .reset();
-
-        });
-
-        // DELETE CARD
-
-        function deleteCard(btn){
-
-            btn.parentElement.remove();
-
-        }
-
-    </script>
+</script>
 
 </body>
 </html>

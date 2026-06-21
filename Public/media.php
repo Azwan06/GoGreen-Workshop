@@ -1,3 +1,28 @@
+<?php
+
+session_start();
+
+include "../config/database.php";
+
+// if (!isset($_SESSION['user_id'])) {
+
+//     header("Location: ../Public/login.php");
+//     exit();
+// }
+
+$result = mysqli_query(
+
+    $conn,
+
+    "SELECT *
+    FROM media_posts
+    WHERE audience IN ('Everyone','Users')
+    ORDER BY created_at DESC"
+
+);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,94 +75,83 @@
         </div>
     </section>
 
-    <section class="story">
-        <h2>Video</h2>
-        <div class="medium">
+    <
+    <<section class="story">
 
-            <div class="medium-container">
+    <h2>Media Feed</h2>
 
-                <iframe width="560" height="315" 
-                src="https://www.youtube.com/embed/OagTXWfaXEo?si=2EM4D4EKBmggP0wN" 
-                title="YouTube video player" frameborder="0" allow="accelerometer; 
-                autoplay; clipboard-write; encrypted-media; 
-                gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen>
-                </iframe>
+    <div class="medium">
 
-                <div class="medium-info">
-                    <h3>Why Recycling Matters</h3>
-                    <p>
-                        A short intro to why recycling helps out planet.
-                    </p>
-                </div>
+        <?php
+        while($row = mysqli_fetch_assoc($result)){
+        ?>
 
-            </div>
-                
-            <div class="medium-container">
+        <div class="medium-container">
 
-                <iframe width="560" height="315" 
-                src="https://www.youtube.com/embed/6jQ7y_qQYUA?si=LBx4y4AvoGlplgyZ" 
-                title="YouTube video player" frameborder="0" allow="accelerometer; 
-                autoplay; clipboard-write; encrypted-media; 
-                gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" 
-                allowfullscreen>
-                </iframe>
+            <?php if(!empty($row['youtube_link'])){ ?>
 
-                <div class="medium-info">
-                    <h3>How to sort your waste</h3>
-                    <p>
-                        Simple guide to sorting plastic, paper and metal.
-                    </p>
+                <a
+                href="<?php echo $row['youtube_link']; ?>"
+                target="_blank">
 
-                </div>
+                    <img
+                    src="../uploads/<?php echo $row['image']; ?>"
+                    alt="Media">
+
+                </a>
+
+            <?php } else { ?>
+
+                <img
+                src="../uploads/<?php echo $row['image']; ?>"
+                alt="Media">
+
+            <?php } ?>
+
+            <div class="medium-info">
+
+                <span
+                style="
+                background:#2e8b57;
+                color:white;
+                padding:5px 10px;
+                border-radius:20px;
+                font-size:12px;">
+
+                    <?php echo $row['media_type']; ?>
+
+                </span>
+
+                <h3>
+
+                    <?php echo $row['title']; ?>
+
+                </h3>
+
+                <p>
+
+                    <?php echo $row['content']; ?>
+
+                </p>
+
+                <small>
+
+                    <?php echo $row['created_at']; ?>
+
+                </small>
 
             </div>
 
         </div>
+
+        <?php
+        }
+        ?>
+
+    </div>
+
+</section>
         
-    </section>
-
-    <section class="story">
-        <h2>Posters</h2>
-        <div class="medium">
-            <div class="medium-container">
-                <img src="image/photo-recycling.jpg">
-
-                <div class="medium-info">
-                    <h3>Reduce, Reuse, Recycle</h3>
-                    <p>
-                        Awareness campaign poster.
-                    </p>
-                </div>
-            </div>
-
-            <div class="medium-container">
-                <img src="image/photo-recycling2.jpg">
-
-                <div class="medium-info">
-                    <h3>Save our planet</h3>
-                    <p>
-                        Community recycling campaign.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="story">
-        <h2>Activity Gallery</h2>
-        <div class="medium">
-            <div class="medium-container">
-                <img src="image/activity_photo.jpg">
-            </div>
-            <div class="medium-container">
-                <img src="image/activity2_photo.jpg">
-            </div>
-        </div>
-    </section>
 
     <footer>
 

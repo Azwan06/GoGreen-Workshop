@@ -4,14 +4,14 @@ session_start();
 
 include "../config/database.php";
 
-if (
-    !isset($_SESSION['user_id']) ||
-    $_SESSION['role'] != 'admin'
-) {
+// if (
+//     !isset($_SESSION['user_id']) ||
+//     $_SESSION['role'] != 'admin'
+// ) {
 
-    header("Location: ../Public/login.php");
-    exit();
-}
+//     header("Location: ../Public/login.php");
+//     exit();
+// }
 
 // GET REDEMPTIONS
 

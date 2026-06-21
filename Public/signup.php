@@ -141,32 +141,6 @@
 
         </form>
 
-        <!-- DEMO BUTTON -->
-
-        <div class="demo-buttons">
-
-            <button class="demo-btn" type="button"
-                onclick="window.location.href='../User/home.php'">
-
-                User Demo
-
-            </button>
-
-            <button class="demo-btn" type="button"
-                onclick="window.location.href='../Worker/dashboard.php'">
-
-                Worker Demo
-
-            </button>
-
-            <button class="demo-btn" type="button"
-                onclick="window.location.href='../Admin/dashboard.php'">
-
-                Admin Demo
-
-            </button>
-
-        </div>
 
         <!-- LOGIN LINK -->
 

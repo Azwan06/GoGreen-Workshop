@@ -354,6 +354,31 @@ header{
     margin-bottom:20px;
 }
 
+.delete-btn{
+
+    background:#dc2626;
+    color:white;
+
+    text-decoration:none;
+
+    padding:10px 16px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+}
+
+.delete-btn:hover{
+
+    background:#b91c1c;
+
+}
+
 /* BUTTON */
 
 .add-bin-btn{
@@ -646,6 +671,7 @@ footer{
 
     #map{
         height:500px;
+        width:100%;
     }
 
     .bin-item{
