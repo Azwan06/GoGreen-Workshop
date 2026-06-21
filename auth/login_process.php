@@ -36,8 +36,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
 
             } elseif (str_ends_with($email_lower, '@utem.edu.my')) {
-                header("Location: ../Admin/dashboard.php");
-                exit();
+                if (
+                         
+                          $_SESSION['role'] == 'worker'
+                          
+                       ) {
+                        header("Location: ../Worker/dashboard.php");
+                        exit();
+                       }
+                       else if (
+                         
+                          $_SESSION['role'] == 'admin'
+                          
+                       ){
+                        header("Location: ../Admin/dashboard.php");
+                        exit();
+                       }
 
             } else {
                 // fallback

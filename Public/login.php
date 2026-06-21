@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = trim($_POST['email']);
     $password = $_POST['password'];
+    $role = $_POST['role'];
 
     $email_lower = strtolower($email);
 
@@ -36,14 +37,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // Redirect berdasarkan domain email
                 if (str_ends_with($email_lower, '@utem.edu.my')) {
                     if (
-                         !isset($_SESSION['user_id']) ||
-                          $_SESSION['role'] != 'worker'
+                         
+                          $_SESSION['role'] == 'worker'
                           
                        ) {
                         header("Location: ../Worker/dashboard.php");
                         exit();
                        }
-                       else{
+                       else if (
+                         
+                          $_SESSION['role'] == 'admin'
+                          
+                       ){
                         header("Location: ../Admin/dashboard.php");
                         exit();
                        }

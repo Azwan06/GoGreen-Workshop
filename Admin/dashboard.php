@@ -1,24 +1,14 @@
 <?php
 
 session_start();
-if (
-    !isset($_SESSION['user_id']) ||
-    $_SESSION['role'] != 'worker'
-) {
-
-    header("Location: ../Worker/dashboard.php");
-    exit();
-}
 include "../config/database.php";
 
-// if (
-//  if   !isset($_SESSION['user_id']) ||
-//     $_SESSION['role'] != 'admin'
-// ) {
-
-//     header("Location: ../Public/login.php");
-//     exit();
-// }
+if (!isset($_SESSION['user_id']) ||
+    $_SESSION['role'] != 'admin') {
+    
+    header("Location: ../Public/login.php");
+    exit();
+}
 
 /* ================= TOTAL USERS ================= */
 
