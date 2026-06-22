@@ -172,10 +172,6 @@ mysqli_fetch_assoc($rejectedCountResult)['total'];
                     Profile
                 </a>
 
-                <a href="notification.php">
-                    Notification
-                </a>
-
                 <a href="setting.php">
                     Settings
                 </a>

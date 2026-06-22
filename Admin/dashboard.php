@@ -249,9 +249,6 @@ mysqli_query($conn, $activityQuery);
                     Profile
                 </a>
 
-                <a href="notification.php">
-                    Notification
-                </a>
 
                 <a href="setting.php">
                     Settings

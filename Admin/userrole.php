@@ -77,7 +77,6 @@ $userResult = mysqli_query($conn,$userQuery);
                     </div>
 
                     <a href="profile.php">Profile</a>
-                    <a href="notification.php">Notification</a>
                     <a href="setting.php">Settings</a>
                     <a href="../auth/logout.php">Sign Out</a>
 
@@ -96,7 +95,6 @@ $userResult = mysqli_query($conn,$userQuery);
         <a href="reqreward.php">Redemptions</a>
         <a href="addschedule.php">Schedule</a>
         <a href="addbin.php">Bin Map</a>
-        <a href="pickups.php">Pickups</a>
         <a href="reports.php">Reports</a>
         <a href="addreward.php">Rewards</a>
         <a href="userrole.php">Users</a>

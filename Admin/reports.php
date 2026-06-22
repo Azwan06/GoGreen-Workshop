@@ -42,12 +42,16 @@
                 <div class="profile-menu" id="profileMenu">
 
                     <div class="profile-info">
-                        <h4>John Doe</h4>
-                        <p>johndoe@student.utem.edu.my</p>
+                        <h4>
+    <?php echo $_SESSION['fullname']; ?>
+</h4>
+
+<p>
+    <?php echo $_SESSION['email']; ?>
+</p>
                     </div>
 
                     <a href="profile.php">Profile</a>
-                    <a href="notification.php">Notification</a>
                     <a href="setting.php">Settings</a>
                     <a href="../Public/login.php">Sign Out</a>
 

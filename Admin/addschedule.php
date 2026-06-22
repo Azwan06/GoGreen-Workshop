@@ -114,11 +114,10 @@ wr.schedule_time
 
                     <div class="profile-info">
                         <h4><?php echo $_SESSION['fullname']; ?></h4>
-<p><?php echo $_SESSION['email']; ?></p>
+                        <p><?php echo $_SESSION['email']; ?></p>
                     </div>
 
                     <a href="profile.php">Profile</a>
-                    <a href="notification.php">Notification</a>
                     <a href="setting.php">Settings</a>
                     <a href="../auth/logout.php">Sign Out</a>
 

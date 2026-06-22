@@ -169,10 +169,6 @@ href="assets/css/reqreward.css">
                 Profile
             </a>
 
-            <a href="notification.php">
-                Notification
-            </a>
-
             <a href="setting.php">
                 Settings
             </a>

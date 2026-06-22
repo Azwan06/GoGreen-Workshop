@@ -83,7 +83,6 @@ $result = mysqli_query(
                 </div>
 
                     <a href="profile.php">Profile</a>
-                    <a href="notification.php">Notification</a>
                     <a href="setting.php">Settings</a>
                     <a href="../Public/login.php">Sign Out</a>
 
