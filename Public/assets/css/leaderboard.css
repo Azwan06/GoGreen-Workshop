@@ -258,6 +258,7 @@ footer{
 
   flex-wrap:wrap;
   gap:10px;
+  margin-top:420px;
 }
 
 .left-footer{
@@ -299,6 +300,7 @@ footer{
   footer{
     flex-direction:column;
     text-align:center;
+    margin-top:120px;
   }
 
 }

@@ -4,15 +4,19 @@ session_start();
 
 include "../config/database.php";
 
-if (
-    !isset($_SESSION['user_id']) ||
-    $_SESSION['role'] != 'worker'
-) {
+$worker_id = $_SESSION['user_id'];
 
-    header("Location: ../Public/login.php");
-    exit();
-}
+$sql = "
+SELECT *
+FROM reports
+WHERE worker_id='$worker_id'
+ORDER BY id DESC
+";
+
+$result = mysqli_query($conn,$sql);
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,23 +54,25 @@ if (
       <nav id="navMenu">
         <a href="dashboard.php">Dashboard</a>
         <a href="schedule.php">Schedule</a>
-        <a href="status.php">Pickup</a>
+        <a href="status.php">Reports</a>
       </nav>
     
       <div class="user-avatar-container">
           <div class="user-avatar" onclick="toggleProfileMenu()">
-              <img src="image/avatar.png" alt="User Avatar">
+              <img src="<?php echo !empty($user['profile_image'])
+? '../uploads/profile/'.$user['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">>
           </div>
 
           <div class="profile-menu" id="profileMenu">
 
               <div class="profile-info">
-                  <h4>John Doe</h4>
-                  <p>johndoe@student.utem.edu.my</p>
+                  <h4><?php echo $_SESSION['fullname']; ?></h4>
+                  <p><?php echo $_SESSION['email']; ?></p>
               </div>
 
               <a href="profile.php">Profile</a>
-              <a href="notification.php">Notification</a>
               <a href="setting.php">Settings</a>
               <a href="../Public/login.php">Sign Out</a>
               
@@ -79,8 +85,8 @@ if (
     <section class="dashboard">
       <div class="schedule-header">
         <div>
-          <h1>Worker Pickup</h1>
-          <p>View and update your assigned pickups for the day.</p>
+          <h1>Worker Reports</h1>
+          <p>View and update your assigned reports for the day.</p>
         </div>
 
         <input type="date" class="date-picker" />
@@ -88,44 +94,77 @@ if (
       <div class="table-container">
       <div class="dashboard-table">
         <div class="table-header">
-          <span>Time</span>
+          <span>Type</span>
           <span>Location</span>
           <span>Status</span>
         </div>
+<?php while($row = mysqli_fetch_assoc($result)) { ?>
 
-        <div class="table-row">
-            <span>8:00 AM</span>
-            <span>Fakulti Teknologi Maklumat dan Komunikasi</span>
-            <select class="status-select completed" onchange="changeStatus(this)">
-        <option value="completed" selected>Completed</option>
-        <option value="accepted">Accepted</option>
-        <option value="pending">Pending</option>
-    </select>
+<div class="table-row">
 
-            </select>
-        </div>
+    <span>
+        <?= $row['report_type']; ?>
+    </span>
 
-        <div class="table-row">
-            <span>10:00 AM</span>
-            <span>Masjid UTeM</span>
-            <select class="status-select accepted" onchange="changeStatus(this)">
-        <option value="accepted" selected>Accepted</option>
-        <option value="completed">Completed</option>
-        <option value="pending">Pending</option>
-    </select>
-        </div>
-        <div class="table-row">
-            <span>12:00 PM</span>
-            <span>Kolej Satria</span>
-            <select class="status-select pending" onchange="changeStatus(this)">
-        <option value="pending" selected>Pending</option>
-        <option value="accepted">Accepted</option>
-        <option value="completed">Completed</option>
-    </select>
-        </div>
-      </div>
-     
-      </div>
+    <span>
+        <?= $row['location']; ?>
+    </span>
+
+<div class="status-cell">
+
+<form
+action="../auth/update_report_status.php"
+method="POST">
+
+<input
+type="hidden"
+name="report_id"
+value="<?= $row['id']; ?>">
+
+<select
+name="status"
+class="status-select"
+
+<?= ($row['status'] == 'Completed') ? 'disabled' : ''; ?>>
+
+<option value="Assigned"
+<?= $row['status']=='Assigned'?'selected':'' ?>>
+Assigned
+</option>
+
+<option value="In Progress"
+<?= $row['status']=='In Progress'?'selected':'' ?>>
+In Progress
+</option>
+
+<option value="Completed"
+<?= $row['status']=='Completed'?'selected':'' ?>>
+Completed
+</option>
+
+</select>
+
+<button
+type="submit"
+class="update-btn"
+
+<?= ($row['status'] == 'Completed') ? 'disabled' : ''; ?>>
+
+Update
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<?php } ?>
+
+</div>
+</div>
+
     </section>
 
     <footer>

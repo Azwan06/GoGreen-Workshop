@@ -20,88 +20,78 @@ $user = mysqli_fetch_assoc(
 );
 
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile & Settings - GoGreen</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoGreen Worker Pickup Status</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/setting.css">
-  </head>
-  <body>
+</head>
+<body>
     
+  <!-- HEADER -->
     <header>
-            
-        <div class="header-left">
 
-            <div class="menu-toggle" onclick="toggleMenu()">
-                ☰
-            </div>
+    <!-- avatar -->
+    <div class="header-left">
 
-            <div class="logo">
-                <img src="image/recycle_imag.png" alt="GoGreen Logo">
-                GoGreen
-            </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </div> 
 
+        <div class="logo">
+            <img src="image/recycle_imag.png" alt="GoGreen Logo">
+            GoGreen
         </div>
 
+    </div>
 
-        <div class="header-right">
-        
-            <div class="user-avatar-container">
-                <div class="user-avatar" onclick="toggleProfileMenu()">
-                    <img
-src="<?php echo !empty($_SESSION['profile_image'])
-? '../uploads/profile/'.$_SESSION['profile_image']
+    <div class="header-right">
+
+      <nav id="navMenu">
+        <a href="dashboard.php">Dashboard</a>
+        <a href="schedule.php">Schedule</a>
+        <a href="status.php">Reports</a>
+      </nav>
+
+
+      <div class="user-avatar-container">
+
+    <div class="user-avatar"
+         onclick="toggleProfileMenu()">
+
+        <img src="<?php echo !empty($user['profile_image'])
+? '../uploads/profile/'.$user['profile_image']
 : '../uploads/profile/default.jpg'; ?>"
-alt="Profile">
-                </div>
+alt="Profile">>
 
-                <div class="profile-menu" id="profileMenu">
+    </div>
 
-                    <div class="profile-info">
-                        <h4>
-    <?php echo $_SESSION['fullname']; ?>
-</h4>
+    <div class="profile-menu" id="profileMenu">
 
-<p>
-    <?php echo $_SESSION['email']; ?>
-</p>
-                    </div>
-
-                    <a href="profile.php">Profile</a>
-                    <a href="setting.php">Settings</a>
-                    <a href="../Public/login.php">Sign Out</a>
-
-                </div>
-            </div>
+        <div class="profile-header">
+            <h4><?= $user['username']; ?></h4>
+            <p><?= $user['email']; ?></p>
         </div>
+
+        <a href="profile.php">Profile</a>
+        <a href="setting.php">Settings</a>
+        <a href="../auth/logout.php">Sign Out</a>
+
+    </div>
+
+</div>
+    </div>
 
     </header>
 
-    <div class="sidebar" id="sidebar">
-        <button class="close-btn" onclick="toggleMenu()">✕</button>
-        <h2 class="sidebar-logo">GoGreen</h2>
-
-        <a href="dashboard.php">Dashboard</a>
-        <a href="reqsub.php">Submissions</a>
-        <a href="reqreward.php">Redemptions</a>
-        <a href="addschedule.php">Schedule</a>
-        <a href="addbin.php">Bin Map</a>
-        <a href="reports.php">Reports</a>
-        <a href="addreward.php">Rewards</a>
-        <a href="userrole.php">Users</a>
-        <a href="media.php">Media</a>
-        
-    </div>
-
-    <main class="page-container">
+<main class="page-container">
 
       <div class="back-wrapper">
         <a href="javascript:history.back()" class="back-btn">← Back</a>
@@ -129,7 +119,23 @@ alt="Profile">
             <div class="upload-controls">
               <span class="upload-label">Profile picture</span>
               <label class="btn-upload">
-                <input type="file" style="display: none" />
+                <form
+action="../auth/update_profile_image.php"
+method="POST"
+enctype="multipart/form-data">
+
+<input type="hidden"
+name="redirect_page"
+value="worker">
+
+<input type="file"
+name="profile_image">
+
+<button type="submit">
+Upload
+</button>
+
+</form>
                 ↑ Upload
               </label>
               <span class="upload-hint">PNG, JPG up to 2MB</span>
@@ -211,12 +217,13 @@ alt="Profile">
     </footer>
 
     <script>
-        // sidebar
-        function toggleMenu(){
-            document
-            .getElementById("sidebar")
-            .classList.toggle("active");
-        }
+        
+       function toggleProfileMenu()
+{
+    document
+    .getElementById("profileMenu")
+    .classList.toggle("active");
+}
 
         function toggleProfileMenu(){
             document.getElementById("profileMenu").classList.toggle("show");
@@ -230,6 +237,20 @@ alt="Profile">
                 menu.classList.remove("show");
             }
         });
+
+        // toggle avatar
+    function toggleProfileMenu(){
+        document.getElementById("profileMenu").classList.toggle("show");
+    }
+
+    document.addEventListener("click",function(event){
+        const container = document.querySelector(".user-avatar-container");
+        const menu = document.getElementById("profileMenu");
+        
+        if(!container.contains(event.target)){
+            menu.classList.remove("show");
+        }
+    });
     </script>
   </body>
 </html>

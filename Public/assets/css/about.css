@@ -280,6 +280,26 @@ footer{
     padding:35px 25px;
   }
 
+ .contact-form input,
+.contact-form select,
+.contact-form textarea{
+
+  width:100%;
+
+  padding:16px;
+
+  border:1px solid #ccc;
+
+  border-radius:12px;
+
+  outline:none;
+
+  font-size:15px;
+
+  font-family:"Poppins",sans-serif;
+
+}
+  
   footer{
   background:#111;
   color:#bbb;

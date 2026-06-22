@@ -108,7 +108,11 @@ $history = mysqli_query(
 </h1>
                 <div class="user-meta-grid">
                     <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-                    <p><strong>Location:</strong> <?php echo !empty($user['address']) ? $user['address'] : 'Not Set'; ?></p>
+                    <p><strong>Faculty:</strong>
+<?php echo !empty($user['faculty'])
+? $user['faculty']
+: 'Not Set'; ?>
+</p>
                     <p><strong>Status:</strong> <?php echo ucfirst($user['role']); ?></p>
                 </div>
             </div>

@@ -30,6 +30,15 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$user_id = $_SESSION['user_id'];
+
+$userResult = mysqli_query(
+    $conn,
+    "SELECT * FROM users WHERE id='$user_id'"
+);
+
+$user = mysqli_fetch_assoc($userResult);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,14 +83,18 @@ if (!isset($_SESSION['user_id'])) {
             <a href="home.php">Home</a>
             <a href="map.php">Map</a>
             <a href="media.php">Media</a>
-            <a href="recycle.php">Recylce</a>
+            <a href="recycle.php">Recycle</a>
             <a href="redeem.php">Redeem</a>
             <a href="contact.php">Contact</a>
 
         </nav>  
         <div class="user-avatar-container">
             <div class="user-avatar" onclick="toggleProfileMenu()">
-                <img src="image/avatar.png" alt="User Avatar">
+                <img
+src="<?php echo !empty($user['profile_image'])
+    ? '../uploads/profile/'.$user['profile_image']
+    : '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
             </div>
 
             <div class="profile-menu" id="profileMenu">
@@ -98,7 +111,6 @@ if (!isset($_SESSION['user_id'])) {
 
                 <a href="profile.php">Profile</a>
                 <a href="leaderboard.php">Leaderboard</a>
-                <a href="notification.php">Notification</a>
                 <a href="setting.php">Settings</a>
                 <a href="../Public/login.php">Sign Out</a>
                 

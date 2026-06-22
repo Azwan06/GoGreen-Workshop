@@ -137,8 +137,10 @@ href="assets/css/reqreward.css">
         onclick="toggleProfileMenu()">
 
             <img
-            src="image/avatar.png"
-            alt="User Avatar">
+src="<?php echo !empty($_SESSION['profile_image'])
+? '../uploads/profile/'.$_SESSION['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
 
         </div>
 
@@ -302,7 +304,8 @@ data-status="<?php echo $row['status']; ?>">
 <div class="submission-icon">
 
 <img
-src="../uploads/<?php echo $row['image']; ?>">
+src="../uploads/rewards/<?php echo $row['image']; ?>"
+alt="">
 
 </div>
 

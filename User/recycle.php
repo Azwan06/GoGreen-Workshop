@@ -16,6 +16,15 @@ $binsQuery = "SELECT * FROM bins";
 
 $binsResult = mysqli_query($conn, $binsQuery);
 
+$user_id = $_SESSION['user_id'];
+
+$userResult = mysqli_query(
+    $conn,
+    "SELECT * FROM users WHERE id='$user_id'"
+);
+
+$user = mysqli_fetch_assoc($userResult);
+
 ?>
 
 <!DOCTYPE html>
@@ -116,8 +125,12 @@ $binsResult = mysqli_query($conn, $binsQuery);
             onclick="toggleProfileMenu()">
 
                 <img
-                src="image/avatar.png"
-                alt="User Avatar">
+src="<?php echo !empty($user['profile_image'])
+    ? '../uploads/profile/'.$user['profile_image']
+    : '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
+
+            </div>
 
             </div>
 
@@ -142,10 +155,6 @@ $binsResult = mysqli_query($conn, $binsQuery);
 
                 <a href="leaderboard.php">
                     Leaderboard
-                </a>
-
-                <a href="notification.php">
-                    Notification
                 </a>
 
                 <a href="setting.php">
@@ -384,37 +393,7 @@ value="<?php echo $bin['bin_name']; ?>">
 
             </div>
 
-            <!-- PICKUP -->
-
-            <div class="form-row-grid">
-
-                <div class="form-group">
-
-                    <label>
-                        Pickup Date
-                    </label>
-
-                    <input
-                    type="date"
-                    name="pickup_date"
-                    required>
-
-                </div>
-
-                <div class="form-group">
-
-                    <label>
-                        Pickup Time
-                    </label>
-
-                    <input
-                    type="time"
-                    name="pickup_time"
-                    required>
-
-                </div>
-
-            </div>
+            
 
             <!-- SUBMIT -->
 

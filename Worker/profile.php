@@ -39,42 +39,73 @@ $history = mysqli_query(
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="assets/css/profile.css">
-</head>
+</head><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Worker Schedule</title>
 
-<body>
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/Worker.css" />
+  </head>
+  <body>
+
+  <!-- HEADER -->
     <header>
-            
-        <div class="header-left">
 
-            <div class="menu-toggle" onclick="toggleMenu()">
-                ☰
-            </div>
+    <!-- avatar -->
+    <div class="header-left">
 
-            <div class="logo">
-                <img src="image/recycle_imag.png" alt="GoGreen Logo">
-                GoGreen
-            </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </div> 
 
+        <div class="logo">
+            <img src="image/recycle_imag.png" alt="GoGreen Logo">
+            GoGreen
         </div>
 
-    </header>
-
-    <div class="sidebar" id="sidebar">
-        <button class="close-btn" onclick="toggleMenu()">✕</button>
-        <h2 class="sidebar-logo">GoGreen</h2>
-
-        <a href="dashboard.php">Dashboard</a>
-        <a href="reqsub.php">Submissions</a>
-        <a href="reqreward.php">Redemptions</a>
-        <a href="addschedule.php">Schedule</a>
-        <a href="addbin.php">Bin Map</a>
-        <a href="reports.php">Reports</a>
-        <a href="addreward.php">Rewards</a>
-        <a href="userrole.php">Users</a>
-        <a href="media.php">Media</a>
-        
     </div>
+
+    <div class="header-right">
+
+      <nav id="navMenu">
+        <a href="dashboard.php">Dashboard</a>
+        <a href="schedule.php">Schedule</a>
+        <a href="status.php">Reports</a>
+      </nav>
+    
+      <div class="user-avatar-container">
+          <div class="user-avatar" onclick="toggleProfileMenu()">
+              <img src="<?php echo !empty($user['profile_image'])
+? '../uploads/profile/'.$user['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">>
+          </div>
+
+          <div class="profile-menu" id="profileMenu">
+
+              <div class="profile-info">
+    <h4><?php echo $_SESSION['fullname']; ?></h4>
+    <p><?php echo $_SESSION['email']; ?></p>
+</div>
+
+<a href="profile.php">Profile</a>
+<a href="setting.php">Settings</a>
+<a href="../auth/logout.php">Sign Out</a>
+              
+          </div>
+      </div>
+    </div>
+
+    </header>
  
     <main class="profile-container">
 
@@ -118,10 +149,11 @@ $history = mysqli_query(
             Account Settings
         </h3>
 
-        <form
-class="settings-form"
-action="../auth/update_profile.php"
-method="POST">
+       <form action="../auth/update_profile.php" method="POST">
+
+<input type="hidden"
+       name="redirect_page"
+       value="worker">
 
     <div class="form-group">
         <label>Display Name</label>
@@ -158,7 +190,7 @@ method="POST">
 
 <input type="hidden"
        name="redirect_page"
-       value="admin">
+       value="worker">
 
     <label>
         Change Profile Photo

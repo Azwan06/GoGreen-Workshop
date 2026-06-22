@@ -159,7 +159,7 @@
 
           <p>
 
-            +60 12-345 6789
+            +60 14-9124116
 
           </p>
 
@@ -177,30 +177,46 @@
 
         </h2>
 
-        <form>
+        <form action="../auth/process_report.php"
+      method="POST">
 
-          <input
-            type="text"
-            placeholder="Your Name"
-            required
-          >
+          <label for="name">Name</label>
+          <input type="text" name="name" required>
 
-          <input
-            type="email"
-            placeholder="Your Email"
-            required
-          >
+          <label for="email">Email</label>
+          <input type="email" name="email" required>
 
-          <textarea
-            rows="7"
-            placeholder="Your Message"
-          ></textarea>
+          <label for="phone">Phone</label>
+          <input type="text" name="phone" required>
 
-          <button type="submit">
+          <label for="report_type">Report Type</label>
+          <select
+name="report_type"
+id="reportType"
+onchange="toggleLocation()">
 
-            Send Message
+    <option value="Contact">Contact</option>
+    <option value="Pickup">Pickup Request</option>
 
-          </button>
+</select>
+
+          <div id="locationField" style="display:none;">
+
+    <label>Location</label>
+
+    <input
+    type="text"
+    name="location">
+
+</div>
+
+          <label for="subject">Subject</label>
+          <input type="text" name="subject" required>
+
+
+<button type="submit">
+    Submit
+</button>
 
         </form>
 
@@ -234,6 +250,27 @@
       .classList.toggle("active");
 
     }
+
+function toggleLocation()
+{
+    let type =
+        document.getElementById("reportType").value;
+
+    let location =
+        document.getElementById("locationField");
+
+    if(type === "Pickup")
+    {
+        location.style.display = "block";
+    }
+    else
+    {
+        location.style.display = "none";
+    }
+}
+
+window.onload = toggleLocation;
+
 
   </script>
 

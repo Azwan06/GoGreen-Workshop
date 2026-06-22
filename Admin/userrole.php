@@ -66,7 +66,11 @@ $userResult = mysqli_query($conn,$userQuery);
         
             <div class="user-avatar-container">
                 <div class="user-avatar" onclick="toggleProfileMenu()">
-                    <img src="image/avatar.png" alt="User Avatar">
+                    <img
+src="<?php echo !empty($_SESSION['profile_image'])
+? '../uploads/profile/'.$_SESSION['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
                 </div>
 
                 <div class="profile-menu" id="profileMenu">

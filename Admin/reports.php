@@ -1,3 +1,14 @@
+<?php
+
+session_start();
+include "../config/database.php";
+
+$sql = "SELECT * FROM reports ORDER BY id DESC";
+$result = mysqli_query($conn, $sql);
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +47,11 @@
             <div class="user-avatar-container">
 
                 <div class="user-avatar" onclick="toggleProfileMenu()">
-                    <img src="image/avatar.png" alt="User Avatar">
+                    <img
+src="<?php echo !empty($_SESSION['profile_image'])
+? '../uploads/profile/'.$_SESSION['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
                 </div>
 
                 <div class="profile-menu" id="profileMenu">
@@ -97,29 +112,7 @@
 
 
     <!-- STATS -->
-    <div class="stats">
-
-        <div class="card">
-            <h3>Open Reports</h3>
-            <p>14</p>
-        </div>
-
-        <div class="card">
-            <h3>Resolved</h3>
-            <p>42</p>
-        </div>
-
-        <div class="card">
-            <h3>Avg Response</h3>
-            <p>2.4h</p>
-        </div>
-
-        <div class="card">
-            <h3>Damaged Bins</h3>
-            <p>5</p>
-        </div>
-
-    </div>
+    
 
 
     <!-- SEARCH + FILTER -->
@@ -165,154 +158,66 @@
 
     </div>
 
+    <?php while($row = mysqli_fetch_assoc($result)) { ?>
 
-    <!-- REPORT LIST -->
-    <div class="report-list" id="list">
+<div class="report" data-status="<?= $row['status']; ?>">
 
-        <!-- REPORT 1 -->
-        <div class="report" data-status="Pending">
+    <div class="report-left">
 
-            <div class="report-left">
-
-                <div class="warning-icon">
-                    ⚠
-                </div>
-
-                <div class="report-details">
-
-                    <h3>Bin FT-04 lid broken</h3>
-
-                    <p>
-                        R-0421 · Faiz Hakim · Damaged bin · 2h ago
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="report-right">
-
-                <span class="status Pending">
-                    Pending
-                </span>
-
-                <button class="assign-btn" onclick="openPopup(this)">
-                    Assign
-                </button>
-
-            </div>
-
+        <div class="warning-icon">
+            ⚠
         </div>
 
+        <div class="report-details">
 
-        <!-- REPORT 2 -->
-        <div class="report" data-status="Collecting">
+            <h3>
+                <?= $row['subject']; ?>
+            </h3>
 
-            <div class="report-left">
-
-                <div class="warning-icon">
-                    ⚠
-                </div>
-
-                <div class="report-details">
-
-                    <h3>Overflowing trash near DKG cafeteria</h3>
-
-                    <p>
-                        R-0420 · Mira Hanani · Overflow · 4h ago
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="report-right">
-
-                <span class="status Collecting">
-                    Collecting
-                </span>
-
-                <button class="assign-btn" onclick="openPopup(this)">
-                    Assign
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- REPORT 3 -->
-        <div class="report" data-status="Assigned">
-
-            <div class="report-left">
-
-                <div class="warning-icon">
-                    ⚠
-                </div>
-
-                <div class="report-details">
-
-                    <h3>Wrong material mixed in recycling bin</h3>
-
-                    <p>
-                        R-0419 · Nurul Aina · Misuse · 6h ago
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="report-right">
-
-                <span class="status Assigned">
-                    Assigned
-                </span>
-
-                <button class="assign-btn" onclick="openPopup(this)">
-                    Assign
-                </button>
-
-            </div>
-
-        </div>
-
-
-        <!-- REPORT 4 -->
-        <div class="report" data-status="Maintenance">
-
-            <div class="report-left">
-
-                <div class="warning-icon">
-                    ⚠
-                </div>
-
-                <div class="report-details">
-
-                    <h3>Bin sensor offline</h3>
-
-                    <p>
-                        R-0418 · Syafiq · Sensor issue · 8h ago
-                    </p>
-
-                </div>
-
-            </div>
-
-            <div class="report-right">
-
-                <span class="status Maintenance">
-                    Maintenance
-                </span>
-
-                <button class="assign-btn" onclick="openPopup(this)">
-                    Assign
-                </button>
-
-            </div>
+            <p>
+                <?= $row['name']; ?>
+                ·
+                <?= $row['report_type']; ?>
+                ·
+                <?= $row['location']; ?>
+            </p>
 
         </div>
 
     </div>
+
+    <div class="report-right">
+
+        <span class="status">
+            <?= $row['status']; ?>
+        </span>
+
+
+<?php if($row['status'] == 'Pending'){ ?>
+
+<button
+class="assign-btn"
+data-id="<?= $row['id']; ?>"
+onclick="openPopup(this)">
+Assign
+</button>
+
+<?php } else { ?>
+
+<button
+class="assign-btn"
+disabled
+style="opacity:.5;cursor:not-allowed;">
+Assigned
+</button>
+
+<?php } ?>
+
+    </div>
+
+</div>
+
+<?php } ?>
 
 
     <!-- ASSIGN POPUP -->
@@ -326,23 +231,45 @@
                 Choose worker for this report
             </p>
 
-            <div class="worker-list">
+<form action="../auth/assign_worker.php" method="POST">
 
-                <button onclick="selectWorker('Ahmad')">
-                    Ahmad
-                </button>
+<input
+type="hidden"
+id="report_id"
+name="report_id">
 
-                <button onclick="selectWorker('Aisyah')">
-                    Aisyah
-                </button>
+<select name="worker_id" required>
 
-                <button onclick="selectWorker('Daniel')">
-                    Daniel
-                </button>
+<?php
 
-                <button onclick="selectWorker('Faris')">
-                    Faris
-                </button>
+$workers = mysqli_query(
+$conn,
+"SELECT * FROM users WHERE role='worker'"
+);
+
+while($worker=mysqli_fetch_assoc($workers))
+{
+?>
+
+<option value="<?= $worker['id']; ?>">
+
+<?= $worker['fullname']; ?>
+
+</option>
+
+<?php
+}
+?>
+
+</select>
+
+<br><br>
+
+<button type="submit" class="assign-btn">
+Assign Worker
+</button>
+
+</form>
 
             </div>
 
@@ -457,15 +384,14 @@
         let currentReport = null;
 
 
-        function openPopup(button){
+        function openPopup(btn)
+{
+    document.getElementById("report_id").value =
+        btn.dataset.id;
 
-            currentReport = button.closest(".report");
-
-            document
-            .getElementById("assignPopup")
-            .style.display = "flex";
-        }
-
+    document.getElementById("assignPopup")
+        .style.display = "flex";
+}
 
         function closePopup(){
 
@@ -474,24 +400,6 @@
             .style.display = "none";
         }
 
-
-        function selectWorker(worker){
-
-            if(currentReport){
-
-                let status = currentReport.querySelector(".status");
-
-                status.innerText = "Assigned";
-
-                status.className = "status Assigned";
-
-                currentReport.dataset.status = "Assigned";
-
-                alert(worker + " assigned successfully");
-
-                closePopup();
-            }
-        }
 
     </script>
 

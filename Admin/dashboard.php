@@ -138,6 +138,45 @@ LIMIT 3
 $activityResult =
 mysqli_query($conn, $activityQuery);
 
+
+$plastic = 0;
+$paper = 0;
+$glass = 0;
+$aluminum = 0;
+
+$sql = "
+SELECT
+waste_type,
+SUM(points_earned) AS total_points
+FROM recycle_submissions
+WHERE status='approved'
+GROUP BY waste_type
+";
+
+$result = mysqli_query($conn,$sql);
+
+while($row=mysqli_fetch_assoc($result))
+{
+    switch(strtolower($row['waste_type']))
+    {
+        case 'plastic':
+            $plastic = $row['total_points'];
+            break;
+
+        case 'paper':
+            $paper = $row['total_points'];
+            break;
+
+        case 'glass':
+            $glass = $row['total_points'];
+            break;
+
+        case 'aluminum':
+        case 'metal':
+            $aluminum = $row['total_points'];
+            break;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -217,8 +256,10 @@ mysqli_query($conn, $activityQuery);
             onclick="toggleProfileMenu()">
 
                 <img
-                src="image/avatar.png"
-                alt="User Avatar">
+src="<?php echo !empty($_SESSION['profile_image'])
+? '../uploads/profile/'.$_SESSION['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
 
             </div>
 
@@ -338,6 +379,12 @@ mysqli_query($conn, $activityQuery);
             </p>
 
         </div>
+
+        <a href="../auth/export_recycle_report.php"
+   class="export-btn">
+   <i class="fa-solid fa-file-excel"></i>
+   Export Excel
+</a>
 
     </div>
 
@@ -807,55 +854,47 @@ mysqli_query($conn, $activityQuery);
 
         data: {
 
-            labels: [
-                'Mon',
-                'Tue',
-                'Wed',
-                'Thu',
-                'Fri',
-                'Sat',
-                'Sun'
-            ],
+            labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
 
             datasets: [
 
-                {
-                    label: 'Plastic',
-                    data: [200,400,650,420,700,520,300],
-                    backgroundColor: '#2f9e63',
-                    borderRadius: 8,
-                    borderSkipped:false,
-                    barThickness:28
-                },
+{
+    label:'Plastic',
+    data:[<?= $plastic ?>],
+    backgroundColor:'#2f9e63',
+    borderRadius:8,
+    borderSkipped:false,
+    barThickness:40
+},
 
-                {
-                    label: 'Paper',
-                    data: [120,250,300,240,350,280,180],
-                    backgroundColor: '#3b82f6',
-                    borderRadius: 8,
-                    borderSkipped:false,
-                    barThickness:28
-                },
+{
+    label:'Paper',
+    data:[<?= $paper ?>],
+    backgroundColor:'#3b82f6',
+    borderRadius:8,
+    borderSkipped:false,
+    barThickness:40
+},
 
-                {
-                    label: 'Glass',
-                    data: [80,150,220,170,260,180,120],
-                    backgroundColor: '#14b8a6',
-                    borderRadius: 8,
-                    borderSkipped:false,
-                    barThickness:28
-                },
+{
+    label:'Glass',
+    data:[<?= $glass ?>],
+    backgroundColor:'#14b8a6',
+    borderRadius:8,
+    borderSkipped:false,
+    barThickness:40
+},
 
-                {
-                    label: 'Aluminum',
-                    data: [50,100,140,110,190,130,90],
-                    backgroundColor: '#f59e0b',
-                    borderRadius: 8,
-                    borderSkipped:false,
-                    barThickness:28
-                }
+{
+    label:'Aluminum',
+    data:[<?= $aluminum ?>],
+    backgroundColor:'#f59e0b',
+    borderRadius:8,
+    borderSkipped:false,
+    barThickness:40
+}
 
-            ]
+]
         },
 
         options: {

@@ -140,8 +140,10 @@ mysqli_fetch_assoc($rejectedCountResult)['total'];
             onclick="toggleProfileMenu()">
 
                 <img
-                src="image/avatar.png"
-                alt="User Avatar">
+src="<?php echo !empty($_SESSION['profile_image'])
+? '../uploads/profile/'.$_SESSION['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
 
             </div>
 

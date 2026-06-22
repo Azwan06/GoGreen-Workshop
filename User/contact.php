@@ -1,12 +1,16 @@
 <?php
 
 session_start();
+include "../config/database.php";
 
-if (!isset($_SESSION['user_id'])) {
+$user_id = $_SESSION['user_id'];
 
-    header("Location: ../Public/login.php");
-    exit();
-}
+$userResult = mysqli_query(
+    $conn,
+    "SELECT * FROM users WHERE id='$user_id'"
+);
+
+$user = mysqli_fetch_assoc($userResult);
 
 ?>
 <!DOCTYPE html>
@@ -61,14 +65,22 @@ if (!isset($_SESSION['user_id'])) {
             <a href="home.php">Home</a>
             <a href="map.php">Map</a>
             <a href="media.php">Media</a>
-            <a href="recycle.php">Recylce</a>
+            <a href="recycle.php">Recycle</a>
             <a href="redeem.php">Redeem</a>
             <a href="contact.php">Contact</a>
 
         </nav>  
         <div class="user-avatar-container">
-            <div class="user-avatar" onclick="toggleProfileMenu()">
-                <img src="image/avatar.png" alt="User Avatar">
+
+            <div class="user-avatar"
+            onclick="toggleProfileMenu()">
+
+                <img
+src="<?php echo !empty($user['profile_image'])
+    ? '../uploads/profile/'.$user['profile_image']
+    : '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
+
             </div>
 
             <div class="profile-menu" id="profileMenu">
@@ -85,7 +97,6 @@ if (!isset($_SESSION['user_id'])) {
 
                 <a href="profile.php">Profile</a>
                 <a href="leaderboard.php">Leaderboard</a>
-                <a href="notification.php">Notification</a>
                 <a href="setting.php">Settings</a>
                 <a href="../Public/login.php">Sign Out</a>
                 
@@ -192,7 +203,7 @@ if (!isset($_SESSION['user_id'])) {
 
           <p>
 
-            +60 12-345 6789
+            +60 14-9124116
 
           </p>
 
@@ -210,30 +221,34 @@ if (!isset($_SESSION['user_id'])) {
 
         </h2>
 
-        <form>
+        <form action="../auth/process_report.php"
+      method="POST">
 
-          <input
-            type="text"
-            placeholder="Your Name"
-            required
-          >
+          <label for="name">Name</label>
+          <input type="text" name="name" required>
 
-          <input
-            type="email"
-            placeholder="Your Email"
-            required
-          >
+          <label for="email">Email</label>
+          <input type="email" name="email" required>
 
-          <textarea
-            rows="7"
-            placeholder="Your Message"
-          ></textarea>
+          <label for="phone">Phone</label>
+          <input type="text" name="phone" required>
 
-          <button type="submit">
+          <label for="report_type">Report Type</label>
+          <select name="report_type" required>
+              <option value="Contact">Contact</option>
+              <option value="Pickup">Pickup</option>
+          </select>
 
-            Send Message
+          <label for="location">Location</label>
+          <input type="text" name="location">
 
-          </button>
+          <label for="subject">Subject</label>
+          <input type="text" name="subject" required>
+
+
+<button type="submit">
+    Submit
+</button>
 
         </form>
 

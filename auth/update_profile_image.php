@@ -37,7 +37,29 @@ if(isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] == 0){
     }
 }
 
-header("Location: ../User/profile.php");
+if(isset($_POST['redirect_page']))
+{
+    switch($_POST['redirect_page'])
+    {
+        case 'admin':
+            header("Location: ../Admin/profile.php");
+            break;
+
+        case 'worker':
+            header("Location: ../Worker/profile.php");
+            break;
+
+        default:
+            header("Location: ../User/profile.php");
+            break;
+    }
+}
+else
+{
+    header("Location: ../User/profile.php");
+}
+
 exit();
+
 
 ?>

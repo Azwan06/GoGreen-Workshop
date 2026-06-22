@@ -20,7 +20,7 @@ $user = mysqli_fetch_assoc(
 );
 
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -59,7 +59,7 @@ $user = mysqli_fetch_assoc(
             <a href="home.php">Home</a>
             <a href="map.php">Map</a>
             <a href="media.php">Media</a>
-            <a href="recycle.php">Recylce</a>
+            <a href="recycle.php">Recycle</a>
             <a href="redeem.php">Redeem</a>
             <a href="contact.php">Contact</a>
 

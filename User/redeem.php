@@ -118,8 +118,10 @@ mysqli_query($conn, $rewardQuery);
             onclick="toggleProfileMenu()">
 
                 <img
-                src="image/avatar.png"
-                alt="User Avatar">
+src="<?php echo !empty($user['profile_image'])
+    ? '../uploads/profile/'.$user['profile_image']
+    : '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
 
             </div>
 
@@ -152,10 +154,6 @@ mysqli_query($conn, $rewardQuery);
 
                 <a href="leaderboard.php">
                     Leaderboard
-                </a>
-
-                <a href="notification.php">
-                    Notification
                 </a>
 
                 <a href="setting.php">
@@ -243,10 +241,8 @@ mysqli_query($conn, $rewardQuery);
 
             <div class="reward-image">
 
-                <img
-                src="../uploads/<?php echo $reward['image']; ?>"
-                alt=""
-                class="reward-img">
+                
+                <img src="../uploads/rewards/<?php echo $reward['image']; ?>" alt="">
 
             </div>
 
