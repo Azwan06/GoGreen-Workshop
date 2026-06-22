@@ -6,7 +6,7 @@ include "../config/database.php";
 
 if (
     !isset($_SESSION['user_id']) ||
-    $_SESSION['role'] != 'admin'
+    $_SESSION['role'] != 'worker'
 ) {
 
     header("Location: ../Public/login.php");

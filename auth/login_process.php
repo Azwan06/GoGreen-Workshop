@@ -8,6 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
+    $role = $_POST['role'];
 
     // Check user by email
     $sql = "SELECT * FROM users WHERE email='$email'";
@@ -32,12 +33,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $email_lower = strtolower($user['email']);
 
             if (str_ends_with($email_lower, '@student.utem.edu.my')) {
-                header("Location: ../User/home.php");
-                exit();
+                if( $user['role'] == 'admin' ) {
+                    header("Location: ../Admin/dashboard.php");
+                    exit();
+                }else if( $user['role'] == 'worker' ) {
+                    header("Location: ../Worker/dashboard.php");
+                    exit();
+                } 
 
             } elseif (str_ends_with($email_lower, '@utem.edu.my')) {
-                header("Location: ../Admin/dashboard.php");
-                exit();
+                if( $user['role'] == 'admin' ) {
+                    header("Location: ../Admin/dashboard.php");
+                    exit();
+                }else if( $user['role'] == 'worker' ) {
+                    header("Location: ../Worker/dashboard.php");
+                }
+                
 
             } else {
                 // fallback

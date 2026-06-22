@@ -59,9 +59,9 @@ if (
     <div class="header-right">
 
       <nav id="navMenu">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="schedule.html">Schedule</a>
-        <a href="status.html">Pickup</a>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="schedule.php">Schedule</a>
+        <a href="status.php">Pickup</a>
       </nav>
     
       <div class="user-avatar-container">
@@ -76,9 +76,9 @@ if (
                   <p>johndoe@student.utem.edu.my</p>
               </div>
 
-              <a href="profile.html">Profile</a>
-              <a href="notification.html">Notification</a>
-              <a href="setting.html">Settings</a>
+              <a href="profile.php">Profile</a>
+              <a href="notification.php">Notification</a>
+              <a href="setting.php">Settings</a>
               <a href="../Public/login.php">Sign Out</a>
               
           </div>
