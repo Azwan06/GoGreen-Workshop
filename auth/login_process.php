@@ -42,6 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } 
 
             } elseif (str_ends_with($email_lower, '@utem.edu.my')) {
+<<<<<<< HEAD
                 if( $user['role'] == 'admin' ) {
                     header("Location: ../Admin/dashboard.php");
                     exit();
@@ -49,6 +50,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: ../Worker/dashboard.php");
                 }
                 
+=======
+                if (
+                         
+                          $_SESSION['role'] == 'worker'
+                          
+                       ) {
+                        header("Location: ../Worker/dashboard.php");
+                        exit();
+                       }
+                       else if (
+                         
+                          $_SESSION['role'] == 'admin'
+                          
+                       ){
+                        header("Location: ../Admin/dashboard.php");
+                        exit();
+                       }
+>>>>>>> 0e6536d9ab1865496f0ec0b1981dfd1a88934184
 
             } else {
                 // fallback

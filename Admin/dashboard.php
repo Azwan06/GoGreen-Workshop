@@ -1,13 +1,17 @@
 <?php
 
 session_start();
-
 include "../config/database.php";
 
+<<<<<<< HEAD
 if (
     (!isset($_SESSION['user_id']) ||
     $_SESSION['role'] != 'admin')
 ) {
+=======
+// if (!isset($_SESSION['user_id']) ||
+//     $_SESSION['role'] != 'admin') {
+>>>>>>> 0e6536d9ab1865496f0ec0b1981dfd1a88934184
 
     header("Location: ../Public/login.php");
     exit();
