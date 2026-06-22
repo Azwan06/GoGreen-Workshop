@@ -102,7 +102,6 @@ $result = mysqli_query(
         <a href="reqreward.php">Redemptions</a>
         <a href="addschedule.php">Schedule</a>
         <a href="addbin.php">Bin Map</a>
-        <a href="pickups.php">Pickups</a>
         <a href="reports.php">Reports</a>
         <a href="addreward.php">Rewards</a>
         <a href="userrole.php">Users</a>

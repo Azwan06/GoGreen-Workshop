@@ -3,18 +3,14 @@
 session_start();
 include "../config/database.php";
 
-<<<<<<< HEAD
 if (
-    (!isset($_SESSION['user_id']) ||
-    $_SESSION['role'] != 'admin')
+    !isset($_SESSION['user_id']) ||
+    $_SESSION['role'] != 'admin'
 ) {
-=======
-// if (!isset($_SESSION['user_id']) ||
-//     $_SESSION['role'] != 'admin') {
->>>>>>> 0e6536d9ab1865496f0ec0b1981dfd1a88934184
 
     header("Location: ../Public/login.php");
     exit();
+
 }
 
 /* ================= TOTAL USERS ================= */
@@ -145,7 +141,7 @@ mysqli_query($conn, $activityQuery);
 ?>
 
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="en">
 
 <head>
 
@@ -306,10 +302,6 @@ mysqli_query($conn, $activityQuery);
 
     <a href="addbin.php">
         Bin Map
-    </a>
-
-    <a href="pickups.php">
-        Pickups
     </a>
 
     <a href="reports.php">

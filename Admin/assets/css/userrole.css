@@ -383,6 +383,49 @@ header{
     font-size: 16px;
 }
 
+.search-form{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.search-input{
+    width:500px;
+    max-width:80%;
+    padding:14px 20px;
+    border:2px solid #d9e8df;
+    border-radius:12px;
+    font-size:15px;
+    font-family:'Poppins',sans-serif;
+    outline:none;
+    transition:0.3s;
+    background:#fff;
+}
+
+.search-input:focus{
+    border-color:#2f8f57;
+    box-shadow:0 0 10px rgba(47,143,87,0.15);
+}
+
+.search-btn{
+    background:#2f8f57;
+    color:white;
+    border:none;
+    border-radius:12px;
+    padding:14px 28px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.search-btn:hover{
+    background:#267348;
+    transform:translateY(-2px);
+}
+
 /* f */
 footer{
     background:#111;

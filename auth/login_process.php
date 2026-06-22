@@ -6,22 +6,55 @@ require_once __DIR__ . "/../config/database.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    // Get form data
     $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $email = strtolower(trim($email));
+
     $password = $_POST['password'];
-    $role = $_POST['role'];
+
+    // Only allow UTeM email
+    if (
+        !str_ends_with($email, '@student.utem.edu.my') &&
+        !str_ends_with($email, '@utem.edu.my')
+    ) {
+
+        echo "
+        <script>
+            alert('Only UTeM email is allowed!');
+            window.location.href='../Public/login.php';
+        </script>
+        ";
+        exit();
+    }
 
     // Check user by email
-    $sql = "SELECT * FROM users WHERE email='$email'";
+    $sql = "
+    SELECT *
+    FROM users
+    WHERE email='$email'
+    LIMIT 1
+    ";
 
     $result = mysqli_query($conn, $sql);
 
-    // Check if user exists
-    if (mysqli_num_rows($result) > 0) {
+    if ($result && mysqli_num_rows($result) > 0) {
 
         $user = mysqli_fetch_assoc($result);
 
         // Verify password
         if (password_verify($password, $user['password'])) {
+
+            // Check banned account
+            if ($user['status'] == 'banned') {
+
+                echo "
+                <script>
+                    alert('Your account has been banned.');
+                    window.location.href='../Public/login.php';
+                </script>
+                ";
+                exit();
+            }
 
             // Create session
             $_SESSION['user_id'] = $user['id'];
@@ -29,54 +62,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $user['email'];
             $_SESSION['role'] = $user['role'];
 
-            // Redirect based on email domain
-            $email_lower = strtolower($user['email']);
+            // Redirect by role
+            if ($user['role'] == 'admin') {
 
-            if (str_ends_with($email_lower, '@student.utem.edu.my')) {
-                if( $user['role'] == 'admin' ) {
-                    header("Location: ../Admin/dashboard.php");
-                    exit();
-                }else if( $user['role'] == 'worker' ) {
-                    header("Location: ../Worker/dashboard.php");
-                    exit();
-                } 
+                header("Location: ../Admin/dashboard.php");
+                exit();
 
-            } elseif (str_ends_with($email_lower, '@utem.edu.my')) {
-<<<<<<< HEAD
-                if( $user['role'] == 'admin' ) {
-                    header("Location: ../Admin/dashboard.php");
-                    exit();
-                }else if( $user['role'] == 'worker' ) {
-                    header("Location: ../Worker/dashboard.php");
-                }
-                
-=======
-                if (
-                         
-                          $_SESSION['role'] == 'worker'
-                          
-                       ) {
-                        header("Location: ../Worker/dashboard.php");
-                        exit();
-                       }
-                       else if (
-                         
-                          $_SESSION['role'] == 'admin'
-                          
-                       ){
-                        header("Location: ../Admin/dashboard.php");
-                        exit();
-                       }
->>>>>>> 0e6536d9ab1865496f0ec0b1981dfd1a88934184
+            } elseif ($user['role'] == 'worker') {
 
-            } else {
-                // fallback
+                header("Location: ../Worker/dashboard.php");
+                exit();
+
+            } elseif ($user['role'] == 'user') {
+
                 header("Location: ../User/home.php");
                 exit();
+
+            } else {
+
+                echo "
+                <script>
+                    alert('Invalid Role!');
+                    window.location.href='../Public/login.php';
+                </script>
+                ";
+                exit();
             }
-
-
-            exit();
 
         } else {
 
@@ -86,6 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 window.location.href='../Public/login.php';
             </script>
             ";
+            exit();
         }
 
     } else {
@@ -96,6 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             window.location.href='../Public/login.php';
         </script>
         ";
+        exit();
     }
 
 } else {
@@ -105,4 +118,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-

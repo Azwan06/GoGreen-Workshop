@@ -228,10 +228,6 @@ id="sidebar">
         Bin Map
     </a>
 
-    <a href="pickups.php">
-        Pickups
-    </a>
-
     <a href="reports.php">
         Reports
     </a>

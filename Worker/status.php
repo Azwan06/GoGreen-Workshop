@@ -24,7 +24,7 @@ if (
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Worker.css">
+    <link rel="stylesheet" href="assets/css/Worker.css">
 </head>
 <body>
     
@@ -65,9 +65,9 @@ if (
                   <p>johndoe@student.utem.edu.my</p>
               </div>
 
-              <a href="profile.html">Profile</a>
-              <a href="notification.html">Notification</a>
-              <a href="setting.html">Settings</a>
+              <a href="profile.php">Profile</a>
+              <a href="notification.php">Notification</a>
+              <a href="setting.php">Settings</a>
               <a href="../Public/login.php">Sign Out</a>
               
           </div>

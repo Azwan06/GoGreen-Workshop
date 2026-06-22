@@ -205,42 +205,70 @@ nav a:hover{
   font-size:18px;
 }
 
-/* STATUS DROPDOWN */
-
-.status-select{
-    border:none;
-
-    padding:10px 15px;
-
-    border-radius:8px;
-
-    font-family:"Poppins", sans-serif;
-    font-size:14px;
-    font-weight:600;
-
-    color:white;
-
-    cursor:pointer;
-
-    outline:none;
-
-    width:140px;
+.table-row form{
+    margin-top: 8px;
 }
 
-/* STATUS COLORS */
+.status-select{
+    min-width:130px;
+    width:130px;
+    padding:8px 12px;
+}
+
+.status-cell{
+    display:flex;
+    justify-content:flex-start;
+    align-items:center;
+}
+
+.priority-low{
+    color:#198754;
+    font-weight:600;
+}
+
+.priority-medium{
+    color:#fd7e14;
+    font-weight:600;
+}
+
+.priority-high{
+    color:#dc3545;
+    font-weight:600;
+}
+
+/* STATUS DROPDOWN */
+.status-select{
+    padding: 8px 12px;
+    border: 2px solid #2f8f54;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    background: white;
+    min-width: 130px;
+    transition: 0.3s;
+}
+
+.status-select:hover{
+    border-color: #1f6f40;
+}
 
 .status-select.pending{
-    background:#f39c12;
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-select.ongoing{
+    background: #d1ecf1;
+    color: #0c5460;
 }
 
 .status-select.completed{
-    background:#2ecc71;
+    background: #d4edda;
+    color: #155724;
 }
-
-.status-select.accepted{
-    background:#3498db;
-}
-
 .date-picker{
     padding:14px 18px;
     border-radius:10px;
@@ -253,16 +281,26 @@ nav a:hover{
 
 .dashboard-table{
     background:white;
-    border-radius:10px;
-
+    border-radius:12px;
+    width:100%;
+    overflow:hidden;
 }
 
-.table-header, .table-row{
+.table-header,
+.table-row{
     display:grid;
-    grid-template-columns: 120px 1fr 130px;
+    grid-template-columns:
+    120px     /* Time */
+    200px     /* Task */
+    1fr       /* Description */
+    150px     /* Location */
+    120px     /* Priority */
+    170px;    /* Status */
+
+    align-items:center;
     padding:16px 25px;
-  
 }
+
 .table-header{
     border-radius:10px 10px 0 0;
     background:#2e8b57;
@@ -271,6 +309,21 @@ nav a:hover{
 }
 .table-row{
 border-bottom:1px solid #eee;  
+}
+
+.priority-low{
+    color:#198754;
+    font-weight:600;
+}
+
+.priority-medium{
+    color:#fd7e14;
+    font-weight:600;
+}
+
+.priority-high{
+    color:#dc3545;
+    font-weight:600;
 }
 
 /* FOOTER */
@@ -341,9 +394,8 @@ footer{
   }
 
   .schedule-header h1{
-    font-size:32px;
-
-  }
+    font-size:56px;
+}
 
   .schedule-header p{
     font-size:14px;

@@ -12,9 +12,59 @@ if (
     header("Location: ../Public/login.php");
     exit();
 }
+
+$worker_id = $_SESSION['user_id'];
+
+$selected_date = date('Y-m-d');
+
+if(isset($_GET['date']) && !empty($_GET['date'])){
+    $selected_date = $_GET['date'];
+}
+
+$routineQuery = "
+
+SELECT
+id,
+task_title,
+location,
+schedule_time,
+priority,
+'Routine Task' AS task_description,
+'pending' AS status
+
+FROM worker_routine
+
+WHERE worker_id = '$worker_id'
+
+";
+
+$routineResult =
+mysqli_query($conn,$routineQuery);
+
+
+$scheduleQuery = "
+
+SELECT
+id,
+task_title,
+location,
+schedule_time,
+priority,
+task_description,
+status
+
+FROM schedules
+
+WHERE worker_id = '$worker_id'
+AND schedule_date = '$selected_date'
+
+";
+
+$scheduleResult =
+mysqli_query($conn,$scheduleQuery);
 ?>
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -28,7 +78,7 @@ if (
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="Worker.css" />
+    <link rel="stylesheet" href="assets/css/Worker.css" />
   </head>
   <body>
 
@@ -65,14 +115,14 @@ if (
           <div class="profile-menu" id="profileMenu">
 
               <div class="profile-info">
-                  <h4>John Doe</h4>
-                  <p>johndoe@student.utem.edu.my</p>
+                  <h4><?php echo $_SESSION['fullname']; ?></h4>
+<p><?php echo $_SESSION['email']; ?></p>
               </div>
 
-              <a href="profile.html">Profile</a>
-              <a href="notification.html">Notification</a>
-              <a href="setting.html">Settings</a>
-              <a href="../Public/login.php">Sign Out</a>
+              <a href="profile.php">Profile</a>
+              <a href="notification.php">Notification</a>
+              <a href="setting.php">Settings</a>
+              <a href="../auth/logout.php">Sign Out</a>
               
           </div>
       </div>
@@ -87,50 +137,166 @@ if (
           <p>Check your daily pickup schedule here.</p>
         </div>
 
-        <input type="date" class="date-picker" />
+        <form method="GET">
+
+    <input
+        type="date"
+        name="date"
+        class="date-picker"
+        value="<?php echo $selected_date; ?>"
+        onchange="this.form.submit()"
+    >
+
+</form>
       </div>
       <div class="table-container">
       <div class="dashboard-table">
-        <div class="table-header">
-          <span>Time</span>
-          <span>Location</span>
-          <span>Status</span>
-        </div>
+<div class="table-header">
 
-        <div class="table-row">
-    <span>8:00 AM</span>
-    <span>Fakulti Teknologi Maklumat dan Komunikasi</span>
+    <span>Time</span>
+    <span>Task</span>
+    <span>Description</span>
+    <span>Location</span>
+    <span>Priority</span>
+    <span>Status</span>
 
-    <select class="status-select completed" onchange="changeStatus(this)">
-        <option value="completed">Completed</option>
-        <option value="accepted">Accepted</option>
-        <option value="pending">Pending</option>
-    </select>
 </div>
+
+
+
+<?php while($task = mysqli_fetch_assoc($routineResult)) { ?>
 
 <div class="table-row">
-    <span>10:00 AM</span>
-    <span>Masjid UTeM</span>
 
-    <select class="status-select accepted" onchange="changeStatus(this)">
-        <option value="accepted" selected>Accepted</option>
-        <option value="completed">Completed</option>
-        <option value="pending">Pending</option>
-    </select>
+    <span>
+        <?php echo date(
+            "g:i A",
+            strtotime($task['schedule_time'])
+        ); ?>
+    </span>
+
+    <span>
+        <?php echo $task['task_title']; ?>
+    </span>
+
+    <span>
+        Daily Collection Route
+    </span>
+
+    <span>
+        <?php echo $task['location']; ?>
+    </span>
+
+    <span class="priority-<?php echo $task['priority']; ?>">
+        <?php echo ucfirst($task['priority']); ?>
+    </span>
+
+    <div class="status-cell">
+
+        <span
+        style="
+        background:#d4edda;
+        color:#155724;
+        padding:8px 15px;
+        border-radius:8px;
+        font-weight:600;
+        ">
+            Routine
+        </span>
+
+    </div>
+
 </div>
+
+<?php } ?>
+
+
+<?php while($task = mysqli_fetch_assoc($scheduleResult)) { ?>
 
 <div class="table-row">
-    <span>12:00 PM</span>
-    <span>Kolej Satria</span>
 
-    <select class="status-select pending" onchange="changeStatus(this)">
-        <option value="pending" selected>Pending</option>
-        <option value="accepted">Accepted</option>
-        <option value="completed">Completed</option>
+    <span>
+        <?php echo date(
+            "g:i A",
+            strtotime($task['schedule_time'])
+        ); ?>
+    </span>
+
+    <span>
+        <?php echo htmlspecialchars(
+            $task['task_title']
+        ); ?>
+    </span>
+
+    <span>
+        <?php echo htmlspecialchars(
+            $task['task_description']
+        ); ?>
+    </span>
+
+    <span>
+        <?php echo htmlspecialchars(
+            $task['location']
+        ); ?>
+    </span>
+
+    <span class="priority-<?php echo strtolower($task['priority']); ?>">
+        <?php echo htmlspecialchars(
+            $task['priority']
+        ); ?>
+    </span>
+
+    <td>
+
+<div class="status-cell">
+
+<form
+action="../auth/update_schedule_status.php"
+method="POST">
+
+    <input
+        type="hidden"
+        name="schedule_id"
+        value="<?php echo $task['id']; ?>">
+
+        <!-- dropdown status -->
+
+    <select
+        name="status"
+        class="status-select <?php echo $task['status']; ?>"
+        onchange="this.form.submit()">
+
+        <option value="pending"
+        <?php if($task['status']=='pending') echo 'selected'; ?>>
+            Pending
+        </option>
+
+        <option value="ongoing"
+        <?php if($task['status']=='ongoing') echo 'selected'; ?>>
+            Ongoing
+        </option>
+
+        <option value="completed"
+        <?php if($task['status']=='completed') echo 'selected'; ?>>
+            Completed
+        </option>
+
     </select>
+
+</form>
+
 </div>
+
+</div>
+
+</td>
+
+</div>
+
+<?php } ?>
+
+
       </div>
-     
       </div>
     </section>
 
@@ -184,6 +350,24 @@ if (
         select.classList.add(select.value);
 
     }
+
+document.querySelectorAll('.status-select').forEach(select => {
+
+    select.addEventListener('change', function(){
+
+        this.classList.remove(
+            'pending',
+            'ongoing',
+            'completed'
+        );
+
+        this.classList.add(this.value);
+
+    });
+
+});
+
+
 
 </script>
   </body>

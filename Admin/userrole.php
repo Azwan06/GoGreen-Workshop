@@ -1,3 +1,34 @@
+<?php
+
+session_start();
+include "../config/database.php";
+
+if (
+    !isset($_SESSION['user_id']) ||
+    $_SESSION['role'] != 'admin'
+) {
+    header("Location: ../Public/login.php");
+    exit();
+}
+
+$search = "";
+
+if(isset($_GET['search'])){
+    $search = mysqli_real_escape_string($conn,$_GET['search']);
+}
+
+$userQuery = "
+SELECT *
+FROM users
+WHERE fullname LIKE '%$search%'
+OR email LIKE '%$search%'
+ORDER BY id DESC
+";
+
+$userResult = mysqli_query($conn,$userQuery);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,14 +72,14 @@
                 <div class="profile-menu" id="profileMenu">
 
                     <div class="profile-info">
-                        <h4>John Doe</h4>
-                        <p>johndoe@student.utem.edu.my</p>
+                        <h4><?php echo $_SESSION['fullname']; ?></h4>
+<p><?php echo $_SESSION['email']; ?></p>
                     </div>
 
                     <a href="profile.php">Profile</a>
                     <a href="notification.php">Notification</a>
                     <a href="setting.php">Settings</a>
-                    <a href="../Public/login.php">Sign Out</a>
+                    <a href="../auth/logout.php">Sign Out</a>
 
                 </div>
             </div>
@@ -80,12 +111,127 @@
 
     <div class="search-container">
 
-        <input type="text" 
-        id="searchInput"
-        placeholder="Search user by name..."
-        onkeyup="searchUser()">
+        <form method="GET" class="search-form">
 
-        <div id="searchResult"></div>
+    <input
+        type="text"
+        name="search"
+        class="search-input"
+        placeholder="🔍 Search user by name or email..."
+        value="<?php echo htmlspecialchars($search); ?>"
+    >
+
+    <button type="submit" class="search-btn">
+        Search
+    </button>
+
+</form>
+
+        <div id="searchResult">
+
+<?php if(mysqli_num_rows($userResult) == 0) { ?>
+
+<p class="no-user">
+    No user found.
+</p>
+
+<?php } ?>
+
+<?php while($user = mysqli_fetch_assoc($userResult)) { ?>
+
+<div class="user-card">
+
+    <div class="user-left">
+
+        <div class="user-initials">
+            <?php echo strtoupper(substr($user['fullname'],0,1)); ?>
+        </div>
+
+        <div>
+            <h3><?php echo htmlspecialchars($user['fullname']); ?></h3>
+            <p><?php echo htmlspecialchars($user['email']); ?></p>
+        </div>
+
+    </div>
+
+    <div class="user-right">
+
+        <form action="../auth/update_role.php" method="POST">
+
+            <input
+                type="hidden"
+                name="user_id"
+                value="<?php echo $user['id']; ?>"
+            >
+
+            <select
+                name="role"
+                class="role-select"
+                onchange="this.form.submit()"
+            >
+
+                <option value="user"
+                <?php if($user['role']=='user') echo 'selected'; ?>>
+                    User
+                </option>
+
+                <option value="worker"
+                <?php if($user['role']=='worker') echo 'selected'; ?>>
+                    Worker
+                </option>
+
+                <option value="admin"
+                <?php if($user['role']=='admin') echo 'selected'; ?>>
+                    Admin
+                </option>
+
+            </select>
+
+        </form>
+
+        <form action="../auth/update_status.php" method="POST">
+
+            <input
+                type="hidden"
+                name="user_id"
+                value="<?php echo $user['id']; ?>"
+            >
+
+            <?php if($user['status']=='banned') { ?>
+
+                <input type="hidden"
+                       name="status"
+                       value="active">
+
+                <button
+                    type="submit"
+                    class="status status-inactive">
+                    Unban
+                </button>
+
+            <?php } else { ?>
+
+                <input type="hidden"
+                       name="status"
+                       value="banned">
+
+                <button
+                    type="submit"
+                    class="status status-active">
+                    Ban
+                </button>
+
+            <?php } ?>
+
+        </form>
+
+    </div>
+
+</div>
+
+<?php } ?>
+
+</div>
     </div>
     
     <footer>
@@ -120,120 +266,7 @@
             }
         });
         
-        const users =[
-            {
-                name:"Nurul Aina",
-                email:"nurul@student.utem.edu.my",
-                initials:"NA",
-                role:"User",
-                active:true
-            },
-            {
-                name:"Arif Danial",
-                email:"arif@student.utem.edu.my",
-                initials:"AD",
-                role:"Worker",
-                active:false
-            },
-            {
-                name:"Mira Hanani",
-                email:"mira@student.utem.edu.my",
-                initials:"MH",
-                role:"Admin",
-                active:true
-            }
-        ];
-
-        function displayUsers(userList){
-            let result = document.getElementById("searchResult");
-            result.innerHTML = "";
-            
-            if(userList.length === 0){
-                result.innerHTML = `
-                    <p class="no-user">
-                        No user found.
-                    </p>
-                `;
-
-                return;
-            }
-
-            userList.forEach(user => {
-                result.innerHTML +=`
-                
-                <div class="user-card">
-
-                    <div class="user-left">
-
-                        <div class="user-initials">
-                            ${user.initials}
-                        </div>
-
-                        <div>
-                            <h3>${user.name}</h3>
-                            <p>${user.email}</p>
-                        </div>
-
-                    </div>
-
-                    <div class="user-right">
-
-                        <select class="role-select">
-
-                            <option 
-                            ${user.role === "User" ? "selected" : ""}>
-                            User
-                            </option>
-
-                            <option 
-                            ${user.role === "Worker" ? "selected" : ""}>
-                            Worker
-                            </option>
-
-                            <option 
-                            ${user.role === "Admin" ? "selected" : ""}>
-                            Admin
-                            </option>
-
-                        </select>
-
-                        <button 
-                            class ="status ${user.active ? "status-active" : "status-inactive"}"
-                            onclick="toggleStatus('${user.email}')"
-                        >
-
-                            ${user.active ? "Active" : "Inactive"}
-
-                        </button>
-
-                    </div>
-
-                </div>
-
-                `;
-            });
-        }
-
-        function searchUser(){
-            let input = document
-            .getElementById("searchInput")
-            .value.toLowerCase();
-
-            let filtered = users.filter(user =>
-                user.name.toLowerCase().includes(input) ||
-                user.email.toLowerCase().includes(input)
-            );
-
-            displayUsers(filtered);
-        }
-
-        displayUsers(users);
-
-        function toggleStatus(email){
-            let user = users.find(user => user.email === email);
-            user.active =!user.active;
-            searchUser();
-        }
+        
     </script>
 
 </body>

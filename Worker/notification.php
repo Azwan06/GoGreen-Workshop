@@ -31,7 +31,7 @@ if (
     />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="notification.css" />
+    <link rel="stylesheet" href="assets/css/notification.css" />
   </head>
 
   <body>

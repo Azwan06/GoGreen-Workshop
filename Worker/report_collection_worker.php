@@ -20,7 +20,7 @@ if (
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, intial-scale=1.0">
         <title>Go Green - My Dashboard </title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="assets/css/report_collection_worker.css">
     </head>
 
     <body>
