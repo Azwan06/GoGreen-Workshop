@@ -105,14 +105,6 @@ http://localhost/GoGreen
 * View analytics dashboard
 * System management
 
----
-
-<<<<<<< HEAD
-=======
-
----
-
->>>>>>> 90de1219a369f49909b98e834b692df05f499443
 # 🛠️ Teknologi Digunakan
 
 * HTML5
