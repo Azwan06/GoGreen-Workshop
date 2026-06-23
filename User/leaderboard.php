@@ -1,9 +1,53 @@
+//leaderboard
+
+<?php
+
+include "../config/database.php";
+
+$leaderboard = mysqli_query(
+
+    $conn,
+
+    "SELECT *
+    FROM users
+    WHERE role = 'user'
+    ORDER BY points DESC
+    LIMIT 10"
+
+);
+
+$topUsers = [];
+
+while($row = mysqli_fetch_assoc($leaderboard)){
+
+    $topUsers[] = $row;
+
+}
+
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+
+    header("Location: ../Public/login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+$userResult = mysqli_query(
+    $conn,
+    "SELECT * FROM users WHERE id='$user_id'"
+);
+
+$user = mysqli_fetch_assoc($userResult);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Leaderboard | GoGreen</title>
 
       <!-- GOOGLE FONT -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +56,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="leaderboard.css">
+  <link rel="stylesheet" href="assets/css/leaderboard.css">
 </head>
 
 <body>
@@ -38,31 +82,39 @@
       
         <nav id="navMenu">
 
-            <a href="home.html">Home</a>
-            <a href="map.html">Map</a>
-            <a href="media.html">Media</a>
-            <a href="recycle.html">Recylce</a>
-            <a href="redeem.html">Redeem</a>
-            <a href="contact.html">Contact</a>
+            <a href="home.php">Home</a>
+            <a href="map.php">Map</a>
+            <a href="media.php">Media</a>
+            <a href="recycle.php">Recycle</a>
+            <a href="redeem.php">Redeem</a>
+            <a href="contact.php">Contact</a>
 
         </nav>  
         <div class="user-avatar-container">
             <div class="user-avatar" onclick="toggleProfileMenu()">
-                <img src="image/avatar.png" alt="User Avatar">
+                <img
+src="<?php echo !empty($user['profile_image'])
+    ? '../uploads/profile/'.$user['profile_image']
+    : '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
             </div>
 
             <div class="profile-menu" id="profileMenu">
 
                 <div class="profile-info">
-                    <h4>John Doe</h4>
-                    <p>johndoe@student.utem.edu.my</p>
+                    <h4>
+    <?php echo $_SESSION['fullname']; ?>
+</h4>
+
+<p>
+    <?php echo $_SESSION['email']; ?>
+</p>
                 </div>
 
-                <a href="profile.html">Profile</a>
-                <a href="leaderboard.html">Leaderboard</a>
-                <a href="notification.html">Notification</a>
-                <a href="setting.html">Settings</a>
-                <a href="../Public/login.html">Sign Out</a>
+                <a href="profile.php">Profile</a>
+                <a href="leaderboard.php">Leaderboard</a>
+                <a href="setting.php">Settings</a>
+                <a href="../Public/login.php">Sign Out</a>
                 
             </div>
         </div>
@@ -80,62 +132,62 @@
   <section class="top-users">
 
     <!-- SECOND -->
+    <?php if(isset($topUsers[1])){ ?>
     <div class="top-card second">
 
-      <div class="rank">
-        🥈
-      </div>
+        <div class="rank">🥈</div>
 
+        <h3>
+            <?php echo $topUsers[1]['fullname']; ?>
+        </h3>
 
-      <h3>
-        Sarah Lee
-      </h3>
-
-      <p>
-        4,850 Points
-      </p>
+        <p>
+            <?php echo number_format($topUsers[1]['points']); ?>
+            Points
+        </p>
 
     </div>
+    <?php } ?>
 
     <!-- FIRST -->
+    <?php if(isset($topUsers[0])){ ?>
     <div class="top-card first">
 
-      <div class="crown">
-        👑
-      </div>
+        <div class="crown">👑</div>
 
-      <div class="rank">
-        🥇
-      </div>
+        <div class="rank">🥇</div>
 
-      <h3>
-        Daniel Wong
-      </h3>
+        <h3>
+            <?php echo $topUsers[0]['fullname']; ?>
+        </h3>
 
-      <p>
-        6,320 Points
-      </p>
+        <p>
+            <?php echo number_format($topUsers[0]['points']); ?>
+            Points
+        </p>
 
     </div>
+    <?php } ?>
 
     <!-- THIRD -->
+    <?php if(isset($topUsers[2])){ ?>
     <div class="top-card third">
 
-      <div class="rank">
-        🥉
-      </div>
+        <div class="rank">🥉</div>
 
-      <h3>
-        Aina Sofea
-      </h3>
+        <h3>
+            <?php echo $topUsers[2]['fullname']; ?>
+        </h3>
 
-      <p>
-        4,120 Points
-      </p>
+        <p>
+            <?php echo number_format($topUsers[2]['points']); ?>
+            Points
+        </p>
 
     </div>
+    <?php } ?>
 
-  </section>
+</section>
 
   <!-- TABLE -->
   <section class="leaderboard-table-section">
@@ -149,7 +201,6 @@
           <tr>
             <th>Rank</th>
             <th>User</th>
-            <th>Items Recycled</th>
             <th>Total Points</th>
           </tr>
 
@@ -157,47 +208,37 @@
 
         <tbody>
 
-          <tr>
-            <td>#1</td>
-            <td>Daniel Wong</td>
-            <td>580</td>
-            <td>6,320</td>
-          </tr>
+          <?php
 
-          <tr>
-            <td>#2</td>
-            <td>Sarah Lee</td>
-            <td>510</td>
-            <td>4,850</td>
-          </tr>
+$rank = 1;
 
-          <tr>
-            <td>#3</td>
-            <td>Aina Sofea</td>
-            <td>470</td>
-            <td>4,120</td>
-          </tr>
+foreach($topUsers as $user){
 
-          <tr>
-            <td>#4</td>
-            <td>Hakim</td>
-            <td>420</td>
-            <td>3,980</td>
-          </tr>
+?>
 
-          <tr>
-            <td>#5</td>
-            <td>Faris</td>
-            <td>390</td>
-            <td>3,650</td>
-          </tr>
+<tr>
 
-          <tr>
-            <td>#6</td>
-            <td>Nurul</td>
-            <td>340</td>
-            <td>3,210</td>
-          </tr>
+    <td>
+        #<?php echo $rank; ?>
+    </td>
+
+    <td>
+        <?php echo $user['fullname']; ?>
+    </td>
+
+    <td>
+        <?php echo number_format($user['points']); ?>
+    </td>
+
+</tr>
+
+<?php
+
+$rank++;
+
+}
+
+?>
 
         </tbody>
 

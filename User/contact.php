@@ -1,3 +1,20 @@
+//contact
+
+<?php
+
+session_start();
+include "../config/database.php";
+
+$user_id = $_SESSION['user_id'];
+
+$userResult = mysqli_query(
+    $conn,
+    "SELECT * FROM users WHERE id='$user_id'"
+);
+
+$user = mysqli_fetch_assoc($userResult);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +37,7 @@
   />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="contact.css">
+  <link rel="stylesheet" href="assets/css/contact.css">
 
 </head>
 
@@ -47,31 +64,43 @@
       
         <nav id="navMenu">
 
-            <a href="home.html">Home</a>
-            <a href="map.html">Map</a>
-            <a href="media.html">Media</a>
-            <a href="recycle.html">Recylce</a>
-            <a href="redeem.html">Redeem</a>
-            <a href="contact.html">Contact</a>
+            <a href="home.php">Home</a>
+            <a href="map.php">Map</a>
+            <a href="media.php">Media</a>
+            <a href="recycle.php">Recycle</a>
+            <a href="redeem.php">Redeem</a>
+            <a href="contact.php">Contact</a>
 
         </nav>  
         <div class="user-avatar-container">
-            <div class="user-avatar" onclick="toggleProfileMenu()">
-                <img src="image/avatar.png" alt="User Avatar">
+
+            <div class="user-avatar"
+            onclick="toggleProfileMenu()">
+
+                <img
+src="<?php echo !empty($user['profile_image'])
+    ? '../uploads/profile/'.$user['profile_image']
+    : '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
+
             </div>
 
             <div class="profile-menu" id="profileMenu">
 
                 <div class="profile-info">
-                    <h4>John Doe</h4>
-                    <p>johndoe@student.utem.edu.my</p>
+                    <h4>
+                        <?php echo $_SESSION['fullname']; ?>
+                    </h4>
+
+                    <p>
+                        <?php echo $_SESSION['email']; ?>
+                    </p>
                 </div>
 
-                <a href="profile.html">Profile</a>
-                <a href="leaderboard.html">Leaderboard</a>
-                <a href="notification.html">Notification</a>
-                <a href="setting.html">Settings</a>
-                <a href="../Public/login.html">Sign Out</a>
+                <a href="profile.php">Profile</a>
+                <a href="leaderboard.php">Leaderboard</a>
+                <a href="setting.php">Settings</a>
+                <a href="../Public/login.php">Sign Out</a>
                 
             </div>
         </div>
@@ -176,7 +205,7 @@
 
           <p>
 
-            +60 12-345 6789
+            +60 14-9124116
 
           </p>
 
@@ -194,30 +223,34 @@
 
         </h2>
 
-        <form>
+        <form action="../auth/process_report.php"
+      method="POST">
 
-          <input
-            type="text"
-            placeholder="Your Name"
-            required
-          >
+          <label for="name">Name</label>
+          <input type="text" name="name" required>
 
-          <input
-            type="email"
-            placeholder="Your Email"
-            required
-          >
+          <label for="email">Email</label>
+          <input type="email" name="email" required>
 
-          <textarea
-            rows="7"
-            placeholder="Your Message"
-          ></textarea>
+          <label for="phone">Phone</label>
+          <input type="text" name="phone" required>
 
-          <button type="submit">
+          <label for="report_type">Report Type</label>
+          <select name="report_type" required>
+              <option value="Contact">Contact</option>
+              <option value="Pickup">Pickup</option>
+          </select>
 
-            Send Message
+          <label for="location">Location</label>
+          <input type="text" name="location">
 
-          </button>
+          <label for="subject">Subject</label>
+          <input type="text" name="subject" required>
+
+
+<button type="submit">
+    Submit
+</button>
 
         </form>
 

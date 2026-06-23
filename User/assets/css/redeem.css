@@ -1,0 +1,661 @@
+/* RESET */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+
+  font-family:"Poppins", sans-serif;
+
+  background:
+  linear-gradient(
+    to bottom right,
+    #f5fff7,
+    #eef8f1
+  );
+
+  color:#222;
+
+  overflow-x:hidden;
+
+  min-height:100vh;
+
+  display:flex;
+  flex-direction:column;
+
+}
+
+/* HEADER */
+
+header{
+
+  width:100%;
+  height:80px;
+
+  background:white;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:0 60px;
+
+  position:fixed;
+  top:0;
+  left:0;
+
+  z-index:1000;
+
+}
+
+.logo{
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+
+  font-size:36px;
+  font-weight:700;
+
+  color:#2e8b57;
+
+}
+
+.logo img{
+
+  width:42px;
+  height:42px;
+
+  object-fit:contain;
+
+}
+
+.header-right{
+
+  display:flex;
+  align-items:center;
+
+  gap:30px;
+
+}
+
+nav{
+
+  display:flex;
+  align-items:center;
+
+  gap:35px;
+
+}
+
+nav a{
+
+  text-decoration:none;
+
+  color:#444;
+
+  font-size:15px;
+
+  transition:0.3s;
+
+}
+
+nav a:hover{
+
+  color:#2e8b57;
+
+}
+
+/* USER AVATAR */
+
+.user-avatar-container{
+
+  position:relative;
+
+}
+
+.user-avatar{
+
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  overflow:hidden;
+
+  border:2px solid #2e8b57;
+
+  cursor:pointer;
+
+}
+
+.user-avatar img{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+}
+
+.profile-menu{
+
+  position:absolute;
+
+  right:0;
+  top:55px;
+
+  width:240px;
+
+  background:white;
+
+  border-radius:12px;
+
+  box-shadow:0 12px 30px rgba(0,0,0,0.12);
+
+  overflow:hidden;
+
+  max-height:0;
+
+  opacity:0;
+
+  transform:translateY(-10px);
+
+  transition:0.25s;
+
+  z-index:999;
+
+}
+
+.profile-menu.show{
+
+  max-height:320px;
+
+  opacity:1;
+
+  transform:translateY(0);
+
+}
+
+.profile-info{
+
+  padding:14px 16px;
+
+  border-bottom:1px solid #eee;
+
+}
+
+.profile-info h4{
+
+  font-size:15px;
+
+  margin-bottom:3px;
+
+}
+
+.profile-info p{
+
+  font-size:12px;
+
+  color:#777;
+
+}
+
+.profile-menu a{
+
+  display:block;
+
+  padding:10px 14px;
+
+  text-decoration:none;
+
+  color:#333;
+
+  font-size:13px;
+
+  border-bottom:1px solid #f1f1f1;
+
+  transition:0.2s;
+
+}
+
+.profile-menu a:hover{
+
+  background:#58d878;
+
+  padding-left:18px;
+
+}
+
+/* MAIN */
+
+.redeem-page{
+
+  width:95%;
+  max-width:1300px;
+
+  margin:140px auto 60px;
+
+  flex:1;
+
+}
+
+/* WALLET */
+
+.wallet-section{
+
+  margin-bottom:30px;
+
+}
+
+.wallet-card{
+
+  background:
+  linear-gradient(
+    135deg,
+    #16a34a,
+    #dff5e5
+  );
+
+  border-radius:20px;
+
+  padding:30px;
+
+  color:white;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+
+}
+
+.wallet-title{
+
+  font-size:14px;
+
+  margin-bottom:10px;
+
+}
+
+.wallet-points{
+
+  font-size:52px;
+
+}
+
+.wallet-points span{
+
+  font-size:20px;
+
+}
+
+/* TABS */
+
+.tabs{
+
+  display:flex;
+
+  gap:12px;
+
+  margin-bottom:25px;
+
+}
+
+.tab-btn{
+
+  border:none;
+
+  padding:10px 22px;
+
+  border-radius:10px;
+
+  background:#e5e7eb;
+
+  color:#333;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.3s;
+
+}
+
+.tab-btn:hover{
+
+  background:#d1fae5;
+
+  color:#16a34a;
+
+}
+
+.tab-btn.active{
+
+  background:#16a34a;
+
+  color:white;
+
+}
+
+/* GRID */
+
+.reward-grid{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(320px,1fr));
+
+  gap:20px;
+
+}
+
+/* CARD */
+
+.reward-card{
+
+  background:white;
+
+  border-radius:18px;
+
+  overflow:hidden;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+
+  transition:0.3s;
+
+}
+
+.reward-card:hover{
+
+  transform:translateY(-5px);
+
+}
+
+/* IMAGE */
+
+.reward-image{
+
+  width:100%;
+  height:220px;
+
+  overflow:hidden;
+
+  background:#e7f3ec;
+
+}
+
+.reward-image img{
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
+
+}
+
+/* CONTENT */
+
+.reward-content{
+
+  padding:18px;
+
+}
+
+.reward-header{
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  margin-bottom:10px;
+
+}
+
+.reward-header h2{
+
+  font-size:18px;
+
+}
+
+.reward-badge{
+
+  background:#dcfce7;
+
+  color:#16a34a;
+
+  padding:6px 10px;
+
+  border-radius:20px;
+
+  font-size:12px;
+
+  font-weight:600;
+
+}
+
+.reward-description{
+
+  color:#666;
+
+  font-size:14px;
+
+  margin-bottom:15px;
+
+}
+
+/* BUTTON */
+
+.redeem-btn{
+
+  width:100%;
+
+  border:none;
+
+  padding:12px;
+
+  border-radius:10px;
+
+  background:#16a34a;
+
+  color:white;
+
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.3s;
+
+}
+
+.redeem-btn:hover{
+
+  background:#15803d;
+
+}
+
+/* HISTORY */
+
+.history-section{
+
+  width:100%;
+
+}
+
+.history-title{
+
+  font-size:26px;
+
+  margin-bottom:20px;
+
+}
+
+.history-card{
+
+  background:white;
+
+  border-radius:16px;
+
+  padding:20px;
+
+  margin-bottom:15px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+
+}
+
+.history-card h3{
+
+  margin-bottom:5px;
+
+  font-size:18px;
+
+}
+
+.history-card p{
+
+  color:#666;
+
+  font-size:14px;
+
+}
+
+.history-status{
+
+  padding:8px 14px;
+
+  border-radius:20px;
+
+  background:#dcfce7;
+
+  color:#16a34a;
+
+  font-size:13px;
+
+  font-weight:600;
+
+}
+
+.no-history{
+
+  background:white;
+
+  padding:20px;
+
+  border-radius:14px;
+
+  text-align:center;
+
+  color:#777;
+
+  box-shadow:0 5px 15px rgba(0,0,0,0.08);
+
+}
+
+/* FOOTER */
+
+footer{
+
+  background:#111;
+
+  color:#bbb;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:25px 60px;
+
+  font-size:14px;
+
+  flex-wrap:wrap;
+
+  gap:10px;
+
+  margin-top:auto;
+
+}
+
+.left-footer{
+
+  text-align:left;
+
+}
+
+.right-footer{
+
+  text-align:right;
+
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  header{
+
+    padding:0 25px;
+
+  }
+
+  nav{
+
+    gap:18px;
+
+  }
+
+  .wallet-points{
+
+    font-size:40px;
+
+  }
+
+}
+
+@media(max-width:600px){
+
+  header{
+
+    flex-direction:column;
+
+    height:auto;
+
+    padding:15px;
+
+  }
+
+  nav{
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+  }
+
+  .redeem-page{
+
+    margin-top:180px;
+
+  }
+
+  .history-card{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+  }
+
+}
+

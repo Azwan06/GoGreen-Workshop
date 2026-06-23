@@ -1,3 +1,20 @@
+//home
+
+<?php
+
+session_start();
+include "../config/database.php";
+
+$user_id = $_SESSION['user_id'];
+
+$userResult = mysqli_query(
+    $conn,
+    "SELECT * FROM users WHERE id='$user_id'"
+);
+
+$user = mysqli_fetch_assoc($userResult);
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +30,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- CSS -->
-  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="assets/css/home.css">
 
 </head>
 
@@ -40,31 +57,43 @@
       
         <nav id="navMenu">
 
-            <a href="home.html">Home</a>
-            <a href="map.html">Map</a>
-            <a href="media.html">Media</a>
-            <a href="recycle.html">Recylce</a>
-            <a href="redeem.html">Redeem</a>
-            <a href="contact.html">Contact</a>
-            <!-- <a href="about.html">About</a> -->
+            <a href="home.php">Home</a>
+            <a href="map.php">Map</a>
+            <a href="media.php">Media</a>
+            <a href="recycle.php">Recycle</a>
+            <a href="redeem.php">Redeem</a>
+            <a href="contact.php">Contact</a>
+            <!-- <a href="about.php">About</a> -->
 
         </nav>  
-        <div class="user-avatar-container">
-            <div class="user-avatar" onclick="toggleProfileMenu()">
-                <img src="image/avatar.png" alt="User Avatar">
+                <div class="user-avatar-container">
+
+            <div class="user-avatar"
+            onclick="toggleProfileMenu()">
+
+                <img
+src="<?php echo !empty($user['profile_image'])
+    ? '../uploads/profile/'.$user['profile_image']
+    : '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
+
             </div>
 
             <div class="profile-menu" id="profileMenu">
                 <div class="profile-info">
-                    <h4>John Doe</h4>
-                    <p>johndoe@student.utem.edu.my</p>
+                    <h4>
+                        <?php echo $_SESSION['fullname']; ?>
+                    </h4>
+
+                    <p>
+                        <?php echo $_SESSION['email']; ?>
+                    </p>
                 </div>
 
-                <a href="profile.html">Profile</a>
-                <a href="leaderboard.html">Leaderboard</a>
-                <a href="notification.html">Notification</a>
-                <a href="setting.html">Settings</a>
-                <a href="../Public/login.html">Sign Out</a>
+                <a href="profile.php">Profile</a>
+                <a href="leaderboard.php">Leaderboard</a>
+                <a href="setting.php">Settings</a>
+                <a href="../Public/login.php">Sign Out</a>
             </div>
         </div>
     </div>
@@ -89,11 +118,11 @@
 
       <div class="hero-buttons">
 
-        <a href="recycle.html" class="primary-btn">
+        <a href="recycle.php" class="primary-btn">
           Start Recycling Today →
         </a>
 
-        <a href="media.html" class="secondary-btn">
+        <a href="media.php" class="secondary-btn">
           Learn More
         </a>
 
@@ -278,9 +307,10 @@
       a cleaner future for everyone.
     </p>
 
-    <button>
-      Get Started →
-    </button>
+     <a href="recycle.php" class="primary-btn">
+          Get Started →
+        </a>
+    
 
   </section>
 

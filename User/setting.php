@@ -1,4 +1,28 @@
-<!doctype html>
+//setting
+
+<?php
+
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+
+    header("Location: ../Public/login.php");
+    exit();
+}
+
+include "../config/database.php";
+
+$user_id = $_SESSION['user_id'];
+
+$user = mysqli_fetch_assoc(
+    mysqli_query(
+        $conn,
+        "SELECT * FROM users WHERE id='$user_id'"
+    )
+);
+
+?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -10,7 +34,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="setting.css">
+    <link rel="stylesheet" href="assets/css/setting.css">
   </head>
   <body>
     
@@ -34,14 +58,14 @@
 
         <nav id="navMenu">
           
-            <a href="home.html">Home</a>
-            <a href="map.html">Map</a>
-            <a href="media.html">Media</a>
-            <a href="recycle.html">Recylce</a>
-            <a href="redeem.html">Redeem</a>
-            <a href="contact.html">Contact</a>
+            <a href="home.php">Home</a>
+            <a href="map.php">Map</a>
+            <a href="media.php">Media</a>
+            <a href="recycle.php">Recycle</a>
+            <a href="redeem.php">Redeem</a>
+            <a href="contact.php">Contact</a>
 
-          <!-- <button class="sign-btn" onclick="window.location.href = '../Public/login.html'">
+          <!-- <button class="sign-btn" onclick="window.location.href = '../Public/login.php'">
             Sign Out
           </button> -->
 
@@ -75,44 +99,103 @@
 
           <!-- PICTURE -->
           <div class="profile-picture-row">
-            <div class="avatar-circle">??</div>
-            <div class="upload-controls">
-              <span class="upload-label">Profile picture</span>
-              <label class="btn-upload">
-                <input type="file" style="display: none" />
-                ↑ Upload
-              </label>
-              <span class="upload-hint">PNG, JPG up to 2MB</span>
-            </div>
-          </div>
+            <div class="avatar-circle">
+
+    <img
+    src="<?php echo !empty($user['profile_image'])
+        ? '../uploads/profile/'.$user['profile_image']
+        : '../uploads/profile/default.jpg'; ?>"
+    alt="Profile">
+
+</div>
+           <div class="upload-controls">
+
+    <span class="upload-label">
+        Profile picture
+    </span>
+
+    <form
+    action="../auth/update_profile_image.php"
+    method="POST"
+    enctype="multipart/form-data">
+
+        <label class="btn-upload">
+
+            <input
+            type="file"
+            name="profile_image"
+            accept="image/*"
+            onchange="this.form.submit()"
+            hidden>
+
+            ↑ Upload
+
+        </label>
+
+    </form>
+
+    <span class="upload-hint">
+        PNG, JPG up to 2MB
+    </span>
+
+</div>
+</div>
+
+<form
+action="../auth/update_profile.php"
+method="POST"
+class="profile-form">
 
           <div class="form-grid">
             <div class="form-group">
               <label class="input-label">Full name</label>
-              <input type="text" class="form-input" />
+              <input
+type="text"
+class="form-input"
+name="fullname"
+value="<?php echo htmlspecialchars($user['fullname']); ?>">
             </div>
 
             <div class="form-group">
               <label class="input-label">Email</label>
-              <input type="email" class="form-input" />
+              <input
+type="email"
+class="form-input"
+name="email"
+value="<?php echo htmlspecialchars($user['email']); ?>"
+required>
             </div>
 
             <div class="form-group">
-              <label class="input-label">Department</label>
-              <input type="text" class="form-input" />
+              <label class="input-label">Faculty</label>
+              <input
+type="text"
+class="form-input"
+name="faculty"
+value="<?php echo htmlspecialchars($user['faculty']); ?>">
             </div>
 
             <div class="form-group">
               <label class="input-label">Role</label>
-              <input type="text" class="form-input "value="Administrator" readonly/>
+              <input type="text" class="form-input" value="<?php echo ucfirst($user['role']); ?>" readonly/>
             </div>
           </div>
 
           <div class="form-footer">
-            <button type="button" class="btn-save">Save changes</button>
-          </div>
-        </div>
 
+    <button
+    type="submit"
+    class="btn-save">
+
+        Save Changes
+
+    </button>
+
+</div>
+
+</form>
+
+</div>
         <!-- CARD SECOND -->
         <div class="card-container">
             <h2>Preferences</h2>
