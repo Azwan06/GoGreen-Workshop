@@ -1,3 +1,4 @@
+
 /* ================= RESET ================= */
 
 *{
@@ -233,6 +234,9 @@ nav a:hover{
 /* ================= TOPBAR ================= */
 
 .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
     margin-bottom:22px;
 }
 
@@ -246,6 +250,23 @@ nav a:hover{
 .welcome p{
     color:#777;
     font-size:14px;
+}
+
+.export-btn{
+background:#16a34a;
+color:white;
+padding:10px 16px;
+border-radius:10px;
+text-decoration:none;
+font-weight:600;
+display:inline-flex;
+align-items:center;
+gap:8px;
+margin-left:auto;
+}
+
+.export-btn:hover{
+background:#15803d;
 }
 
 /* ================= CARDS ================= */
