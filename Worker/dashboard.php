@@ -1,3 +1,19 @@
+<?php
+
+session_start();
+
+include "../config/database.php";
+
+if (
+    !isset($_SESSION['user_id']) ||
+    $_SESSION['role'] != 'worker'
+) {
+
+    header("Location: ../Public/login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="ms">
 <head>
@@ -21,7 +37,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
 
 </head>
 
@@ -43,9 +59,9 @@
     <div class="header-right">
 
       <nav id="navMenu">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="schedule.html">Schedule</a>
-        <a href="status.html">Pickup</a>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="schedule.php">Schedule</a>
+        <a href="status.php">Pickup</a>
       </nav>
     
       <div class="user-avatar-container">
@@ -60,10 +76,10 @@
                   <p>johndoe@student.utem.edu.my</p>
               </div>
 
-              <a href="profile.html">Profile</a>
-              <a href="notification.html">Notification</a>
-              <a href="setting.html">Settings</a>
-              <a href="../Public/login.html">Sign Out</a>
+              <a href="profile.php">Profile</a>
+              <a href="notification.php">Notification</a>
+              <a href="setting.php">Settings</a>
+              <a href="../Public/login.php">Sign Out</a>
               
           </div>
       </div>
