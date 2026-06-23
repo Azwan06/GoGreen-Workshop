@@ -107,6 +107,12 @@ http://localhost/GoGreen
 
 ---
 
+<<<<<<< HEAD
+=======
+
+---
+
+>>>>>>> 90de1219a369f49909b98e834b692df05f499443
 # 🛠️ Teknologi Digunakan
 
 * HTML5
