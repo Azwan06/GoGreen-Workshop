@@ -1,3 +1,5 @@
+//schedule
+
 <?php
 
 session_start();
@@ -104,25 +106,27 @@ mysqli_query($conn,$scheduleQuery);
       <nav id="navMenu">
         <a href="dashboard.php">Dashboard</a>
         <a href="schedule.php">Schedule</a>
-        <a href="status.php">Pickup</a>
+        <a href="status.php">Reports</a>
       </nav>
     
       <div class="user-avatar-container">
           <div class="user-avatar" onclick="toggleProfileMenu()">
-              <img src="image/avatar.png" alt="User Avatar">
+              <img src="<?php echo !empty($user['profile_image'])
+? '../uploads/profile/'.$user['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">>
           </div>
 
           <div class="profile-menu" id="profileMenu">
 
               <div class="profile-info">
-                  <h4><?php echo $_SESSION['fullname']; ?></h4>
-<p><?php echo $_SESSION['email']; ?></p>
-              </div>
+    <h4><?php echo $_SESSION['fullname']; ?></h4>
+    <p><?php echo $_SESSION['email']; ?></p>
+</div>
 
-              <a href="profile.php">Profile</a>
-              <a href="notification.php">Notification</a>
-              <a href="setting.php">Settings</a>
-              <a href="../auth/logout.php">Sign Out</a>
+<a href="profile.php">Profile</a>
+<a href="setting.php">Settings</a>
+<a href="../auth/logout.php">Sign Out</a>
               
           </div>
       </div>
@@ -286,10 +290,6 @@ method="POST">
 </form>
 
 </div>
-
-</div>
-
-</td>
 
 </div>
 
