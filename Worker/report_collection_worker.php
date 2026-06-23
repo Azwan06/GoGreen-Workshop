@@ -1,10 +1,28 @@
+// report collection
+
+<?php
+
+session_start();
+
+include "../config/database.php";
+
+if (
+    !isset($_SESSION['user_id']) ||
+    $_SESSION['role'] != 'worker'
+) {
+
+    header("Location: ../Public/login.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, intial-scale=1.0">
         <title>Go Green - My Dashboard </title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="assets/css/report_collection_worker.css">
     </head>
 
     <body>

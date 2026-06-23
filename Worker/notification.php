@@ -1,3 +1,20 @@
+//notification
+
+<?php
+
+session_start();
+
+include "../config/database.php";
+
+if (
+    !isset($_SESSION['user_id']) ||
+    $_SESSION['role'] != 'worker'
+) {
+
+    header("Location: ../Public/login.php");
+    exit();
+} 
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -16,7 +33,7 @@
     />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="notification.css" />
+    <link rel="stylesheet" href="assets/css/notification.css" />
   </head>
 
   <body>
@@ -40,9 +57,9 @@
     <div class="header-right">
 
       <nav id="navMenu">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="schedule.html">Schedule</a>
-        <a href="status.html">Pickup</a>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="schedule.php">Schedule</a>
+        <a href="status.php">Pickup</a>
       </nav>
     
       <div class="user-avatar-container">
@@ -60,7 +77,7 @@
               <a href="profile.html">Profile</a>
               <a href="notification.html">Notification</a>
               <a href="setting.html">Settings</a>
-              <a href="../Public/login.html">Sign Out</a>
+              <a href="../Public/login.php">Sign Out</a>
               
           </div>
       </div>
