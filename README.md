@@ -107,44 +107,6 @@ http://localhost/GoGreen
 
 ---
 
-# 📂 Struktur Folder
-
-```bash id="p2w1ez"
-gogreen/
-│
-├── assets/
-│   ├── css/
-│   ├── js/
-│   ├── images/
-│
-├── admin/
-│   ├── dashboard.php
-│   ├── manage-user.php
-│   ├── reports.php
-│
-├── worker/
-│   ├── dashboard.php
-│   ├── collection.php
-│
-├── user/
-│   ├── profile.php
-│   ├── leaderboard.php
-│   ├── map.php
-│
-├── includes/
-│   ├── config.php
-│   ├── functions.php
-│   ├── auth.php
-│
-├── database/
-│   ├── gogreen.sql
-│
-├── index.php
-└── README.md
-```
-
----
-
 # 🛠️ Teknologi Digunakan
 
 * HTML5
