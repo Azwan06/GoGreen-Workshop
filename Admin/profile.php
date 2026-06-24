@@ -15,20 +15,15 @@
 <body>
     
     <header>
-            
         <div class="header-left">
-
             <div class="menu-toggle" onclick="toggleMenu()">
                 ☰
             </div>
-
             <div class="logo">
                 <img src="image/recycle_imag.png" alt="GoGreen Logo">
                 GoGreen
             </div>
-
         </div>
-
     </header>
 
     <div class="sidebar" id="sidebar">
@@ -45,14 +40,12 @@
         <a href="addreward.html">Rewards</a>
         <a href="userrole.html">Users</a>
         <a href="media.html">Media</a>
-        
     </div>
  
     <main class="profile-container">
 
         <div class="page-header">
             <a href="javascript:history.back()" class="back-btn">← Back</a>
-
             <h1 class="page-main-title">Profile</h1>
         </div>
     
@@ -62,9 +55,10 @@
             </div>
             
             <div class="user-card-body">
-                <h1 class="user-name">User Name</h1>
+                <!-- ID ditambah untuk display nama supaya boleh dikemas kini secara dinamik -->
+                <h1 class="user-name" id="display-user-name">User Name</h1>
                 <div class="user-meta-grid">
-                    <p><strong>Email:</strong> user@example.com</p>
+                    <p><strong>Email:</strong> <span id="display-user-email">user@example.com</span></p>
                     <p><strong>Location:</strong> Melaka, MY</p>
                     <p><strong>Status:</strong> Student</p>
                 </div>
@@ -84,16 +78,13 @@
                         <label for="email">Email Address</label>
                         <input type="email" id="email" value="user@example.com">
                     </div>
-                    <button type="button" class="btn-save">Save Changes</button>
-                     <button type="button" class="btn-save2"
-                     onclick="window.location.href='../Public/login.html'">
+                    <!-- Ditambah onclick="saveChanges()" untuk jalankan fungsi simpan -->
+                    <button type="button" class="btn-save" onclick="saveChanges()">Save Changes</button>
+                    <button type="button" class="btn-save2" onclick="window.location.href='../Public/login.html'">
                         Log Out
                     </button>
                 </form>
             </div>
-       
-
-
         </section>
 
         <section class="history-section">
@@ -106,7 +97,6 @@
                 </div>
 
                 <div class="summary-card metrics-total-points">
-
                     <div class="summary-label">Total Earned</div>
                     <div class="summary-value">7,210 pts</div>
                 </div>
@@ -153,22 +143,53 @@
     </footer>
 
     <script>
-        // sidebar
+        // Sidebar toggle
         function toggleMenu(){
-            document
-            .getElementById("sidebar")
-            .classList.toggle("active");
+            document.getElementById("sidebar").classList.toggle("active");
         }
 
-        function toggleProfileMenu(){
-            document.getElementById("profileMenu").classList.toggle("show");
+        // Fungsi Load Data semasa halaman dibuka
+        function loadProfileData() {
+            const savedName = localStorage.getItem("gogreen_username");
+            const savedEmail = localStorage.getItem("gogreen_email");
+
+            // Jika ada data dalam localStorage, masukkan ke dalam input dan paparan teks
+            if (savedName) {
+                document.getElementById("username").value = savedName;
+                document.getElementById("display-user-name").innerText = savedName;
+            }
+            if (savedEmail) {
+                document.getElementById("email").value = savedEmail;
+                document.getElementById("display-user-email").innerText = savedEmail;
+            }
         }
 
-        document.addEventListener("click",function(event){
+        // Fungsi Simpan Data ke localStorage apabila butang Save Changes ditekan
+        function saveChanges() {
+            const inputName = document.getElementById("username").value;
+            const inputEmail = document.getElementById("email").value;
+
+            // Simpan ke dalam browser memory
+            localStorage.setItem("gogreen_username", inputName);
+            localStorage.setItem("gogreen_email", inputEmail);
+
+            // Kemas kini paparan teks terus tanpa perlu refresh
+            document.getElementById("display-user-name").innerText = inputName;
+            document.getElementById("display-user-email").innerText = inputEmail;
+
+            alert("Changes saved successfully!");
+        }
+
+        // Jalankan loadProfileData secara automatik sebaik sahaja halaman siap dibuka
+        document.addEventListener("DOMContentLoaded", loadProfileData);
+
+        // Kod lama (pembaikan ralat tiada element .user-avatar-container)
+        document.addEventListener("click", function(event){
             const container = document.querySelector(".user-avatar-container");
             const menu = document.getElementById("profileMenu");
             
-            if(!container.contains(event.target)){
+            // Ditambah check jika 'container' dan 'menu' wujud dalam HTML untuk elak error di console
+            if(container && menu && !container.contains(event.target)){
                 menu.classList.remove("show");
             }
         });
