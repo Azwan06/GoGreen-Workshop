@@ -1,362 +1,589 @@
+<?php
+
+session_start();
+
+include "../config/database.php";
+
+// if (
+//     !isset($_SESSION['user_id']) ||
+//     $_SESSION['role'] != 'admin'
+// ) {
+
+//     header("Location: ../Public/login.php");
+//     exit();
+// }
+
+// GET REDEMPTIONS
+
+$query = "
+
+SELECT
+reward_redeems.*,
+users.fullname,
+rewards.reward_name,
+rewards.image
+
+FROM reward_redeems
+
+INNER JOIN users
+ON reward_redeems.user_id = users.id
+
+INNER JOIN rewards
+ON reward_redeems.reward_id = rewards.id
+
+ORDER BY reward_redeems.id DESC
+
+";
+
+$result =
+mysqli_query($conn, $query);
+
+// COUNTS
+
+$pendingCount = mysqli_fetch_assoc(
+
+    mysqli_query(
+        $conn,
+        "SELECT COUNT(*) AS total
+        FROM reward_redeems
+        WHERE status='pending'"
+    )
+
+)['total'];
+
+$approvedCount = mysqli_fetch_assoc(
+
+    mysqli_query(
+        $conn,
+        "SELECT COUNT(*) AS total
+        FROM reward_redeems
+        WHERE status='approved'"
+    )
+
+)['total'];
+
+$rejectedCount = mysqli_fetch_assoc(
+
+    mysqli_query(
+        $conn,
+        "SELECT COUNT(*) AS total
+        FROM reward_redeems
+        WHERE status='rejected'"
+    )
+
+)['total'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Rewards</title>
 
-    <!-- GOOGLE FONT -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="UTF-8">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="reqreward.css">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Request Rewards
+</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="assets/css/reqreward.css">
+
 </head>
+
 <body>
-    
-    <header>
+
+<header>
             
-        <div class="header-left">
+<div class="header-left">
 
-            <div class="menu-toggle" onclick="toggleMenu()">
-                ☰
-            </div>
+    <div class="menu-toggle"
+    onclick="toggleMenu()">
 
-            <div class="logo">
-                <img src="image/recycle_imag.png" alt="GoGreen Logo">
-                GoGreen
-            </div>
+        ☰
 
-        </div>
-
-
-        <div class="header-right">
-        
-            <div class="user-avatar-container">
-                <div class="user-avatar" onclick="toggleProfileMenu()">
-                    <img src="image/avatar.png" alt="User Avatar">
-                </div>
-
-                <div class="profile-menu" id="profileMenu">
-
-                    <div class="profile-info">
-                        <h4>John Doe</h4>
-                        <p>johndoe@student.utem.edu.my</p>
-                    </div>
-
-                    <a href="profile.html">Profile</a>
-                    <a href="notification.html">Notification</a>
-                    <a href="setting.html">Settings</a>
-                    <a href="../Public/login.html">Sign Out</a>
-
-                </div>
-            </div>
-        </div>
-
-    </header>
-
-    <div class="sidebar" id="sidebar">
-        <button class="close-btn" onclick="toggleMenu()">✕</button>
-        <h2 class="sidebar-logo">GoGreen</h2>
-
-        <a href="dashboard.html">Dashboard</a>
-        <a href="reqsub.html">Submissions</a>
-        <a href="reqreward.html">Redemptions</a>
-        <a href="addschedule.html">Schedule</a>
-        <a href="addbin.html">Bin Map</a>
-        <a href="pickups.html">Pickups</a>
-        <a href="reports.html">Reports</a>
-        <a href="addreward.html">Rewards</a>
-        <a href="userrole.html">Users</a>
-        <a href="media.html">Media</a>
-        
     </div>
 
-    <!-- PAGE TITLE -->
-    <section class="page-title">
-        <h1>Request Rewards</h1>
-        <p>Review and approve user reward redemption requests</p>
-    </section>
+    <div class="logo">
 
-    <!-- CONTAINER -->
-    <div class="container">
-        
-        <!-- TABS -->
-        <div class="tabs">
-            <button class="tab active" onclick="filterTab('pending',this)">Pending</button>
-            <button class="tab" onclick="filterTab('approved',this)">Approved</button>
-            <button class="tab" onclick="filterTab('rejected',this)">Rejected</button>
-        </div>
+        <img
+        src="image/recycle_imag.png"
+        alt="GoGreen Logo">
 
-        <!-- CARD1 -->
-         <div class="submission-card" data-status="pending">
-            <div class="submission-left">
-                 <div class="submission-icon">
-                    <img src="image/utem logo.png" alt="User Avatar">
-                </div>
+        GoGreen
 
-                <div class="submission-details">
-
-                    <div class="submission-meta">
-                        <span>R-2101</span>
-                        <span>-</span>
-                        <span>5m ago</span>
-                    </div>
-
-                    <h3>1 Tuah Indeks</h3>
-
-                    <p>250 points redeemed</p>
-                </div>
-            </div>
-              <div class="submission-right">
-
-                <div class="submission-user">
-
-                    <div class="user-avatar">
-                        AF
-                    </div>
-
-                    <span class="user-name">
-                        Amir Faiz
-                    </span>
-
-                    <span class="status pending">
-                        Pending
-                    </span>
-
-                </div>
-
-                <div class="submission-actions">
-
-                    <button class="btn preview-btn"
-                    onclick="openModal('image/utem logo.png')">
-                        Preview
-                    </button>
-
-                    <button class="btn review-btn">
-                        Review
-                    </button>
-
-                    <button class="btn approve-btn">
-                        Redeem
-                    </button>
-
-                </div>
-        </div>
     </div>
-<!-- CARD 2 -->
-        <div class="submission-card" data-status="redeemed">
 
-            <div class="submission-left">
+</div>
 
-                <div class="submission-icon">
-                    <img src="image/utem logo.png" alt="User Avatar">
-                </div>
+<div class="header-right">
+        
+    <div class="user-avatar-container">
 
-                <div class="submission-details">
+        <div class="user-avatar"
+        onclick="toggleProfileMenu()">
 
-                    <div class="submission-meta">
-                        <span>R-2098</span>
-                        <span>-</span>
-                        <span>1h ago</span>
-                    </div>
-
-                    <h3>5 Tuah Indeks</h3>
-
-                    <p>120 points redeemed</p>
-
-                </div>
-
-            </div>
-
-            <div class="submission-right">
-
-                <div class="submission-user">
-
-                    <div class="user-avatar">
-                        NA
-                    </div>
-
-                    <span class="user-name">
-                        Nurul Aina
-                    </span>
-
-                    <span class="status redeemed">
-                        Redeemed
-                    </span>
-
-                </div>
-
-                <div class="submission-actions">
-
-                    <button class="btn preview-btn"
-                    onclick="openModal('image/utem logo.png')">
-                        Preview
-                    </button>
-
-                </div>
-
-            </div>
+            <img
+src="<?php echo !empty($_SESSION['profile_image'])
+? '../uploads/profile/'.$_SESSION['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
 
         </div>
 
-        <!-- CARD 3 -->
-        <div class="submission-card" data-status="cancelled">
+        <div class="profile-menu"
+        id="profileMenu">
 
-            <div class="submission-left">
+            <div class="profile-info">
 
-                <div class="submission-icon">
-                    <img src="image/utem logo.png" alt="User Avatar">
-                </div>
+                <h4>
 
-                <div class="submission-details">
+                    <?php
+                    echo $_SESSION['fullname'];
+                    ?>
 
-                    <div class="submission-meta">
-                        <span>R-2090</span>
-                        <span>-</span>
-                        <span>4h ago</span>
-                    </div>
+                </h4>
 
-                    <h3>10 Tuah Indeks</h3>
+                <p>
 
-                    <p>500 points redeemed</p>
+                    <?php
+                    echo $_SESSION['email'];
+                    ?>
 
-                </div>
+                </p>
 
             </div>
 
-            <div class="submission-right">
+            <a href="profile.php">
+                Profile
+            </a>
 
-                <div class="submission-user">
+            <a href="setting.php">
+                Settings
+            </a>
 
-                    <div class="user-avatar">
-                        MH
-                    </div>
-
-                    <span class="user-name">
-                        Mira Hanani
-                    </span>
-
-                    <span class="status cancelled">
-                        Cancelled
-                    </span>
-
-                </div>
-
-                <div class="submission-actions">
-
-                    <button class="btn preview-btn"
-                    onclick="openModal('image/utem logo.jpg')">
-                        Preview
-                    </button>
-
-                </div>
-
-            </div>
+            <a href="../auth/logout.php">
+                Sign Out
+            </a>
 
         </div>
 
     </div>
 
-    <!-- FOOTER -->
-    <footer>
+</div>
 
-        <p class="left-footer">
-            © GoGreen. All rights reserved.
-        </p>
+</header>
 
-        <p class="right-footer">
-            Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
-        </p>
+<!-- SIDEBAR -->
 
-    </footer>
+<div class="sidebar" id="sidebar">
 
-    <!-- MODAL -->
-    <div id="imageModal" class="modal" style="display:none;">
+<button class="close-btn"
+onclick="toggleMenu()">
 
-        <div class="modal-content">
+✕
 
-            <span class="close" onclick="closeModal()">
-                ✕
-            </span>
+</button>
 
-            <img id="modalImg" src="" alt="Preview Image">
+<h2 class="sidebar-logo">
+GoGreen
+</h2>
 
-        </div>
+<a href="dashboard.php">
+Dashboard
+</a>
 
-    </div>
+<a href="reqsub.php">
+Submissions
+</a>
 
-    <!-- JAVASCRIPT -->
-    <script>
+<a href="reqreward.php">
+Redemptions
+</a>
 
-        // sidebar
-        function toggleMenu(){
-            document
-            .getElementById("sidebar")
-            .classList.toggle("active");
-        }
+<a href="addschedule.php">
+Schedule
+</a>
 
-        function toggleProfileMenu(){
-            document.getElementById("profileMenu").classList.toggle("show");
-        }
+<a href="addbin.php">
+Bin Map
+</a>
 
-        document.addEventListener("click",function(event){
-            const container = document.querySelector(".user-avatar-container");
-            const menu = document.getElementById("profileMenu");
-            
-            if(!container.contains(event.target)){
-                menu.classList.remove("show");
-            }
-        });
+<a href="reports.php">
+Reports
+</a>
+
+<a href="addreward.php">
+Rewards
+</a>
+
+<a href="userrole.php">
+Users
+</a>
+
+<a href="media.php">
+Media
+</a>
         
-        function openModal(imgSrc){
+</div>
 
-            document.getElementById("modalImg").src = imgSrc;
+<!-- PAGE TITLE -->
 
-            document.getElementById("imageModal").style.display = "flex";
+<section class="page-title">
 
-        }
+<h1>
+Request Rewards
+</h1>
 
-        function closeModal(){
+<p>
+Review and approve user reward redemption requests
+</p>
 
-            document.getElementById("imageModal").style.display = "none";
+</section>
 
-        }
+<!-- CONTAINER -->
 
-        function filterTab(status, btn){
+<div class="container">
 
-            const cards = document.querySelectorAll(".submission-card");
+<div class="tabs">
 
-            const tabs = document.querySelectorAll(".tab");
+<button
+class="tab active"
+onclick="filterTab('pending',this)">
 
-            tabs.forEach(t => t.classList.remove("active"));
+Pending
+(<?php echo $pendingCount; ?>)
 
-            btn.classList.add("active");
+</button>
 
-            cards.forEach(card => {
+<button
+class="tab"
+onclick="filterTab('approved',this)">
 
-                const cardStatus =
-                card.getAttribute("data-status");
+Approved
+(<?php echo $approvedCount; ?>)
 
-                if(status === "all"){
+</button>
 
-                    card.style.display = "flex";
+<button
+class="tab"
+onclick="filterTab('rejected',this)">
 
-                }
-                else{
+Rejected
+(<?php echo $rejectedCount; ?>)
 
-                    card.style.display =
-                    (cardStatus === status)
-                    ? "flex"
-                    : "none";
+</button>
 
-                }
+</div>
 
-            });
+<!-- LOOP -->
 
-        }
+<?php
+while($row = mysqli_fetch_assoc($result)){
+?>
 
-    </script>
+<div
+class="submission-card"
+data-status="<?php echo $row['status']; ?>">
+
+<div class="submission-left">
+
+<div class="submission-icon">
+
+<img
+src="../uploads/rewards/<?php echo $row['image']; ?>"
+alt="">
+
+</div>
+
+<div class="submission-details">
+
+<div class="submission-meta">
+
+<span>
+
+R-<?php echo $row['id']; ?>
+
+</span>
+
+<span>-</span>
+
+<span>
+
+<?php
+echo $row['redeem_date'];
+?>
+
+</span>
+
+</div>
+
+<h3>
+
+<?php
+echo $row['reward_name'];
+?>
+
+</h3>
+
+<p>
+
+<?php
+echo $row['total_points']; ?>
+
+points redeemed
+
+</p>
+
+</div>
+
+</div>
+
+<div class="submission-right">
+
+<div class="submission-user">
+
+<div class="user-avatar">
+
+<?php
+
+echo strtoupper(
+substr(
+$row['fullname'],
+0,
+1
+)
+);
+
+?>
+
+</div>
+
+<span class="user-name">
+
+<?php
+echo $row['fullname'];
+?>
+
+</span>
+
+<span
+class="status <?php echo $row['status']; ?>">
+
+<?php
+echo ucfirst($row['status']);
+?>
+
+</span>
+
+</div>
+
+<div class="submission-actions">
+
+<button
+class="btn preview-btn"
+onclick="openModal('../uploads/<?php echo $row['image']; ?>')">
+
+Preview
+
+</button>
+
+<?php
+if($row['status'] == 'pending'){
+?>
+
+<a
+href="../auth/approve_reward.php?id=<?php echo $row['id']; ?>"
+class="btn approve-btn">
+
+Approve
+
+</a>
+
+<a
+href="../auth/reject_reward.php?id=<?php echo $row['id']; ?>"
+class="btn review-btn">
+
+Reject
+
+</a>
+
+<?php
+}
+?>
+
+</div>
+
+</div>
+
+</div>
+
+<?php
+}
+?>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+<p class="left-footer">
+
+© GoGreen. All rights reserved.
+
+</p>
+
+<p class="right-footer">
+
+Contact us:
+Al-Khawarizmi UTeM,
+Melaka, Malaysia
+
+</p>
+
+</footer>
+
+<!-- MODAL -->
+
+<div
+id="imageModal"
+class="modal"
+style="display:none;">
+
+<div class="modal-content">
+
+<span
+class="close"
+onclick="closeModal()">
+
+✕
+
+</span>
+
+<img
+id="modalImg"
+src=""
+alt="Preview Image">
+
+</div>
+
+</div>
+
+<script>
+
+function toggleMenu(){
+
+document
+.getElementById("sidebar")
+.classList.toggle("active");
+
+}
+
+function toggleProfileMenu(){
+
+document
+.getElementById("profileMenu")
+.classList.toggle("show");
+
+}
+
+document.addEventListener(
+
+"click",
+
+function(event){
+
+const container =
+document.querySelector(
+".user-avatar-container"
+);
+
+const menu =
+document.getElementById(
+"profileMenu"
+);
+
+if(
+container &&
+!container.contains(event.target)
+){
+
+menu.classList.remove("show");
+
+}
+
+}
+
+);
+
+function openModal(imgSrc){
+
+document
+.getElementById("modalImg")
+.src = imgSrc;
+
+document
+.getElementById("imageModal")
+.style.display = "flex";
+
+}
+
+function closeModal(){
+
+document
+.getElementById("imageModal")
+.style.display = "none";
+
+}
+
+function filterTab(status, btn){
+
+const cards =
+document.querySelectorAll(
+".submission-card"
+);
+
+const tabs =
+document.querySelectorAll(
+".tab"
+);
+
+tabs.forEach(
+t => t.classList.remove("active")
+);
+
+btn.classList.add("active");
+
+cards.forEach(card => {
+
+const cardStatus =
+card.getAttribute("data-status");
+
+card.style.display =
+(cardStatus === status)
+? "flex"
+: "none";
+
+});
+
+}
+
+</script>
 
 </body>
 </html>
+

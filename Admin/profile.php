@@ -1,3 +1,32 @@
+<?php
+
+session_start();
+include "../config/database.php";
+
+if(!isset($_SESSION['user_id'])){
+    header("Location: ../login.php");
+    exit();
+}
+
+$user_id = $_SESSION['user_id'];
+
+$userQuery = mysqli_query(
+    $conn,
+    "SELECT * FROM users WHERE id='$user_id'"
+);
+
+$user = mysqli_fetch_assoc($userQuery);
+
+$history = mysqli_query(
+    $conn,
+    "SELECT *
+     FROM recycle_submissions
+     WHERE user_id='$user_id'
+     ORDER BY created_at DESC"
+);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +38,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="assets/css/profile.css">
 </head>
 
 <body>
@@ -35,16 +64,15 @@
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <h2 class="sidebar-logo">GoGreen</h2>
 
-        <a href="dashboard.html">Dashboard</a>
-        <a href="reqsub.html">Submissions</a>
-        <a href="reqreward.html">Redemptions</a>
-        <a href="addschedule.html">Schedule</a>
-        <a href="addbin.html">Bin Map</a>
-        <a href="pickups.html">Pickups</a>
-        <a href="reports.html">Reports</a>
-        <a href="addreward.html">Rewards</a>
-        <a href="userrole.html">Users</a>
-        <a href="media.html">Media</a>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="reqsub.php">Submissions</a>
+        <a href="reqreward.php">Redemptions</a>
+        <a href="addschedule.php">Schedule</a>
+        <a href="addbin.php">Bin Map</a>
+        <a href="reports.php">Reports</a>
+        <a href="addreward.php">Rewards</a>
+        <a href="userrole.php">Users</a>
+        <a href="media.php">Media</a>
         
     </div>
  
@@ -57,90 +85,106 @@
         </div>
     
         <section class="user-card-section">
-            <div class="avatar-wrapper">
-                <div class="user-avatar"></div>
-            </div>
+            
+<div class="avatar-wrapper">
+    <div class="user-avatar">
+
+        <img
+        src="<?php echo !empty($user['profile_image'])
+            ? '../uploads/profile/'.$user['profile_image']
+            : '../uploads/profile/default.jpg'; ?>"
+        alt="Profile">
+
+    </div>
+</div>
             
             <div class="user-card-body">
-                <h1 class="user-name">User Name</h1>
+                <h1 class="user-name">
+    <?php echo htmlspecialchars($user['fullname']); ?>
+</h1>
                 <div class="user-meta-grid">
-                    <p><strong>Email:</strong> user@example.com</p>
-                    <p><strong>Location:</strong> Melaka, MY</p>
-                    <p><strong>Status:</strong> Student</p>
+                    <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
+                    <p><strong>Location:</strong> <?php echo !empty($user['address']) ? $user['address'] : 'Not Set'; ?></p>
+                    <p><strong>Status:</strong> <?php echo ucfirst($user['role']); ?></p>
                 </div>
             </div>
         </section>
 
         <section class="info-widgets-grid">
-            <div class="widget-card">
-                <h3 class="widget-title">Account Settings</h3>
-                
-                <form class="settings-form" onsubmit="event.preventDefault();">
-                    <div class="form-group">
-                        <label for="username">Display Name</label>
-                        <input type="text" id="username" value="User Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" value="user@example.com">
-                    </div>
-                    <button type="button" class="btn-save">Save Changes</button>
-                     <button type="button" class="btn-save2"
-                     onclick="window.location.href='../Public/login.html'">
-                        Log Out
-                    </button>
-                </form>
-            </div>
-       
+
+    <div class="widget-card">
+
+        <h3 class="widget-title">
+            Account Settings
+        </h3>
+
+        <form
+class="settings-form"
+action="../auth/update_profile.php"
+method="POST">
+
+    <div class="form-group">
+        <label>Display Name</label>
+        <input
+        type="text"
+        name="fullname"
+        value="<?php echo htmlspecialchars($user['fullname']); ?>"
+        required>
+    </div>
+
+    <div class="form-group">
+        <label>Email Address</label>
+        <input
+        type="email"
+        value="<?php echo htmlspecialchars($user['email']); ?>"
+        readonly>
+    </div>
+
+    <button
+    type="submit"
+    class="btn-save">
+
+        Save Changes
+
+    </button>
+
+</form>
+
+<hr style="margin:20px 0;">
+
+<form action="../auth/update_profile_image.php"
+      method="POST"
+      enctype="multipart/form-data">
+
+<input type="hidden"
+       name="redirect_page"
+       value="admin">
+
+    <label>
+        Change Profile Photo
+    </label>
+
+    <input
+    type="file"
+    name="profile_image"
+    accept="image/*"
+    required>
+
+    <button
+    type="submit"
+    class="btn-save2">
+
+        Upload Photo
+
+    </button>
+
+</form>  
+    </div>
+
+</section>
 
 
-        </section>
-
-        <section class="history-section">
-            <h2 class="section-title">Recycle History</h2>
-            
-            <div class="history-summary-container">
-                <div class="summary-card metrics-card">
-                    <div class="summary-label">Plastic Total</div>
-                    <div class="summary-value">12.5 kg</div>
-                </div>
-
-                <div class="summary-card metrics-total-points">
-
-                    <div class="summary-label">Total Earned</div>
-                    <div class="summary-value">7,210 pts</div>
-                </div>
-
-                <div class="summary-card metrics-card">
-                    <div class="summary-label">Paper Total</div>
-                    <div class="summary-value">24.0 kg</div>
-                </div>
-            </div>
-
-            <div class="history-list">
-                <div class="list-heading-row">
-                    <span>Date</span>
-                    <span>Item Deposited</span>
-                    <span>Points Awarded</span>
-                </div>
-                <div class="list-row">
-                    <span class="row-date">28 May 2026</span>
-                    <span class="row-details">Plastic Bottles (x15)</span>
-                    <span class="row-points">+150 pts</span>
-                </div>
-                <div class="list-row">
-                    <span class="row-date">22 May 2026</span>
-                    <span class="row-details">Cardboard Boxes (5kg)</span>
-                    <span class="row-points">+500 pts</span>
-                </div>
-                <div class="list-row">
-                    <span class="row-date">15 May 2026</span>
-                    <span class="row-details">Aluminum Cans (x20)</span>
-                    <span class="row-points">+300 pts</span>
-                </div>
-            </div>
-        </section>
-
+        
     </main>
 
     <footer>
@@ -153,25 +197,16 @@
     </footer>
 
     <script>
-        // sidebar
-        function toggleMenu(){
-            document
-            .getElementById("sidebar")
-            .classList.toggle("active");
-        }
+        
+    function toggleMenu(){
 
-        function toggleProfileMenu(){
-            document.getElementById("profileMenu").classList.toggle("show");
-        }
+  document
+  .getElementById("sidebar")
+  .classList.toggle("active");
 
-        document.addEventListener("click",function(event){
-            const container = document.querySelector(".user-avatar-container");
-            const menu = document.getElementById("profileMenu");
-            
-            if(!container.contains(event.target)){
-                menu.classList.remove("show");
-            }
-        });
+}
+
+    
     </script>
     
 </body>

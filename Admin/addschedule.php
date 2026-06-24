@@ -1,3 +1,73 @@
+<?php
+
+session_start();
+include "../config/database.php";
+
+if (
+    !isset($_SESSION['user_id']) ||
+    $_SESSION['role'] != 'admin'
+) {
+    header("Location: ../Public/login.php");
+    exit();
+}
+
+$workerSummary = mysqli_query($conn, "
+
+SELECT
+u.id,
+u.fullname,
+COUNT(s.id) AS total_tasks
+
+FROM users u
+
+LEFT JOIN schedules s
+ON u.id = s.worker_id
+AND s.status != 'completed'
+
+WHERE u.role='worker'
+
+GROUP BY u.id
+
+ORDER BY u.fullname
+
+");
+
+$taskList = mysqli_query($conn, "
+
+SELECT
+s.*,
+u.fullname
+
+FROM schedules s
+
+LEFT JOIN users u
+ON s.worker_id = u.id
+
+ORDER BY s.schedule_date DESC,
+s.schedule_time DESC
+
+");
+
+$routineList = mysqli_query($conn, "
+
+SELECT
+wr.*,
+u.fullname
+
+FROM worker_routine wr
+
+LEFT JOIN users u
+ON wr.worker_id = u.id
+
+ORDER BY
+u.fullname,
+wr.schedule_time
+
+");
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +82,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="addschedule.css">
+    <link rel="stylesheet" href="assets/css/addschedule.css">
 </head>
 
 <body>
@@ -37,20 +107,23 @@
         
             <div class="user-avatar-container">
                 <div class="user-avatar" onclick="toggleProfileMenu()">
-                    <img src="image/avatar.png" alt="User Avatar">
+                    <img
+src="<?php echo !empty($_SESSION['profile_image'])
+? '../uploads/profile/'.$_SESSION['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
                 </div>
 
                 <div class="profile-menu" id="profileMenu">
 
                     <div class="profile-info">
-                        <h4>John Doe</h4>
-                        <p>johndoe@student.utem.edu.my</p>
+                        <h4><?php echo $_SESSION['fullname']; ?></h4>
+                        <p><?php echo $_SESSION['email']; ?></p>
                     </div>
 
-                    <a href="profile.html">Profile</a>
-                    <a href="notification.html">Notification</a>
-                    <a href="setting.html">Settings</a>
-                    <a href="../Public/login.html">Sign Out</a>
+                    <a href="profile.php">Profile</a>
+                    <a href="setting.php">Settings</a>
+                    <a href="../auth/logout.php">Sign Out</a>
 
                 </div>
             </div>
@@ -62,16 +135,15 @@
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <h2 class="sidebar-logo">GoGreen</h2>
 
-        <a href="dashboard.html">Dashboard</a>
-        <a href="reqsub.html">Submissions</a>
-        <a href="reqreward.html">Redemptions</a>
-        <a href="addschedule.html">Schedule</a>
-        <a href="addbin.html">Bin Map</a>
-        <a href="pickups.html">Pickups</a>
-        <a href="reports.html">Reports</a>
-        <a href="addreward.html">Rewards</a>
-        <a href="userrole.html">Users</a>
-        <a href="media.html">Media</a>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="reqsub.php">Submissions</a>
+        <a href="reqreward.php">Redemptions</a>
+        <a href="addschedule.php">Schedule</a>
+        <a href="addbin.php">Bin Map</a>
+        <a href="reports.php">Reports</a>
+        <a href="addreward.php">Rewards</a>
+        <a href="userrole.php">Users</a>
+        <a href="media.php">Media</a>
         
     </div>
 
@@ -89,105 +161,55 @@
     </section>
 
     <!-- WORKER SUMMARY -->
-    <div class="worker-container">
+<div class="worker-container">
 
-        <div class="worker-summary">
+<?php while($worker = mysqli_fetch_assoc($workerSummary)) { ?>
 
-            <div class="worker-avatar">
-                FH
-            </div>
+    <div class="worker-summary">
 
-            <div class="worker-info">
+        <div class="worker-avatar">
 
-                <h3>
-                    Faiz Hakim
-                </h3>
-
-                <p>
-                    Zone A
-                </p>
-
-            </div>
-
-            <div class="worker-active">
-
-                <h2>
-                    2
-                </h2>
-
-                <span>
-                    active
-                </span>
-
-            </div>
+            <?php
+            echo strtoupper(
+                substr(
+                    $worker['fullname'],
+                    0,
+                    1
+                )
+            );
+            ?>
 
         </div>
 
-        <div class="worker-summary">
+        <div class="worker-info">
 
-            <div class="worker-avatar">
-                HO
-            </div>
+            <h3>
+                <?php echo htmlspecialchars($worker['fullname']); ?>
+            </h3>
 
-            <div class="worker-info">
-
-                <h3>
-                    Hafiz Omar
-                </h3>
-
-                <p>
-                    Zone B
-                </p>
-
-            </div>
-
-            <div class="worker-active">
-
-                <h2>
-                    1
-                </h2>
-
-                <span>
-                    active
-                </span>
-
-            </div>
+            <p>
+                Worker
+            </p>
 
         </div>
 
-        <div class="worker-summary">
+        <div class="worker-active">
 
-            <div class="worker-avatar">
-                ZA
-            </div>
+            <h2>
+                <?php echo $worker['total_tasks']; ?>
+            </h2>
 
-            <div class="worker-info">
-
-                <h3>
-                    Zain Asyraf
-                </h3>
-
-                <p>
-                    Zone C
-                </p>
-
-            </div>
-
-            <div class="worker-active">
-
-                <h2>
-                    1
-                </h2>
-
-                <span>
-                    active
-                </span>
-
-            </div>
+            <span>
+                active
+            </span>
 
         </div>
 
     </div>
+
+<?php } ?>
+
+</div>
 
     <!-- TASK CONTAINER -->
     <div class="task-container">
@@ -199,90 +221,137 @@
             </h2>
 
         </div>
+        <?php if(mysqli_num_rows($taskList) > 0) { ?>
 
-        <div id="taskList">
+<?php while($task = mysqli_fetch_assoc($taskList)) { ?>
 
-            <!-- TASK -->
-            <div class="task-row">
+<div class="task-row">
 
-                <div class="task-date">
+    <div class="task-date">
 
-                    <h4>
-                        Mon, 02 Jun
-                    </h4>
+        <h4>
+            <?php echo date(
+                "d M Y",
+                strtotime($task['schedule_date'])
+            ); ?>
+        </h4>
 
-                    <span>
-                        08:00 - 10:00
-                    </span>
-
-                </div>
-
-                <div class="task-zone">
-
-                    Zone A · Bin FT-04
-
-                </div>
-
-                <div class="task-worker">
-
-                    <div class="mini-avatar">
-                        FH
-                    </div>
-
-                    Faiz Hakim
-
-                </div>
-
-                <div class="task-status upcoming">
-
-                    Upcoming
-
-                </div>
-
-            </div>
-
-            <!-- TASK -->
-            <div class="task-row">
-
-                <div class="task-date">
-
-                    <h4>
-                        Mon, 02 Jun
-                    </h4>
-
-                    <span>
-                        10:00 - 12:00
-                    </span>
-
-                </div>
-
-                <div class="task-zone">
-
-                    Zone B · Bin DKG-02
-
-                </div>
-
-                <div class="task-worker">
-
-                    <div class="mini-avatar">
-                        HO
-                    </div>
-
-                    Hafiz Omar
-
-                </div>
-
-                <div class="task-status progress">
-
-                    In Progress
-
-                </div>
-
-            </div>
-
-        </div>
+        <span>
+            <?php echo date(
+                "g:i A",
+                strtotime($task['schedule_time'])
+            ); ?>
+        </span>
 
     </div>
+
+    <div class="task-zone">
+        <?php echo htmlspecialchars($task['location']); ?>
+    </div>
+
+    <div class="task-worker">
+
+        <div class="mini-avatar">
+            <?php echo strtoupper(substr($task['fullname'],0,1)); ?>
+        </div>
+
+        <?php echo htmlspecialchars($task['fullname']); ?>
+
+    </div>
+
+    <div class="task-status">
+        <?php echo ucfirst($task['status']); ?>
+    </div>
+
+</div>
+
+<?php } ?>
+
+<?php } else { ?>
+
+<div class="task-row">
+
+    <div>No tasks assigned yet.</div>
+    <div>-</div>
+    <div>-</div>
+    <div>-</div>
+
+</div>
+
+<?php } ?>
+</div>
+            
+
+<div class="task-container">
+
+    <div class="task-header">
+
+        <h2>
+            Routine Tasks
+        </h2>
+
+    </div>
+
+<?php while($routine = mysqli_fetch_assoc($routineList)) { ?>
+
+<div class="task-row">
+
+    <div class="task-date">
+
+        <h4>
+            Daily
+        </h4>
+
+        <span>
+
+            <?php
+            echo date(
+                "g:i A",
+                strtotime(
+                    $routine['schedule_time']
+                )
+            );
+            ?>
+
+        </span>
+
+    </div>
+
+    <div class="task-zone">
+
+        <?php
+        echo htmlspecialchars(
+            $routine['location']
+        );
+        ?>
+
+    </div>
+
+    <div class="task-worker">
+
+        <?php
+        echo htmlspecialchars(
+            $routine['fullname']
+        );
+        ?>
+
+    </div>
+
+    <div class="task-status">
+
+        <?php
+        echo ucfirst(
+            $routine['priority']
+        );
+        ?>
+
+    </div>
+
+</div>
+
+<?php } ?>
+
+</div>
 
     <!-- MODAL -->
     <div class="worker-modal"
@@ -303,8 +372,12 @@
             </div>
 
             <!-- FORM -->
-            <form class="assign-form"
-            id="taskForm">
+            <form
+    id="taskForm"
+    class="assign-form"
+    method="POST"
+    action="../auth/process_schedule.php"
+>
 
                 <!-- WORKER -->
                 <div class="form-group">
@@ -313,46 +386,31 @@
                         Worker
                     </label>
 
-                    <select id="worker">
+                    <select name="worker_id" required>
 
-                        <option>
-                            Faiz Hakim
-                        </option>
+<?php
 
-                        <option>
-                            Hafiz Omar
-                        </option>
+$workers = mysqli_query(
+    $conn,
+    "SELECT id, fullname
+     FROM users
+     WHERE role='worker'
+     ORDER BY fullname"
+);
 
-                        <option>
-                            Zain Asyraf
-                        </option>
+while($worker = mysqli_fetch_assoc($workers)) {
 
-                    </select>
+?>
 
-                </div>
+<option value="<?php echo $worker['id']; ?>">
 
-                <!-- ZONE -->
-                <div class="form-group">
+    <?php echo htmlspecialchars($worker['fullname']); ?>
 
-                    <label>
-                        Zone
-                    </label>
+</option>
 
-                    <select id="zone">
+<?php } ?>
 
-                        <option>
-                            Zone A
-                        </option>
-
-                        <option>
-                            Zone B
-                        </option>
-
-                        <option>
-                            Zone C
-                        </option>
-
-                    </select>
+</select>
 
                 </div>
 
@@ -363,11 +421,28 @@
                         Bin Location
                     </label>
 
-                    <input type="text"
-                    id="bin"
-                    placeholder="Example: Bin FT-04">
+                    <input
+    type="text"
+    name="location"
+    placeholder="Example: Zone A - Bin FT-04"
+    required>
+
 
                 </div>
+
+<div class="form-group">
+
+    <label>Task Title</label>
+
+    <input
+        type="text"
+        name="task_title"
+        placeholder="Example: Recycle Collection FT-04"
+        required
+    >
+
+</div>
+
 
                 <!-- DATE -->
                 <div class="form-group">
@@ -377,7 +452,8 @@
                     </label>
 
                     <input type="date"
-                    id="date">
+       name="schedule_date"
+       required>
 
                 </div>
 
@@ -388,47 +464,46 @@
                         Start Time
                     </label>
 
-                    <input type="time"
-                    id="start">
+                    <input
+    type="time"
+    name="schedule_time"
+    required
+>
 
                 </div>
 
-                <!-- END -->
-                <div class="form-group">
+<div class="form-group">
 
-                    <label>
-                        End Time
-                    </label>
+    <label>
+        Priority
+    </label>
 
-                    <input type="time"
-                    id="end">
+    <select name="priority" required>
 
-                </div>
+        <option value="low">
+            Low
+        </option>
+
+        <option value="medium" selected>
+            Medium
+        </option>
+
+        <option value="high">
+            High
+        </option>
+
+    </select>
+
+</div>
+
+
 
                 <!-- STATUS -->
-                <div class="form-group">
-
-                    <label>
-                        Status
-                    </label>
-
-                    <select id="status">
-
-                        <option>
-                            Upcoming
-                        </option>
-
-                        <option>
-                            In Progress
-                        </option>
-
-                        <option>
-                            Done
-                        </option>
-
-                    </select>
-
-                </div>
+                <input
+    type="hidden"
+    name="status"
+    value="pending"
+>
 
                 <!-- NOTES -->
                 <div class="form-group full-width">
@@ -438,8 +513,9 @@
                     </label>
 
                     <textarea
-                    placeholder="Additional instructions...">
-                    </textarea>
+    name="task_description"
+    placeholder="Additional instructions..."
+></textarea>
 
                 </div>
 
@@ -477,6 +553,166 @@ onclick="openWorkerModal()">
 
 </button>
 
+<button
+class="floating-routine-btn"
+onclick="openRoutineModal()">
+
+R
+
+</button>
+
+<div
+class="worker-modal"
+id="routineModal">
+
+<div class="worker-modal-content">
+
+<div class="modal-header">
+
+    <h2>Add Routine Task</h2>
+
+    <span onclick="closeRoutineModal()">
+        ✕
+    </span>
+
+</div>
+
+<form
+action="../auth/process_routine.php"
+method="POST"
+class="assign-form"
+>
+
+<div class="form-group">
+
+    <label>Worker</label>
+
+    <select
+        name="worker_id"
+        required
+    >
+
+        <?php
+
+        $workerRoutine = mysqli_query(
+            $conn,
+            "SELECT id, fullname
+            FROM users
+            WHERE role='worker'
+            ORDER BY fullname"
+        );
+
+        while($worker = mysqli_fetch_assoc($workerRoutine)) {
+
+        ?>
+
+        <option value="<?php echo $worker['id']; ?>">
+
+            <?php echo htmlspecialchars($worker['fullname']); ?>
+
+        </option>
+
+        <?php } ?>
+
+    </select>
+
+</div>
+
+<div class="form-group">
+
+    <label>Location</label>
+
+    <input
+        type="text"
+        name="location"
+        placeholder="Example: FTMK Bin"
+        required
+    >
+
+</div>
+
+<div class="form-group">
+
+    <label>Task Title</label>
+
+    <input
+        type="text"
+        name="task_title"
+        placeholder="Example: Collect Bin"
+        required
+    >
+
+</div>
+
+<div class="form-group">
+
+    <label>Routine Time</label>
+
+    <input
+        type="time"
+        name="schedule_time"
+        required
+    >
+
+</div>
+
+<div class="form-group">
+
+    <label>Priority</label>
+
+    <select name="priority">
+
+        <option value="low">
+            Low
+        </option>
+
+        <option value="medium" selected>
+            Medium
+        </option>
+
+        <option value="high">
+            High
+        </option>
+
+    </select>
+
+</div>
+
+<div class="form-group full-width">
+
+    <label>Description</label>
+
+    <textarea
+        name="description"
+        placeholder="Daily collection route..."
+    ></textarea>
+
+</div>
+
+<div class="form-buttons">
+
+    <button
+        type="button"
+        class="cancel-btn"
+        onclick="closeRoutineModal()"
+    >
+        Cancel
+    </button>
+
+    <button
+        type="submit"
+        class="save-btn"
+    >
+        Save Routine
+    </button>
+
+</div>
+
+</form>
+
+</div>
+</div>
+
     <!-- FOOTER -->
     <footer>
 
@@ -490,168 +726,58 @@ onclick="openWorkerModal()">
 
     </footer>
 
-    <!-- SCRIPT -->
+
+    <!-- script -->
     <script>
 
-        // sidebar
-        function toggleMenu(){
-            document
-            .getElementById("sidebar")
-            .classList.toggle("active");
-        }
-
-        function toggleProfileMenu(){
-            document.getElementById("profileMenu").classList.toggle("show");
-        }
-
-        document.addEventListener("click",function(event){
-            const container = document.querySelector(".user-avatar-container");
-            const menu = document.getElementById("profileMenu");
-            
-            if(!container.contains(event.target)){
-                menu.classList.remove("show");
-            }
-        });
-        
-
-        function openWorkerModal(){
-
-            document
-            .getElementById("workerModal")
-            .style.display = "flex";
-
-        }
-
-        function closeWorkerModal(){
-
-            document
-            .getElementById("workerModal")
-            .style.display = "none";
-
-        }
-
-        // ADD TASK
-
+    function toggleMenu(){
         document
-        .getElementById("taskForm")
-        .addEventListener("submit", function(e){
+        .getElementById("sidebar")
+        .classList.toggle("active");
+    }
 
-            e.preventDefault();
+    function toggleProfileMenu(){
+        document.getElementById("profileMenu").classList.toggle("show");
+    }
 
-            const worker =
-            document.getElementById("worker").value;
+    document.addEventListener("click",function(event){
+        const container = document.querySelector(".user-avatar-container");
+        const menu = document.getElementById("profileMenu");
 
-            const zone =
-            document.getElementById("zone").value;
+        if(!container.contains(event.target)){
+            menu.classList.remove("show");
+        }
+    });
 
-            const bin =
-            document.getElementById("bin").value;
+    function openWorkerModal(){
+        document
+        .getElementById("workerModal")
+        .style.display = "flex";
+    }
 
-            const date =
-            document.getElementById("date").value;
+    function closeWorkerModal(){
+        document
+        .getElementById("workerModal")
+        .style.display = "none";
+    }
 
-            const start =
-            document.getElementById("start").value;
+    function openRoutineModal(){
 
-            const end =
-            document.getElementById("end").value;
+    document
+    .getElementById("routineModal")
+    .style.display = "flex";
 
-            const status =
-            document.getElementById("status").value;
+}
 
-            // AVATAR
+function closeRoutineModal(){
 
-            let avatar = "GG";
+    document
+    .getElementById("routineModal")
+    .style.display = "none";
 
-            if(worker === "Faiz Hakim"){
-                avatar = "FH";
-            }
+}
 
-            else if(worker === "Hafiz Omar"){
-                avatar = "HO";
-            }
-
-            else if(worker === "Zain Asyraf"){
-                avatar = "ZA";
-            }
-
-            // STATUS CLASS
-
-            let statusClass = "upcoming";
-
-            if(status === "In Progress"){
-                statusClass = "progress";
-            }
-
-            else if(status === "Done"){
-                statusClass = "done";
-            }
-
-            // CREATE TASK
-
-            const task =
-            document.createElement("div");
-
-            task.classList.add("task-row");
-
-            task.innerHTML = `
-
-                <div class="task-date">
-
-                    <h4>
-                        ${date}
-                    </h4>
-
-                    <span>
-                        ${start} - ${end}
-                    </span>
-
-                </div>
-
-                <div class="task-zone">
-
-                    ${zone} · ${bin}
-
-                </div>
-
-                <div class="task-worker">
-
-                    <div class="mini-avatar">
-                        ${avatar}
-                    </div>
-
-                    ${worker}
-
-                </div>
-
-                <div class="task-status ${statusClass}">
-
-                    ${status}
-
-                </div>
-
-            `;
-
-            // ADD HISTORY
-
-            document
-            .getElementById("taskList")
-            .prepend(task);
-
-            // RESET FORM
-
-            document
-            .getElementById("taskForm")
-            .reset();
-
-            // CLOSE MODAL
-
-            closeWorkerModal();
-
-        });
-
-    </script>
-
+</script>
 
 </body>
 </html>

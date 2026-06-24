@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+include "../config/database.php";
+
+$sql = "SELECT * FROM rewards ORDER BY id DESC";
+$result = mysqli_query($conn,$sql);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +21,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="addreward.css">
+    <link rel="stylesheet" href="assets/css/addreward.css">
 </head>
 
 <body>
@@ -36,20 +46,28 @@
         
             <div class="user-avatar-container">
                 <div class="user-avatar" onclick="toggleProfileMenu()">
-                    <img src="image/avatar.png" alt="User Avatar">
+                    <img
+src="<?php echo !empty($_SESSION['profile_image'])
+? '../uploads/profile/'.$_SESSION['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
                 </div>
 
                 <div class="profile-menu" id="profileMenu">
 
                     <div class="profile-info">
-                        <h4>John Doe</h4>
-                        <p>johndoe@student.utem.edu.my</p>
+                        <h4>
+    <?php echo $_SESSION['fullname']; ?>
+</h4>
+
+<p>
+    <?php echo $_SESSION['email']; ?>
+</p>
                     </div>
 
-                    <a href="profile.html">Profile</a>
-                    <a href="notification.html">Notification</a>
-                    <a href="setting.html">Settings</a>
-                    <a href="../Public/login.html">Sign Out</a>
+                    <a href="profile.php">Profile</a>
+                    <a href="setting.php">Settings</a>
+                    <a href="../Public/login.php">Sign Out</a>
 
                 </div>
             </div>
@@ -61,17 +79,20 @@
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <h2 class="sidebar-logo">GoGreen</h2>
 
-        <a href="dashboard.html">Dashboard</a>
-        <a href="reqsub.html">Submissions</a>
-        <a href="reqreward.html">Redemptions</a>
-        <a href="addschedule.html">Schedule</a>
-        <a href="addbin.html">Bin Map</a>
-        <a href="pickups.html">Pickups</a>
-        <a href="reports.html">Reports</a>
-        <a href="addreward.html">Rewards</a>
-        <a href="userrole.html">Users</a>
-        <a href="media.html">Media</a>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="reqsub.php">Submissions</a>
+        <a href="reqreward.php">Redemptions</a>
+        <a href="addschedule.php">Schedule</a>
+        <a href="addbin.php">Bin Map</a>
+        <a href="reports.php">Reports</a>
+        <a href="addreward.php">Rewards</a>
+        <a href="userrole.php">Users</a>
+        <a href="media.php">Media</a>
     </div>
+
+
+
+
 
     <!-- PAGE HEADER -->
 
@@ -95,163 +116,87 @@
 
     </section>
 
-    <!-- REWARD GRID -->
-
     <div class="reward-grid">
 
-        <!-- CARD -->
+<?php while($reward = mysqli_fetch_assoc($result)) { ?>
 
-        <div class="reward-item">
+<div class="reward-item">
 
-            <span class="stock-badge">
-                24 left
-            </span>
+    <div class="stock-badge">
+        Stock: <?= $reward['stock']; ?>
+    </div>
 
-            <div class="reward-image">
-                🛍️
-            </div>
+    <div class="reward-image">
 
-            <div class="reward-content">
+        <img
+        src="../uploads/rewards/<?= $reward['image']; ?>"
+        alt=""
+        style="
+        width:100px;
+        height:100px;
+        object-fit:contain;
+        ">
 
-                <div class="reward-top">
+    </div>
 
-                    <div>
+    <div class="reward-content">
 
-                        <h3>
-                            GoGreen Tote Bag
-                        </h3>
+        <div class="reward-top">
 
-                        <p>
-                            Merchandise
-                        </p>
+            <div>
 
-                    </div>
+                <h3>
+                    <?= $reward['reward_name']; ?>
+                </h3>
 
-                    <span class="points">
-                        500 pts
-                    </span>
-
-                </div>
-
-                <div class="reward-actions">
-
-                    <button class="edit-btn" onclick="openEditModal()">
-                        ✏ Edit
-                    </button>
-
-                    <button class="delete-btn" onclick="openDeleteModal()">
-                        🗑
-                    </button>
-
-                </div>
+                <p>
+                    <?= $reward['description']; ?>
+                </p>
 
             </div>
 
-        </div>
+            <div class="points">
 
-        <!-- CARD -->
+                <?= $reward['points_required']; ?>
 
-        <div class="reward-item">
+                <br>
 
-            <span class="stock-badge">
-                12 left
-            </span>
-
-            <div class="reward-image">
-                🧴
-            </div>
-
-            <div class="reward-content">
-
-                <div class="reward-top">
-
-                    <div>
-
-                        <h3>
-                            Reusable Water Bottle
-                        </h3>
-
-                        <p>
-                            Lifestyle
-                        </p>
-
-                    </div>
-
-                    <span class="points">
-                        800 pts
-                    </span>
-
-                </div>
-
-                <div class="reward-actions">
-
-                    <button class="edit-btn" onclick="openEditModal()">
-                        ✏ Edit
-                    </button>
-
-                    <button class="delete-btn" onclick="openDeleteModal()">
-                        🗑
-                    </button>
-
-                </div>
+                pts
 
             </div>
 
         </div>
 
-        <!-- CARD -->
+        <div class="reward-actions">
 
-        <div class="reward-item">
+<button
+class="edit-btn"
+onclick="openEditReward(
+'<?= $reward['id']; ?>',
+'<?= htmlspecialchars($reward['reward_name'], ENT_QUOTES); ?>',
+'<?= htmlspecialchars($reward['description'], ENT_QUOTES); ?>',
+'<?= $reward['points_required']; ?>',
+'<?= $reward['stock']; ?>'
+)">
+Edit
+</button>
 
-            <span class="stock-badge">
-                50 left
-            </span>
-
-            <div class="reward-image">
-                🎟️
-            </div>
-
-            <div class="reward-content">
-
-                <div class="reward-top">
-
-                    <div>
-
-                        <h3>
-                            UTeM Cafeteria Voucher RM10
-                        </h3>
-
-                        <p>
-                            Voucher
-                        </p>
-
-                    </div>
-
-                    <span class="points">
-                        1000 pts
-                    </span>
-
-                </div>
-
-                <div class="reward-actions">
-
-                    <button class="edit-btn" onclick="openEditModal()">
-                        ✏ Edit
-                    </button>
-
-                    <button class="delete-btn" onclick="openDeleteModal()">
-                        🗑
-                    </button>
-
-                </div>
-
-            </div>
+            <button
+type="button"
+class="delete-btn"
+onclick="openDeleteModal(<?= $reward['id']; ?>)">
+🗑
+</button>
 
         </div>
 
     </div>
 
-    <!-- ADD MODAL -->
+</div>
+
+<?php } ?>
+
+</div>
 
     <div class="modal" id="rewardModal">
 
@@ -271,8 +216,10 @@
 
             </div>
 
-            <form>
-
+<form
+action="../auth/add_reward.php"
+method="POST"
+enctype="multipart/form-data">
                 <div class="upload-section">
 
                     <div class="preview-box">
@@ -285,19 +232,9 @@
                             Upload image
                         </label>
 
-                        <input type="file">
-
-                        <div class="icon-picker">
-
-                            <button type="button">🎁</button>
-                            <button type="button">🛍️</button>
-                            <button type="button">🧴</button>
-                            <button type="button">🎟️</button>
-                            <button type="button">👕</button>
-                            <button type="button">🌳</button>
-                            <button type="button">📚</button>
-
-                        </div>
+                       <input
+type="file"
+name="image">
 
                     </div>
 
@@ -309,10 +246,11 @@
 
                         <label>Name</label>
 
-                        <input 
-                            type="text"
-                            placeholder="Reward name"
-                        >
+                        <input
+type="text"
+name="reward_name"
+placeholder="Reward name"
+required>
 
                     </div>
 
@@ -320,7 +258,7 @@
 
                         <label>Category</label>
 
-                        <select>
+                        <select name="category">
 
                             <option>Merchandise</option>
                             <option>Voucher</option>
@@ -332,16 +270,22 @@
 
                 </div>
 
+                <!-- <input
+type="text"
+name="reward_name"
+id="edit_reward_name"> -->
+
                 <div class="form-row">
 
                     <div class="input-group">
 
                         <label>Required points</label>
 
-                        <input 
-                            type="number"
-                            value="100"
-                        >
+                        <input
+type="number"
+name="points_required"
+value="100"
+required>
 
                     </div>
 
@@ -349,10 +293,11 @@
 
                         <label>Stock quantity</label>
 
-                        <input 
-                            type="number"
-                            value="10"
-                        >
+                        <input
+type="number"
+name="stock"
+value="10"
+required>
 
                     </div>
 
@@ -362,10 +307,10 @@
 
                     <label>Description</label>
 
-                    <textarea 
-                        placeholder="Optional details for users..."
-                    ></textarea>
-
+                    <textarea
+name="description"
+id="edit_description"
+placeholder="Optional details for users..."></textarea>
                 </div>
 
                 <div class="modal-actions">
@@ -410,7 +355,15 @@
 
             </div>
 
-            <form>
+<form
+action="../auth/update_reward.php"
+method="POST"
+enctype="multipart/form-data">
+
+<input
+type="hidden"
+name="reward_id"
+id="edit_reward_id">
 
                 <div class="upload-section">
 
@@ -424,26 +377,10 @@
                             Upload image
                         </label>
 
-                        <input type="file">
+                        <input
+type="file"
+name="image">
 
-                        <div class="icon-picker">
-
-                            <button type="button">🎁</button>
-
-                            <button 
-                                type="button"
-                                class="active-icon"
-                            >
-                                🛍️
-                            </button>
-
-                            <button type="button">🧴</button>
-                            <button type="button">🎟️</button>
-                            <button type="button">👕</button>
-                            <button type="button">🌳</button>
-                            <button type="button">📚</button>
-
-                        </div>
 
                     </div>
 
@@ -455,10 +392,10 @@
 
                         <label>Name</label>
 
-                        <input 
-                            type="text"
-                            value="GoGreen Tote Bag"
-                        >
+                       <input
+type="text"
+name="reward_name"
+id="edit_reward_name">
 
                     </div>
 
@@ -466,7 +403,7 @@
 
                         <label>Category</label>
 
-                        <select>
+                        <select name="category">
 
                             <option selected>
                                 Merchandise
@@ -492,10 +429,10 @@
 
                         <label>Required points</label>
 
-                        <input 
-                            type="number"
-                            value="500"
-                        >
+                        <input
+type="number"
+name="points_required"
+id="edit_points">
 
                     </div>
 
@@ -503,10 +440,10 @@
 
                         <label>Stock quantity</label>
 
-                        <input 
-                            type="number"
-                            value="24"
-                        >
+                        <input
+type="number"
+name="stock"
+id="edit_stock">
 
                     </div>
 
@@ -516,9 +453,10 @@
 
                     <label>Description</label>
 
-                    <textarea 
-                        placeholder="Optional details for users..."
-                    ></textarea>
+                    <textarea
+name="description"
+id="edit_description"
+placeholder="Optional details for users..."></textarea>
 
                 </div>
 
@@ -570,20 +508,31 @@
 
             </div>
 
-            <div class="delete-actions">
+            <form action="../auth/delete_reward.php" method="POST">
 
-                <button 
-                    class="cancel-delete"
-                    onclick="closeDeleteModal()"
-                >
-                    Cancel
-                </button>
+    <input
+    type="hidden"
+    name="reward_id"
+    id="delete_reward_id">
 
-                <button class="confirm-delete">
-                    Delete
-                </button>
+    <div class="delete-actions">
 
-            </div>
+        <button
+        type="button"
+        class="cancel-delete"
+        onclick="closeDeleteModal()">
+            Cancel
+        </button>
+
+        <button
+        type="submit"
+        class="confirm-delete">
+            Delete
+        </button>
+
+    </div>
+
+</form>
 
         </div>
 
@@ -645,13 +594,39 @@
 
         // EDIT MODAL
 
-        function openEditModal(){
+       function openEditReward(
+id,
+name,
+description,
+points,
+stock
+){
 
-            document
-            .getElementById("editRewardModal")
-            .classList.add("active");
+    document.getElementById(
+    "edit_reward_id"
+    ).value = id;
 
-        }
+    document.getElementById(
+    "edit_reward_name"
+    ).value = name;
+
+    document.getElementById(
+    "edit_description"
+    ).value = description;
+
+    document.getElementById(
+    "edit_points"
+    ).value = points;
+
+    document.getElementById(
+    "edit_stock"
+    ).value = stock;
+
+    document
+    .getElementById("editRewardModal")
+    .classList.add("active");
+
+}
 
         function closeEditModal(){
 
@@ -663,13 +638,17 @@
 
         // DELETE MODAL
 
-        function openDeleteModal(){
+        function openDeleteModal(id){
 
-            document
-            .getElementById("deleteModal")
-            .classList.add("active");
+    document.getElementById(
+        "delete_reward_id"
+    ).value = id;
 
-        }
+    document.getElementById(
+        "deleteModal"
+    ).classList.add("active");
+
+}
 
         function closeDeleteModal(){
 

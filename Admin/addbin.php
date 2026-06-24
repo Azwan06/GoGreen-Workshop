@@ -1,3 +1,19 @@
+<?php
+
+session_start();
+
+include "../config/database.php";
+
+$bins = mysqli_query(
+    $conn,
+    "SELECT * FROM bins ORDER BY id DESC"
+);
+
+$totalBins =
+mysqli_num_rows($bins);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +34,7 @@
         href="https://unpkg.com/leaflet/dist/leaflet.css"
     >
 
-    <link rel="stylesheet" href="addbin.css">
+    <link rel="stylesheet" href="assets/css/addbin.css">
 </head>
 
 <body>
@@ -43,20 +59,28 @@
         
             <div class="user-avatar-container">
                 <div class="user-avatar" onclick="toggleProfileMenu()">
-                    <img src="image/avatar.png" alt="User Avatar">
+                    <img
+src="<?php echo !empty($_SESSION['profile_image'])
+? '../uploads/profile/'.$_SESSION['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">
                 </div>
 
                 <div class="profile-menu" id="profileMenu">
 
-                    <div class="profile-info">
-                        <h4>John Doe</h4>
-                        <p>johndoe@student.utem.edu.my</p>
-                    </div>
+                   <div class="profile-info">
+                    <h4>
+    <?php echo $_SESSION['fullname']; ?>
+</h4>
 
-                    <a href="profile.html">Profile</a>
-                    <a href="notification.html">Notification</a>
-                    <a href="setting.html">Settings</a>
-                    <a href="../Public/login.html">Sign Out</a>
+<p>
+    <?php echo $_SESSION['email']; ?>
+</p>
+                </div>
+
+                    <a href="profile.php">Profile</a>
+                    <a href="setting.php">Settings</a>
+                    <a href="../Public/login.php">Sign Out</a>
 
                 </div>
             </div>
@@ -68,16 +92,15 @@
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <h2 class="sidebar-logo">GoGreen</h2>
 
-        <a href="dashboard.html">Dashboard</a>
-        <a href="reqsub.html">Submissions</a>
-        <a href="reqreward.html">Redemptions</a>
-        <a href="addschedule.html">Schedule</a>
-        <a href="addbin.html">Bin Map</a>
-        <a href="pickups.html">Pickups</a>
-        <a href="reports.html">Reports</a>
-        <a href="addreward.html">Rewards</a>
-        <a href="userrole.html">Users</a>
-        <a href="media.html">Media</a>
+        <a href="dashboard.php">Dashboard</a>
+        <a href="reqsub.php">Submissions</a>
+        <a href="reqreward.php">Redemptions</a>
+        <a href="addschedule.php">Schedule</a>
+        <a href="addbin.php">Bin Map</a>
+        <a href="reports.php">Reports</a>
+        <a href="addreward.php">Rewards</a>
+        <a href="userrole.php">Users</a>
+        <a href="media.php">Media</a>
         
     </div>
 </div>
@@ -96,19 +119,91 @@
 
     </section>
 
-    <!-- MAP CONTAINER -->
-
     <section class="map-container">
 
-        <!-- LEFT -->
+    <!-- LEFT -->
 
-        <div>
+    <div class="map-left">
+         
+
 
             <!-- MAP -->
 
             <div id="map"></div>
 
-            <!-- BIN LIST -->
+            
+
+                <!-- ITEM -->
+
+                <?php while($bin = mysqli_fetch_assoc($bins)){ ?>
+
+<div class="bin-item">
+
+    <div class="bin-left">
+
+        <?php
+
+$dotColor = "green";
+
+if($bin['status'] == "full"){
+    $dotColor = "red";
+}
+
+?>
+
+<div class="bin-dot <?php echo $dotColor; ?>"></div>
+
+        <div>
+
+            <h3>
+                <?php echo $bin['bin_name']; ?>
+            </h3>
+
+            <p>
+                <?php echo $bin['latitude']; ?>,
+                <?php echo $bin['longitude']; ?>
+            </p>
+
+        </div>
+
+    </div>
+
+    <div style="display:flex; gap:8px;">
+
+    <button
+    class="view-btn"
+    onclick="focusBin(
+        <?php echo $bin['latitude']; ?>,
+        <?php echo $bin['longitude']; ?>
+    )">
+
+        View
+
+    </button>
+
+    <a
+    href="../auth/delete_bin.php?id=<?php echo $bin['id']; ?>"
+    class="delete-btn"
+    onclick="return confirm('Delete this bin?')">
+
+        Delete
+
+    </a>
+
+</div>
+
+</div>
+
+<?php 
+} 
+?>
+</div>
+
+        <!-- RIGHT -->
+
+        <div class="map-side">
+
+        <!-- BIN LIST -->
 
             <div class="bin-list">
 
@@ -119,102 +214,10 @@
                     </h2>
 
                     <span>
-                        3 Locations
-                    </span>
+    <?php echo $totalBins; ?> Locations
+</span>
 
                 </div>
-
-                <!-- ITEM -->
-
-                <div class="bin-item">
-
-                    <div class="bin-left">
-
-                        <div class="bin-dot green"></div>
-
-                        <div>
-
-                            <h3>
-                                Fakulti Teknologi dan Maklumat (FTMK)
-                            </h3>
-
-                            <p>
-                                2.308140, 102.319239
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    <button class="view-btn">
-                        View
-                    </button>
-
-                </div>
-
-                <!-- ITEM -->
-
-                <div class="bin-item">
-
-                    <div class="bin-left">
-
-                        <div class="bin-dot blue"></div>
-
-                        <div>
-
-                            <h3>
-                                Kediaman Satria
-                            </h3>
-
-                            <p>
-                                2.308718, 102.315039
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    <button class="view-btn">
-                        View
-                    </button>
-
-                </div>
-
-                <!-- ITEM -->
-
-                <div class="bin-item">
-
-                    <div class="bin-left">
-
-                        <div class="bin-dot red"></div>
-
-                        <div>
-
-                            <h3>
-                                Masjid UTeM
-                            </h3>
-
-                            <p>
-                                2.311972, 102.318583
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                    <button class="view-btn">
-                        View
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- RIGHT -->
-
-        <div class="map-side">
 
             <div class="info-card">
 
@@ -226,9 +229,14 @@
                     Click anywhere on the map to place a new smart bin.
                 </p>
 
-                <button class="add-bin-btn" onclick="openModal()">
-                    + Add Bin Location
-                </button>
+                <button
+type="button"
+class="add-bin-btn"
+onclick="openModal()">
+
+    + Add Bin Location
+
+</button>
 
             </div>
 
@@ -256,7 +264,13 @@
 
             <!-- FORM -->
 
-            <form id="binForm">
+           <form
+id="binForm"
+action="../auth/process_bin.php"
+method="POST">
+
+<input type="hidden" name="address" value="">
+<input type="hidden" name="bin_type" value="Mixed Recyclable">
 
                 <div class="input-group">
 
@@ -264,11 +278,11 @@
                         Bin Name
                     </label>
 
-                    <input 
-                        type="text"
-                        id="binName"
-                        placeholder="Example: FTMK Bin 01"
-                    >
+                    <input
+type="text"
+id="binName"
+name="bin_name"
+required>
 
                 </div>
 
@@ -281,7 +295,8 @@
                     <input 
                         type="text"
                         id="latitude"
-                        
+                        name="latitude"
+                        required
                     >
 
                 </div>
@@ -295,6 +310,8 @@
                     <input 
                         type="text"
                         id="longitude"
+                        name="longitude"
+                        required
 
                     >
 
@@ -306,7 +323,7 @@
                         Status
                     </label>
 
-                    <select id="status">
+                    <select id="status" name="status" required>
 
                         <option value="low">
                             Low
@@ -377,216 +394,170 @@
                 menu.classList.remove("show");
             }
         });
+
+        const map = L.map('map').setView(
+    [2.314500, 102.318200],
+    15
+);
         
 
-        // MAP
+// TILE
 
-        const map = L.map('map').setView([2.3137, 102.3200], 16);
+L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+    {
+        attribution:'© OpenStreetMap contributors'
+    }
+).addTo(map);
 
-        // TILE
+// DATABASE MARKERS
 
-        L.tileLayer(
-            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            {
-                attribution:'© OpenStreetMap contributors'
-            }
-        ).addTo(map);
+<?php
+mysqli_data_seek($bins, 0);
 
-        // LOCATIONS
+while($bin = mysqli_fetch_assoc($bins)){
+?>
 
-        const locations = [
+L.marker([
+    <?php echo $bin['latitude']; ?>,
+    <?php echo $bin['longitude']; ?>
+])
 
-            {
-                name:"Fakulti Teknologi dan Maklumat (FTMK)",
-                coords:[2.308140,102.319239]
-            },
+.addTo(map)
 
-            {
-                name:"Kediaman Satria",
-                coords:[2.308718,102.315039]
-            },
+.bindPopup(`
 
-            {
-                name:"Masjid UTeM",
-                coords:[2.311972,102.318583]
-            }
+<b>
+<?php echo addslashes($bin['bin_name']); ?>
+</b>
 
-        ];
+<br>
 
-        // MARKERS
+<?php echo addslashes($bin['address']); ?>
 
-        locations.forEach(location => {
+<br>
 
-            L.marker(location.coords)
+Type:
+<?php echo $bin['bin_type']; ?>
+
+<br>
+
+Status:
+<?php echo $bin['status']; ?>
+
+`);
+
+<?php
+}
+?>
+
+// VIEW BUTTON
+
+function focusBin(lat,lng){
+
+    map.setView(
+        [lat,lng],
+        18
+    );
+
+}
+
+// USER LOCATION
+
+function getLocation(){
+
+    if(navigator.geolocation){
+
+        navigator.geolocation.getCurrentPosition(position => {
+
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+
+            L.marker([lat,lng])
 
             .addTo(map)
 
-            .bindPopup(`<b>${location.name}</b>`);
+            .bindPopup("You are here");
 
         });
 
-        // VIEW BUTTON
+    }
 
-        document
-        .querySelectorAll(".view-btn")
+}
 
-        .forEach((button,index)=>{
+getLocation();
 
-            button.addEventListener("click",()=>{
+// VARIABLES
 
-                const location = locations[index];
+let selectedLat = null;
+let selectedLng = null;
 
-                map.setView(location.coords,18);
+let tempMarker = null;
 
-            });
+// MAP CLICK
 
-        });
+map.on('click', function(e){
 
-        // USER LOCATION
+    selectedLat = e.latlng.lat;
+    selectedLng = e.latlng.lng;
 
-        function getLocation(){
+    document.getElementById("latitude").value =
+    selectedLat.toFixed(6);
 
-            if(navigator.geolocation){
+    document.getElementById("longitude").value =
+    selectedLng.toFixed(6);
 
-                navigator.geolocation.getCurrentPosition(position => {
+    if(tempMarker){
 
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
+        map.removeLayer(tempMarker);
 
-                    map.setView([lat,lng],15);
+    }
 
-                    L.marker([lat,lng])
+    tempMarker = L.marker([
+        selectedLat,
+        selectedLng
+    ]).addTo(map);
 
-                    .addTo(map)
+    openModal();
 
-                    .bindPopup("You are here")
+});
 
-                    .openPopup();
+// SAVE BIN
 
-                });
+document
+.getElementById("binForm")
+.addEventListener("submit", function(){
 
-            }
+    if(
+        selectedLat === null ||
+        selectedLng === null
+    ){
 
-        }
+        alert(
+            "Please select a location on the map."
+        );
 
-        getLocation();
+        return false;
 
-        // VARIABLES
+    }
 
-        let selectedLat = null;
-        let selectedLng = null;
+});
 
-        let tempMarker;
+function openModal(){
 
-        // MAP CLICK
+    document
+    .getElementById("modal")
+    .classList.add("active");
 
-        map.on('click', function(e){
+}
 
-            selectedLat = e.latlng.lat;
-            selectedLng = e.latlng.lng;
+function closeModal(){
 
-            document.getElementById("latitude").value =
-            selectedLat.toFixed(6);
+    document
+    .getElementById("modal")
+    .classList.remove("active");
 
-            document.getElementById("longitude").value =
-            selectedLng.toFixed(6);
-
-            if(tempMarker){
-
-                map.removeLayer(tempMarker);
-
-            }
-
-            tempMarker = L.marker([
-                selectedLat,
-                selectedLng
-            ]).addTo(map);
-
-            openModal();
-
-        });
-
-        // SAVE BIN
-
-        document
-        .getElementById("binForm")
-        .addEventListener("submit", function(e){
-
-            e.preventDefault();
-
-            const name =
-            document.getElementById("binName").value;
-
-            const status =
-            document.getElementById("status").value;
-
-            let color;
-
-            if(status === "low"){
-
-                color = "green";
-
-            }
-
-            else if(status === "medium"){
-
-                color = "blue";
-
-            }
-
-            else if(status === "high"){
-
-                color = "orange";
-
-            }
-
-            else{
-
-                color = "red";
-
-            }
-
-            L.circleMarker(
-                [selectedLat, selectedLng],
-                {
-                    radius:12,
-                    fillColor:color,
-                    color:"#fff",
-                    weight:3,
-                    fillOpacity:1
-                }
-            ).addTo(map)
-
-            .bindPopup(`
-                <b>${name}</b><br>
-                Status: ${status}
-            `);
-
-            document
-            .getElementById("binForm")
-            .reset();
-
-            closeModal();
-
-        });
-
-        // MODAL
-
-        function openModal(){
-
-            document
-            .getElementById("modal")
-            .classList.add("active");
-
-        }
-
-        function closeModal(){
-
-            document
-            .getElementById("modal")
-            .classList.remove("active");
-
-        }
+}
 
     </script>
 
