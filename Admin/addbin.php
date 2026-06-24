@@ -3,72 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Bin Map Management | GoGreen</title>
-    
 
-    <!-- GOOGLE FONT -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- LEAFLET -->
-    <link 
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet/dist/leaflet.css"
-    >
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
     <link rel="stylesheet" href="addbin.css">
 </head>
 
 <body>
 
     <header>
-            
         <div class="header-left">
-
-            <div class="menu-toggle" onclick="toggleMenu()">
-                ☰
-            </div>
-
+            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
             <div class="logo">
                 <img src="image/recycle_imag.png" alt="GoGreen Logo">
                 GoGreen
             </div>
-
         </div>
 
-
         <div class="header-right">
-        
             <div class="user-avatar-container">
                 <div class="user-avatar" onclick="toggleProfileMenu()">
                     <img src="image/avatar.png" alt="User Avatar">
                 </div>
-
                 <div class="profile-menu" id="profileMenu">
-
                     <div class="profile-info">
                         <h4>John Doe</h4>
                         <p>johndoe@student.utem.edu.my</p>
                     </div>
-
                     <a href="profile.html">Profile</a>
                     <a href="notification.html">Notification</a>
                     <a href="setting.html">Settings</a>
                     <a href="../Public/login.html">Sign Out</a>
-
                 </div>
             </div>
         </div>
-
     </header>
 
     <div class="sidebar" id="sidebar">
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <h2 class="sidebar-logo">GoGreen</h2>
-
         <a href="dashboard.html">Dashboard</a>
         <a href="reqsub.html">Submissions</a>
         <a href="reqreward.html">Redemptions</a>
@@ -79,516 +56,205 @@
         <a href="addreward.html">Rewards</a>
         <a href="userrole.html">Users</a>
         <a href="media.html">Media</a>
-        
     </div>
-</div>
-
-    <!-- PAGE TITLE -->
 
     <section class="page-title">
-
-        <h1>
-            Bin Map Management
-        </h1>
-
-        <p>
-            Visualize and manage smart bin locations.
-        </p>
-
+        <h1>Bin Map Management</h1>
+        <p>Visualize and manage smart bin locations.</p>
     </section>
-
-    <!-- MAP CONTAINER -->
 
     <section class="map-container">
 
-        <!-- LEFT -->
-
         <div>
-
-            <!-- MAP -->
-
             <div id="map"></div>
 
-            <!-- BIN LIST -->
-
             <div class="bin-list">
-
                 <div class="list-header">
-
-                    <h2>
-                        Bin Locations
-                    </h2>
-
-                    <span>
-                        3 Locations
-                    </span>
-
+                    <h2>Bin Locations</h2>
+                    <span>3 Locations</span>
                 </div>
 
-                <!-- ITEM -->
-
                 <div class="bin-item">
-
                     <div class="bin-left">
-
                         <div class="bin-dot green"></div>
-
                         <div>
-
-                            <h3>
-                                Fakulti Teknologi dan Maklumat (FTMK)
-                            </h3>
-
-                            <p>
-                                2.308140, 102.319239
-                            </p>
-
+                            <h3>Fakulti Teknologi dan Maklumat (FTMK)</h3>
+                            <p>2.308140, 102.319239</p>
                         </div>
-
                     </div>
-
-                    <button class="view-btn">
-                        View
-                    </button>
-
+                    <button class="view-btn">View</button>
                 </div>
 
-                <!-- ITEM -->
-
                 <div class="bin-item">
-
                     <div class="bin-left">
-
                         <div class="bin-dot blue"></div>
-
                         <div>
-
-                            <h3>
-                                Kediaman Satria
-                            </h3>
-
-                            <p>
-                                2.308718, 102.315039
-                            </p>
-
+                            <h3>Kediaman Satria</h3>
+                            <p>2.308718, 102.315039</p>
                         </div>
-
                     </div>
-
-                    <button class="view-btn">
-                        View
-                    </button>
-
+                    <button class="view-btn">View</button>
                 </div>
-
-                <!-- ITEM -->
 
                 <div class="bin-item">
-
                     <div class="bin-left">
-
                         <div class="bin-dot red"></div>
-
                         <div>
-
-                            <h3>
-                                Masjid UTeM
-                            </h3>
-
-                            <p>
-                                2.311972, 102.318583
-                            </p>
-
+                            <h3>Masjid UTeM</h3>
+                            <p>2.311972, 102.318583</p>
                         </div>
-
                     </div>
-
-                    <button class="view-btn">
-                        View
-                    </button>
-
+                    <button class="view-btn">View</button>
                 </div>
 
             </div>
-
-        </div>
-
-        <!-- RIGHT -->
-
-        <div class="map-side">
-
-            <div class="info-card">
-
-                <h3>
-                    Add New Bin
-                </h3>
-
-                <p>
-                    Click anywhere on the map to place a new smart bin.
-                </p>
-
-                <button class="add-bin-btn" onclick="openModal()">
-                    + Add Bin Location
-                </button>
-
-            </div>
-
         </div>
 
     </section>
 
-    <!-- MODAL -->
-
     <div class="modal" id="modal">
-
         <div class="modal-box">
-
-            <button class="modal-close" onclick="closeModal()">
-                ✕
-            </button>
-
-            <h2>
-                Add Bin Location
-            </h2>
-
-            <p>
-                Configure bin details and save location.
-            </p>
-
-            <!-- FORM -->
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h2>Add Bin Location</h2>
+            <p>Configure bin details and save location.</p>
 
             <form id="binForm">
-
                 <div class="input-group">
-
-                    <label>
-                        Bin Name
-                    </label>
-
-                    <input 
-                        type="text"
-                        id="binName"
-                        placeholder="Example: FTMK Bin 01"
-                    >
-
+                    <label>Bin Name</label>
+                    <input type="text" id="binName" placeholder="Example: FTMK Bin 01">
                 </div>
-
                 <div class="input-group">
-
-                    <label>
-                        Latitude
-                    </label>
-
-                    <input 
-                        type="text"
-                        id="latitude"
-                        
-                    >
-
+                    <label>Latitude</label>
+                    <input type="text" id="latitude">
                 </div>
-
                 <div class="input-group">
-
-                    <label>
-                        Longitude
-                    </label>
-
-                    <input 
-                        type="text"
-                        id="longitude"
-
-                    >
-
+                    <label>Longitude</label>
+                    <input type="text" id="longitude">
                 </div>
-
                 <div class="input-group">
-
-                    <label>
-                        Status
-                    </label>
-
+                    <label>Status</label>
                     <select id="status">
-
-                        <option value="low">
-                            Low
-                        </option>
-
-                        <option value="medium">
-                            Medium
-                        </option>
-
-                        <option value="high">
-                            High
-                        </option>
-
-                        <option value="critical">
-                            Critical
-                        </option>
-
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
                     </select>
-
                 </div>
-
-                <button type="submit" class="save-btn">
-                    Save Bin
-                </button>
-
+                <button type="submit" class="save-btn">Save Bin</button>
             </form>
-
         </div>
-
     </div>
 
-    <!-- FOOTER -->
-
     <footer>
-
-        <p>
-            © GoGreen. All rights reserved.
-        </p>
-
-        <p>
-            Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
-        </p>
-
+        <p>© GoGreen. All rights reserved.</p>
+        <p>Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia</p>
     </footer>
-
-    <!-- LEAFLET -->
 
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <script>
-
-        // sidebar
         function toggleMenu(){
-            document
-            .getElementById("sidebar")
-            .classList.toggle("active");
+            document.getElementById("sidebar").classList.toggle("active");
         }
 
         function toggleProfileMenu(){
             document.getElementById("profileMenu").classList.toggle("show");
         }
 
-        document.addEventListener("click",function(event){
+        document.addEventListener("click", function(event){
             const container = document.querySelector(".user-avatar-container");
             const menu = document.getElementById("profileMenu");
-            
             if(!container.contains(event.target)){
                 menu.classList.remove("show");
             }
         });
-        
-
-        // MAP
 
         const map = L.map('map').setView([2.3137, 102.3200], 16);
 
-        // TILE
-
-        L.tileLayer(
-            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            {
-                attribution:'© OpenStreetMap contributors'
-            }
-        ).addTo(map);
-
-        // LOCATIONS
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
 
         const locations = [
-
-            {
-                name:"Fakulti Teknologi dan Maklumat (FTMK)",
-                coords:[2.308140,102.319239]
-            },
-
-            {
-                name:"Kediaman Satria",
-                coords:[2.308718,102.315039]
-            },
-
-            {
-                name:"Masjid UTeM",
-                coords:[2.311972,102.318583]
-            }
-
+            { name: "Fakulti Teknologi dan Maklumat (FTMK)", coords: [2.308140, 102.319239] },
+            { name: "Kediaman Satria", coords: [2.308718, 102.315039] },
+            { name: "Masjid UTeM", coords: [2.311972, 102.318583] }
         ];
 
-        // MARKERS
-
         locations.forEach(location => {
-
-            L.marker(location.coords)
-
-            .addTo(map)
-
-            .bindPopup(`<b>${location.name}</b>`);
-
+            L.marker(location.coords).addTo(map).bindPopup(`<b>${location.name}</b>`);
         });
 
-        // VIEW BUTTON
-
-        document
-        .querySelectorAll(".view-btn")
-
-        .forEach((button,index)=>{
-
-            button.addEventListener("click",()=>{
-
+        document.querySelectorAll(".view-btn").forEach((button, index) => {
+            button.addEventListener("click", () => {
                 const location = locations[index];
-
-                map.setView(location.coords,18);
-
+                map.setView(location.coords, 18);
             });
-
         });
-
-        // USER LOCATION
 
         function getLocation(){
-
             if(navigator.geolocation){
-
                 navigator.geolocation.getCurrentPosition(position => {
-
                     const lat = position.coords.latitude;
                     const lng = position.coords.longitude;
-
-                    map.setView([lat,lng],15);
-
-                    L.marker([lat,lng])
-
-                    .addTo(map)
-
-                    .bindPopup("You are here")
-
-                    .openPopup();
-
+                    map.setView([lat, lng], 15);
+                    L.marker([lat, lng]).addTo(map).bindPopup("You are here").openPopup();
                 });
-
             }
-
         }
 
         getLocation();
 
-        // VARIABLES
-
         let selectedLat = null;
         let selectedLng = null;
-
         let tempMarker;
 
-        // MAP CLICK
-
         map.on('click', function(e){
-
             selectedLat = e.latlng.lat;
             selectedLng = e.latlng.lng;
 
-            document.getElementById("latitude").value =
-            selectedLat.toFixed(6);
-
-            document.getElementById("longitude").value =
-            selectedLng.toFixed(6);
+            document.getElementById("latitude").value = selectedLat.toFixed(6);
+            document.getElementById("longitude").value = selectedLng.toFixed(6);
 
             if(tempMarker){
-
                 map.removeLayer(tempMarker);
-
             }
 
-            tempMarker = L.marker([
-                selectedLat,
-                selectedLng
-            ]).addTo(map);
-
+            tempMarker = L.marker([selectedLat, selectedLng]).addTo(map);
             openModal();
-
         });
 
-        // SAVE BIN
-
-        document
-        .getElementById("binForm")
-        .addEventListener("submit", function(e){
-
+        document.getElementById("binForm").addEventListener("submit", function(e){
             e.preventDefault();
 
-            const name =
-            document.getElementById("binName").value;
-
-            const status =
-            document.getElementById("status").value;
+            const name = document.getElementById("binName").value;
+            const status = document.getElementById("status").value;
 
             let color;
+            if(status === "low") color = "green";
+            else if(status === "medium") color = "blue";
+            else if(status === "high") color = "orange";
+            else color = "red";
 
-            if(status === "low"){
+            L.circleMarker([selectedLat, selectedLng], {
+                radius: 12,
+                fillColor: color,
+                color: "#fff",
+                weight: 3,
+                fillOpacity: 1
+            }).addTo(map).bindPopup(`<b>${name}</b><br>Status: ${status}`);
 
-                color = "green";
-
-            }
-
-            else if(status === "medium"){
-
-                color = "blue";
-
-            }
-
-            else if(status === "high"){
-
-                color = "orange";
-
-            }
-
-            else{
-
-                color = "red";
-
-            }
-
-            L.circleMarker(
-                [selectedLat, selectedLng],
-                {
-                    radius:12,
-                    fillColor:color,
-                    color:"#fff",
-                    weight:3,
-                    fillOpacity:1
-                }
-            ).addTo(map)
-
-            .bindPopup(`
-                <b>${name}</b><br>
-                Status: ${status}
-            `);
-
-            document
-            .getElementById("binForm")
-            .reset();
-
+            document.getElementById("binForm").reset();
             closeModal();
-
         });
 
-        // MODAL
-
         function openModal(){
-
-            document
-            .getElementById("modal")
-            .classList.add("active");
-
+            document.getElementById("modal").classList.add("active");
         }
 
         function closeModal(){
-
-            document
-            .getElementById("modal")
-            .classList.remove("active");
-
+            document.getElementById("modal").classList.remove("active");
         }
-
     </script>
 
 </body>
