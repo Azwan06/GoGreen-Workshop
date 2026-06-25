@@ -158,10 +158,6 @@ alt="Profile">
                     Leaderboard
                 </a>
 
-                <a href="setting.php">
-                    Settings
-                </a>
-
                 <a href="../auth/logout.php">
                     Sign Out
                 </a>

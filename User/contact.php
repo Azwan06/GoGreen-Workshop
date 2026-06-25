@@ -99,7 +99,6 @@ alt="Profile">
 
                 <a href="profile.php">Profile</a>
                 <a href="leaderboard.php">Leaderboard</a>
-                <a href="setting.php">Settings</a>
                 <a href="../Public/login.php">Sign Out</a>
                 
             </div>
@@ -295,6 +294,17 @@ alt="Profile">
         if(!container.contains(event.target)){
             menu.classList.remove("show");
         }
+    });
+
+    // Mengesan apabila borang (form) dihantar
+    document.querySelector(".contact-form form").addEventListener("submit", function(event) {
+        event.preventDefault(); // Menghalang borang daripada berpindah halaman atau refresh
+        
+        // Paparkan popup success
+        alert("🎉 Your report successfull submited! Thank You!!!.");
+        
+        // Mengosongkan semula semua kotak input borang selepas hantar
+        this.reset(); 
     });
 
   </script>

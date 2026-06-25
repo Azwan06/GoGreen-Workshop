@@ -379,10 +379,7 @@ nav a:hover{
   transition: all 0.3s ease;
 }
 
-/* Tambah efek hijau bila diklik (fokus) supaya sepadan dengan tema GoGreen */
-.contact-form select:focus {
-  border-color: #16a34a;
-}
+
 
 /* Styling asas untuk senarai dropdown */
 .contact-form select option {

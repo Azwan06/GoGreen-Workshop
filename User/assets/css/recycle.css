@@ -639,6 +639,22 @@ header nav a:hover {
 
 /* ADD MATERIAL BUTTON */
 
+/* CLEAR BUTTON */
+.clear-row-btn {
+    width: 50px;
+    border: none;
+    border-radius: 10px;
+    background: #f59e0b; /* Warna oren */
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.clear-row-btn:hover {
+    background: #d97706;
+}
+
 .add-material-btn{
     margin-top:15px;
 
@@ -746,6 +762,98 @@ footer {
     border-top: 1px solid #e0e0e0;
     width: 100%;
     margin-top: auto;         
+}
+
+/* MODAL STYLES (POPUP) */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Gelapkan background belakang */
+    backdrop-filter: blur(5px);     /* Efek kabur */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;                  /* Pastikan duduk paling atas */
+}
+
+.modal-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    animation: popupAnim 0.3s ease-out;
+}
+
+@keyframes popupAnim {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-header h2 {
+    color: var(--primary-green, #2e7d32);
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+
+.modal-header p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.preview-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.preview-table th, .preview-table td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+    font-size: 14px;
+}
+
+.preview-table th {
+    background-color: #f4f9f4;
+    color: var(--primary-green, #2e7d32);
+    font-weight: 600;
+}
+
+.preview-location {
+    font-size: 14px;
+    background: #f9f9f9;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border-left: 4px solid var(--primary-green, #2e7d32);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-modal-close {
+    background-color: var(--btn-vibrant-green, #24b662);
+    color: white;
+    border: none;
+    padding: 12px 50px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-modal-close:hover {
+    background-color: #1e9e53;
 }
 
 @media (max-width: 900px) {
