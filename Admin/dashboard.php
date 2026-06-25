@@ -108,7 +108,7 @@
 
         <!-- CARD 1 -->
 
-        <div class="card" onclick="window.location.href='registereduser.html'" style="cursor:pointer;">
+        <div class="card" onclick="window.location.href='totalusers.php'" style="cursor:pointer;">
 
             <div class="card-info">
                 <p>Total Users</p>
@@ -124,7 +124,7 @@
 
         <!-- CARD 2 -->
 
-        <div class="card">
+        <div class="card" onclick="window.location.href='recycled.php'" style="cursor:pointer;">
 
             <div class="card-info">
                 <p>Total Recycled</p>
