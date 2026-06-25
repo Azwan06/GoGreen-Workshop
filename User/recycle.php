@@ -300,7 +300,8 @@ alt="Profile">
 
                 <div
                 class="dropzone-wrapper"
-                onclick="document.getElementById('fileUploadInput').click();">
+                    id="dropzoneArea"
+                    onclick="document.getElementById('fileUploadInput').click();">
 
                     <div class="dropzone-content">
 
@@ -309,8 +310,8 @@ alt="Profile">
                         </p>
 
                         <p class="upload-sub-text">
-                            Drag and drop files here
-                            or click to browse
+                            CLICK to browse
+                            
                         </p>
 
                     </div>
@@ -324,13 +325,13 @@ alt="Profile">
 
                 </div>
 
-                <div
-                id="fileInfoDisplay"
-                class="file-info-banner"
-                style="display: none;">
-                </div>
-
+                <div class="file-preview-wrapper" id="filePreviewWrapper" style="display: none;">
+                <div id="fileInfoDisplay" class="file-info-banner"></div>
+                <button type="button" class="clear-row-btn" onclick="clearFileInput()">↺</button>
             </div>
+
+
+                
 
             <!-- LOCATION -->
 
@@ -536,34 +537,26 @@ value="<?php echo $bin['bin_name']; ?>">
 
     // FILE DISPLAY
 
-    function updateFileInfo(input){
+    function updateFileInfo(input) {
+    var display  = document.getElementById("fileInfoDisplay");
+    var wrapper  = document.getElementById("filePreviewWrapper");
+    var dropzone = document.getElementById("dropzoneArea");
 
-        var display =
-        document.getElementById(
-            "fileInfoDisplay"
-        );
-
-        if (
-            input.files &&
-            input.files[0]
-        ) {
-
-            display.innerHTML =
-            "Selected File: <strong>" +
-            input.files[0].name +
-            "</strong>";
-
-            display.style.display =
-            "block";
-
-        } else {
-
-            display.style.display =
-            "none";
-
-        }
-
+    if (input.files && input.files[0]) {
+        display.innerHTML = "📎 <strong>" + input.files[0].name + "</strong>";
+        wrapper.style.display  = "flex";
+        dropzone.style.display = "none";
+    } else {
+        wrapper.style.display  = "none";
+        dropzone.style.display = "block";
     }
+}
+
+function clearFileInput() {
+    document.getElementById("fileUploadInput").value = "";
+    document.getElementById("filePreviewWrapper").style.display = "none";
+    document.getElementById("dropzoneArea").style.display = "block";
+}
 
     // ADD MATERIAL ROW
 
@@ -796,23 +789,19 @@ value="<?php echo $bin['bin_name']; ?>">
     // CLOSE MODAL AND RESET THE FORM
 
     function closeSuccessModal() {
+    document.getElementById('successModal').style.display = 'none';
+    document.querySelector('.gogreen-submission-form').reset();
 
-        document.getElementById('successModal').style.display = 'none';
+    // Reset file upload area
+    document.getElementById('filePreviewWrapper').style.display = 'none';
+    document.getElementById('dropzoneArea').style.display = 'block';  // ← add this
 
-        // Reset the entire form
-        document.querySelector('.gogreen-submission-form').reset();
-
-        // Hide the file info banner
-        document.getElementById('fileInfoDisplay').style.display = 'none';
-
-        // Remove extra material rows, keeping only the first
-        const container = document.getElementById('materialContainer');
-        const rows      = container.querySelectorAll('.material-row');
-
-        rows.forEach(function(row, i) {
-            if (i > 0) row.remove();
-        });
-    }
+    const container = document.getElementById('materialContainer');
+    const rows      = container.querySelectorAll('.material-row');
+    rows.forEach(function(row, i) {
+        if (i > 0) row.remove();
+    });
+}
 
 </script>
 </body>

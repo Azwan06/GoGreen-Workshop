@@ -21,7 +21,33 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/contactus.css">
-
+<style>
+    .contact-form form select {
+       width: 100%;
+  padding: 16px;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif; /* Pastikan font sama */
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #fff;
+  color: #222;
+  cursor: pointer;
+  outline: none;
+  
+  /* Buang panah default browser */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* Masukkan panah custom yang lebih kemas */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 18px;
+  
+  transition: border-color 0.3s ease;
+    }
+  </style>
 </head>
 
 <body>
@@ -177,38 +203,38 @@
 
         </h2>
 
-        <form action="../auth/process_report.php"
-      method="POST">
+           <form action="../auth/process_report.php"
+           method="POST">
 
-          <label for="name">Name</label>
-          <input type="text" name="name" required>
+           <label for="name">Name</label>
+           <input type="text" name="name" required>
 
-          <label for="email">Email</label>
-          <input type="email" name="email" required>
+           <label for="email">Email</label>
+           <input type="email" name="email" required>
 
-          <label for="phone">Phone</label>
-          <input type="text" name="phone" required>
+           <label for="phone">Phone</label>
+           <input type="text" name="phone" required>
 
-          <label for="report_type">Report Type</label>
-          <select
-name="report_type"
-id="reportType"
-onchange="toggleLocation()">
+           <label for="report_type">Report Type</label>
+           <select class="pape"
+              name="report_type"
+              id="reportType"
+              onchange="toggleLocation()">
 
-    <option value="Contact">Contact</option>
-    <option value="Pickup">Pickup Request</option>
+             <option value="Contact">Contact</option>
+             <option value="Pickup">Pickup Request</option>
 
-</select>
+             </select>
 
-          <div id="locationField" style="display:none;">
+            <div id="locationField" style="display:none;">
 
-    <label>Location</label>
+            <label>Location</label>
 
-    <input
-    type="text"
-    name="location">
+            <input
+            type="text"
+             name="location">
 
-</div>
+           </div>
 
           <label for="subject">Subject</label>
           <input type="text" name="subject" required>

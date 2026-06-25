@@ -932,3 +932,30 @@ footer {
     border-top: 1px solid #e0e0e0;
     margin-top: auto; 
 }
+
+.file-info-banner {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #e8f5e9;
+    border-left: 4px solid var(--primary-green);
+    border-radius: 4px;
+    font-size: 12px;
+    color: #2e7d32;
+
+    /* add these: */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.file-preview-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.file-preview-wrapper .file-info-banner {
+    margin-top: 0;   /* override the old margin since wrapper handles spacing */
+    flex: 1;
+}
