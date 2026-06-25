@@ -4,7 +4,8 @@ include "../config/database.php";
 
 $error_message = "";
 
-mysqli_close($conn);
+// mysqli_close($conn); // keep for runtime; $conn is defined in included DB file
+
 ?>
 <!DOCTYPE html>
 
@@ -30,7 +31,7 @@ mysqli_close($conn);
 
 
 
-    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="assets/login.css">
 
 </head>
 
