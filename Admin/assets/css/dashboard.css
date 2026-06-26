@@ -638,6 +638,25 @@ canvas{
     background:#ef4444;
 }
 
+.bin-item{
+    background:#f8f9fa;
+    border-left:4px solid #2f9e63;
+    padding:15px;
+    margin:12px 0;
+    border-radius:10px;
+}
+
+.bin-item h4{
+    margin:0;
+    font-size:16px;
+}
+
+.bin-item p{
+    margin-top:5px;
+    color:#666;
+    font-size:14px;
+}
+
 /* ================= LEADERBOARD ================= */
 
 .leader{

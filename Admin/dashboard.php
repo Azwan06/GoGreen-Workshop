@@ -615,86 +615,53 @@ alt="Profile">
 
         <!-- BIN STATUS -->
 
-        <div class="box">
+        <!-- BIN STATUS -->
 
-            <div class="box-header">
+<div class="box">
 
-                <h3>
-                    Bin Status
-                </h3>
+    <div class="box-header">
 
-            </div>
+        <h3>
+            Bin Status
+        </h3>
 
-            <div class="bin">
+    </div>
 
-                <div class="bin-top">
+    <?php
 
-                    <span>
-                        Bin A-01
-                    </span>
+    $binQuery = "SELECT * FROM bins ORDER BY bin_name ASC";
+    $binResult = mysqli_query($conn, $binQuery);
 
-                    <span>
-                        80%
-                    </span>
+    if(mysqli_num_rows($binResult) > 0){
 
-                </div>
+        while($bin = mysqli_fetch_assoc($binResult)){
+    ?>
 
-                <div class="progress">
+            <div class="bin-item">
 
-                    <div class="green-bar"
-                    style="width:80%"></div>
+                <h4>
+                    <?php echo htmlspecialchars($bin['bin_name']); ?>
+                </h4>
 
-                </div>
-
-            </div>
-
-            <div class="bin">
-
-                <div class="bin-top">
-
-                    <span>
-                        Bin A-02
-                    </span>
-
-                    <span>
-                        45%
-                    </span>
-
-                </div>
-
-                <div class="progress">
-
-                    <div class="yellow-bar"
-                    style="width:45%"></div>
-
-                </div>
+                <p>
+                    <?php echo htmlspecialchars($bin['address']); ?>
+                </p>
 
             </div>
 
-            <div class="bin">
+    <?php
 
-                <div class="bin-top">
+        }
 
-                    <span>
-                        Bin A-03
-                    </span>
+    } else {
 
-                    <span>
-                        100%
-                    </span>
+        echo "<p>No bins available.</p>";
 
-                </div>
+    }
 
-                <div class="progress">
+    ?>
 
-                    <div class="red-bar"
-                    style="width:100%"></div>
-
-                </div>
-
-            </div>
-
-        </div>
+</div>
 
         <!-- TOP RECYCLERS -->
 
