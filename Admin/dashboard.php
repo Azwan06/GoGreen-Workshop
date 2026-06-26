@@ -13,6 +13,14 @@ if (
 
 }
 
+$host = "localhost:3306";
+$user = "root";
+$pass = "";
+$dbname = "gogreen";
+
+$conn = mysqli_connect($host, $user, $pass, $dbname);
+
+
 /* ================= TOTAL USERS ================= */
 
 $totalUsersQuery = "

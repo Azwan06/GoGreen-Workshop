@@ -10,6 +10,14 @@ if (!isset($_SESSION['user_id'])) {
 
 include "../config/database.php";
 
+$host = "localhost:3306";
+$user = "root";
+$pass = "";
+$dbname = "gogreen";
+
+$conn = mysqli_connect($host, $user, $pass, $dbname);
+
+
 $user_id = $_SESSION['user_id'];
 
 $user = mysqli_fetch_assoc(

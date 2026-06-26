@@ -4,6 +4,14 @@ session_start();
 
 include "../config/database.php";
 
+$host = "localhost:3306";
+$user = "root";
+$pass = "";
+$dbname = "gogreen";
+
+$conn = mysqli_connect($host, $user, $pass, $dbname);
+
+
 $bins = mysqli_query(
     $conn,
     "SELECT * FROM bins ORDER BY id DESC"

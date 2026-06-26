@@ -13,6 +13,14 @@ include "../config/database.php";
 //     exit();
 // }
 
+$host = "localhost:3306";
+$user = "root";
+$pass = "";
+$dbname = "gogreen";
+
+$conn = mysqli_connect($host, $user, $pass, $dbname);
+
+
 $result = mysqli_query(
     $conn,
     "SELECT * FROM media_posts ORDER BY id DESC"

@@ -2,7 +2,6 @@
 
 session_start();
 include "../config/database.php";
-
 if (
     !isset($_SESSION['user_id']) ||
     $_SESSION['role'] != 'admin'
@@ -10,6 +9,14 @@ if (
     header("Location: ../Public/login.php");
     exit();
 }
+
+$host = "localhost:3306";
+$user = "root";
+$pass = "";
+$dbname = "gogreen";
+
+$conn = mysqli_connect($host, $user, $pass, $dbname);
+
 
 $workerSummary = mysqli_query($conn, "
 

@@ -3,6 +3,13 @@
 session_start();
 
 include "../config/database.php";
+$host = "localhost:3306";
+$user = "root";
+$pass = "";
+$dbname = "gogreen";
+
+$conn = mysqli_connect($host, $user, $pass, $dbname);
+
 
 // if (
 //     !isset($_SESSION['user_id']) ||

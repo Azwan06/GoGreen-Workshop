@@ -3,6 +3,14 @@
 session_start();
 include "../config/database.php";
 
+$host = "localhost:3306";
+$user = "root";
+$pass = "";
+$dbname = "gogreen";
+
+$conn = mysqli_connect($host, $user, $pass, $dbname);
+
+
 $sql = "SELECT * FROM rewards ORDER BY id DESC";
 $result = mysqli_query($conn,$sql);
 

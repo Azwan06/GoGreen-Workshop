@@ -3,6 +3,14 @@
 session_start();
 include "../config/database.php";
 
+$host = "localhost:3306";
+$user = "root";
+$pass = "";
+$dbname = "gogreen";
+
+$conn = mysqli_connect($host, $user, $pass, $dbname);
+
+
 $user_id = $_SESSION['user_id'];
 
 $userResult = mysqli_query(
@@ -97,6 +105,7 @@ alt="Profile">
 
                 <a href="profile.php">Profile</a>
                 <a href="leaderboard.php">Leaderboard</a>
+                <a href="setting.php">Settings</a>
                 <a href="../Public/login.php">Sign Out</a>
                 
             </div>
@@ -221,7 +230,7 @@ alt="Profile">
         </h2>
 
         <form action="../auth/process_report.php"
-          method="POST">
+      method="POST">
 
           <label for="name">Name</label>
           <input type="text" name="name" required>
@@ -233,7 +242,7 @@ alt="Profile">
           <input type="text" name="phone" required>
 
           <label for="report_type">Report Type</label>
-          <select name="report_type" required> 
+          <select name="report_type" required>
               <option value="Contact">Contact</option>
               <option value="Pickup">Pickup</option>
           </select>
@@ -292,17 +301,6 @@ alt="Profile">
         if(!container.contains(event.target)){
             menu.classList.remove("show");
         }
-    });
-
-    // Mengesan apabila borang (form) dihantar
-    document.querySelector(".contact-form form").addEventListener("submit", function(event) {
-        event.preventDefault(); // Menghalang borang daripada berpindah halaman atau refresh
-        
-        // Paparkan popup success
-        alert("🎉 Your report successfull submited! Thank You!!!.");
-        
-        // Mengosongkan semula semua kotak input borang selepas hantar
-        this.reset(); 
     });
 
   </script>
