@@ -148,23 +148,17 @@ alt="Profile">
         <!-- LOCATION -->
 
         <div class="contact-card">
-
           <div class="icon">
-
             <i class="fa-solid fa-location-dot"></i>
-
           </div>
 
+
           <h3>
-
             Location
-
           </h3>
 
           <p>
-
             Universiti Teknikal Malaysia Melaka (UTeM)
-
           </p>
 
         </div>
@@ -229,26 +223,38 @@ alt="Profile">
 
         </h2>
 
-        <form action="../auth/process_report.php"
-      method="POST">
+           <form action="../auth/process_report.php"
+           method="POST">
 
-          <label for="name">Name</label>
-          <input type="text" name="name" required>
+           <label for="name">Name</label>
+           <input type="text" name="name" required>
 
-          <label for="email">Email</label>
-          <input type="email" name="email" required>
+           <label for="email">Email</label>
+           <input type="email" name="email" required>
 
-          <label for="phone">Phone</label>
-          <input type="text" name="phone" required>
+           <label for="phone">Phone</label>
+           <input type="text" name="phone" required>
 
-          <label for="report_type">Report Type</label>
-          <select name="report_type" required>
-              <option value="Contact">Contact</option>
-              <option value="Pickup">Pickup</option>
-          </select>
+           <label for="report_type">Report Type</label>
+           <select class="pape"
+              name="report_type"
+              id="reportType"
+              onchange="toggleLocation()">
 
-          <label for="location">Location</label>
-          <input type="text" name="location">
+             <option value="Contact">Contact</option>
+             <option value="Pickup">Pickup Request</option>
+
+             </select>
+
+            <div id="locationField" style="display:none;">
+
+            <label>Location</label>
+
+            <input
+            type="text"
+             name="location">
+
+           </div>
 
           <label for="subject">Subject</label>
           <input type="text" name="subject" required>
@@ -302,6 +308,24 @@ alt="Profile">
             menu.classList.remove("show");
         }
     });
+
+    function toggleLocation()
+{
+    let type =
+        document.getElementById("reportType").value;
+
+    let location =
+        document.getElementById("locationField");
+
+    if(type === "Pickup")
+    {
+        location.style.display = "block";
+    }
+    else
+    {
+        location.style.display = "none";
+    }
+}
 
   </script>
 

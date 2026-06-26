@@ -3,6 +3,14 @@
 session_start();
 include "../config/database.php";
 
+$host = "localhost:3306";
+$user = "root";
+$pass = "";
+$dbname = "gogreen";
+
+$conn = mysqli_connect($host, $user, $pass, $dbname);
+
+
 $reward_name = $_POST['reward_name'];
 $description = $_POST['description'];
 $points_required = $_POST['points_required'];
