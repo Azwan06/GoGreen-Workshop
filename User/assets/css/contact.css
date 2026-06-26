@@ -352,7 +352,42 @@ nav a:hover{
   gap:20px;
 
 }
+/* Gantikan bermula dari sini */
+.contact-form select {
+  width: 100%;
+  padding: 16px; /* Samakan dengan input/textarea lain */
+  padding-right: 45px; /* Beri ruang ekstra di kanan untuk ikon panah */
+  font-size: 15px; /* Samakan dengan input/textarea lain */
+  border: 1px solid #ccc; /* Samakan ketebalan border */
+  border-radius: 12px; /* Samakan kelengkungan bucu */
+  background-color: #fff;
+  color: #222;
+  cursor: pointer;
+  outline: none;
+  
+  /* Hapus panah bawaan browser */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  /* Masukkan panah kustom menggunakan SVG (Trik paling mudah tanpa ubah HTML) */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 18px; /* Saiz ikon panah */
+  
+  transition: all 0.3s ease;
+}
 
+
+
+/* Styling asas untuk senarai dropdown */
+.contact-form select option {
+  font-size: 15px;
+  background-color: #fff;
+  color: #222;
+}
+/* Berakhir di sini */
 .contact-form input,
 .contact-form textarea{
 

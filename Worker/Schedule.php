@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+//schedule
+
+>>>>>>> hazeeq
 <?php
 
 session_start();

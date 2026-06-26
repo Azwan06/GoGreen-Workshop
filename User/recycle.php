@@ -157,10 +157,6 @@ alt="Profile">
                     Leaderboard
                 </a>
 
-                <a href="setting.php">
-                    Settings
-                </a>
-
                 <a href="../auth/logout.php">
                     Sign Out
                 </a>
@@ -236,7 +232,6 @@ alt="Profile">
             </div>
 
             <!-- MATERIAL -->
-
             <div id="materialContainer">
 
                 <div class="form-row-grid material-row">
@@ -247,34 +242,16 @@ alt="Profile">
                             Material Category
                         </label>
 
-                        <select
-                        name="waste_type"
-                        required>
+                        <select name="waste_type" required>
 
-                            <option
-                            value=""
-                            disabled
-                            selected>
-
+                            <option value="" disabled selected>
                                 Select material type
-
                             </option>
 
-                            <option value="plastic">
-                                Plastic
-                            </option>
-
-                            <option value="paper">
-                                Paper
-                            </option>
-
-                            <option value="aluminum">
-                                Aluminum
-                            </option>
-
-                            <option value="glass">
-                                Glass Bottles
-                            </option>
+                            <option value="plastic">Plastic</option>
+                            <option value="paper">Paper</option>
+                            <option value="aluminum">Aluminum</option>
+                            <option value="glass">Glass Bottles</option>
 
                         </select>
 
@@ -286,13 +263,15 @@ alt="Profile">
                             Estimated Weight (kg)
                         </label>
 
-                        <input
-                        type="number"
-                        name="weight"
-                        step="0.1"
-                        min="0.1"
-                        placeholder="Weight(kg)"
-                        required>
+                        <div class="weight-input-wrapper">
+
+                            <input type="number" name="weight" step="0.1" min="0.1" placeholder="Weight(kg)" required>
+
+                            <button type="button" class="clear-row-btn" onclick="clearRow(this)">
+                                ↺
+                            </button>
+
+                        </div>
 
                     </div>
 
@@ -321,7 +300,8 @@ alt="Profile">
 
                 <div
                 class="dropzone-wrapper"
-                onclick="document.getElementById('fileUploadInput').click();">
+                    id="dropzoneArea"
+                    onclick="document.getElementById('fileUploadInput').click();">
 
                     <div class="dropzone-content">
 
@@ -330,8 +310,8 @@ alt="Profile">
                         </p>
 
                         <p class="upload-sub-text">
-                            Drag and drop files here
-                            or click to browse
+                            CLICK to browse
+                            
                         </p>
 
                     </div>
@@ -345,13 +325,13 @@ alt="Profile">
 
                 </div>
 
-                <div
-                id="fileInfoDisplay"
-                class="file-info-banner"
-                style="display: none;">
-                </div>
-
+                <div class="file-preview-wrapper" id="filePreviewWrapper" style="display: none;">
+                <div id="fileInfoDisplay" class="file-info-banner"></div>
+                <button type="button" class="clear-row-btn" onclick="clearFileInput()">↺</button>
             </div>
+
+
+                
 
             <!-- LOCATION -->
 
@@ -435,6 +415,78 @@ value="<?php echo $bin['bin_name']; ?>">
 
 </footer>
 
+
+<!-- ============================================================ -->
+<!-- SUCCESS MODAL — shown after form is submitted via AJAX       -->
+<!-- ============================================================ -->
+
+<div class="modal-overlay" id="successModal" style="display:none;">
+
+    <div class="modal-card">
+
+        <!-- Header -->
+        <div class="modal-header">
+
+            <h2>✅ Submission Successful!</h2>
+
+            <p>
+                Here's a summary of what you've submitted:
+            </p>
+
+        </div>
+
+        <!-- Materials table -->
+        <table class="preview-table">
+
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Material</th>
+                    <th>Weight (kg)</th>
+                </tr>
+            </thead>
+
+            <tbody id="modalTableBody">
+                <!-- Filled dynamically by JS -->
+            </tbody>
+
+            <!-- Total row -->
+            <tfoot>
+                <tr style="font-weight:700; background:#f4f9f4;">
+                    <td colspan="2" style="padding:12px 10px; color:#2e7d32;">
+                        Total Weight
+                    </td>
+                    <td id="modalTotalWeight"
+                        style="padding:12px 10px; color:#2e7d32;">
+                    </td>
+                </tr>
+            </tfoot>
+
+        </table>
+
+        <!-- Location & image proof -->
+        <div class="preview-location" id="modalMeta">
+            <!-- Filled dynamically by JS -->
+        </div>
+
+        <!-- Close button -->
+        <div class="modal-footer">
+
+            <button
+            class="btn-modal-close"
+            onclick="closeSuccessModal()">
+
+                Done
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <script>
 
     // MOBILE MENU
@@ -485,34 +537,26 @@ value="<?php echo $bin['bin_name']; ?>">
 
     // FILE DISPLAY
 
-    function updateFileInfo(input){
+    function updateFileInfo(input) {
+    var display  = document.getElementById("fileInfoDisplay");
+    var wrapper  = document.getElementById("filePreviewWrapper");
+    var dropzone = document.getElementById("dropzoneArea");
 
-        var display =
-        document.getElementById(
-            "fileInfoDisplay"
-        );
-
-        if (
-            input.files &&
-            input.files[0]
-        ) {
-
-            display.innerHTML =
-            "Selected File: <strong>" +
-            input.files[0].name +
-            "</strong>";
-
-            display.style.display =
-            "block";
-
-        } else {
-
-            display.style.display =
-            "none";
-
-        }
-
+    if (input.files && input.files[0]) {
+        display.innerHTML = "📎 <strong>" + input.files[0].name + "</strong>";
+        wrapper.style.display  = "flex";
+        dropzone.style.display = "none";
+    } else {
+        wrapper.style.display  = "none";
+        dropzone.style.display = "block";
     }
+}
+
+function clearFileInput() {
+    document.getElementById("fileUploadInput").value = "";
+    document.getElementById("filePreviewWrapper").style.display = "none";
+    document.getElementById("dropzoneArea").style.display = "block";
+}
 
     // ADD MATERIAL ROW
 
@@ -617,8 +661,148 @@ value="<?php echo $bin['bin_name']; ?>">
 
     }
 
-</script>
+    // CLEAR FIRST ROW
 
+    function clearRow(button) {
+        const row = button.closest(".material-row");
+        const select = row.querySelector('select[name="waste_type"]');
+        const input = row.querySelector('input[name="weight"]');
+        
+        if (select) select.selectedIndex = 0;
+        if (input) input.value = '';
+    }
+
+
+    // ============================================================
+    // AJAX FORM SUBMIT — intercepts submit, sends each row,
+    // then shows the success modal with a preview of all items.
+    // ============================================================
+
+    document.querySelector('.gogreen-submission-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const form       = this;
+        const rows       = document.querySelectorAll('.material-row');
+        const location   = form.querySelector('select[name="location"]').value;
+        const imageFile  = form.querySelector('#fileUploadInput').files[0];
+        const submitBtn  = form.querySelector('.btn-submit-form');
+
+        // Collect submitted data for the modal preview
+        const submittedItems = [];
+
+        submitBtn.disabled  = true;
+        submitBtn.innerText = "Submitting…";
+
+        try {
+
+            for (let i = 0; i < rows.length; i++) {
+
+                const row       = rows[i];
+                const wasteType = row.querySelector('select[name="waste_type"]').value;
+                const weight    = row.querySelector('input[name="weight"]').value;
+
+                submittedItems.push({ wasteType, weight: parseFloat(weight) });
+
+                const formData = new FormData();
+                formData.append('location',   location);
+                formData.append('waste_type', wasteType);
+                formData.append('weight',     weight);
+
+                if (imageFile) {
+                    formData.append('image', imageFile);
+                }
+
+                await fetch(form.action, {
+                    method: 'POST',
+                    body:   formData
+                });
+            }
+
+            // All rows sent — show the summary modal
+            showSuccessModal(submittedItems, location, imageFile ? imageFile.name : null);
+
+        } catch (error) {
+
+            console.error(error);
+            alert('Something went wrong while submitting the form.');
+
+        } finally {
+
+            submitBtn.disabled  = false;
+            submitBtn.innerText = "Submit Form";
+
+        }
+    });
+
+
+    // BUILD AND SHOW THE SUCCESS MODAL
+
+    function showSuccessModal(items, location, imageName) {
+
+        const tbody = document.getElementById('modalTableBody');
+        tbody.innerHTML = '';
+
+        let totalWeight = 0;
+
+        // Material label map for nicer display
+        const labels = {
+            plastic  : '♻️ Plastic',
+            paper    : '📄 Paper',
+            aluminum : '🔩 Aluminum',
+            glass    : '🫙 Glass Bottles'
+        };
+
+        items.forEach(function(item, i) {
+
+            const label = labels[item.wasteType] ||
+                          item.wasteType.charAt(0).toUpperCase() + item.wasteType.slice(1);
+
+            totalWeight += item.weight;
+
+            tbody.innerHTML += `
+                <tr>
+                    <td style="color:#888; font-size:12px;">${i + 1}</td>
+                    <td>${label}</td>
+                    <td><strong>${item.weight.toFixed(1)}</strong> kg</td>
+                </tr>
+            `;
+        });
+
+        // Total weight footer
+        document.getElementById('modalTotalWeight').textContent =
+            totalWeight.toFixed(1) + ' kg';
+
+        // Location and optional image proof
+        let metaHTML = `<strong>📍 Pickup Location:</strong> ${location}`;
+
+        if (imageName) {
+            metaHTML += `<br><strong>📎 Proof Uploaded:</strong> ${imageName}`;
+        }
+
+        document.getElementById('modalMeta').innerHTML = metaHTML;
+
+        // Show the overlay
+        document.getElementById('successModal').style.display = 'flex';
+    }
+
+
+    // CLOSE MODAL AND RESET THE FORM
+
+    function closeSuccessModal() {
+    document.getElementById('successModal').style.display = 'none';
+    document.querySelector('.gogreen-submission-form').reset();
+
+    // Reset file upload area
+    document.getElementById('filePreviewWrapper').style.display = 'none';
+    document.getElementById('dropzoneArea').style.display = 'block';  // ← add this
+
+    const container = document.getElementById('materialContainer');
+    const rows      = container.querySelectorAll('.material-row');
+    rows.forEach(function(row, i) {
+        if (i > 0) row.remove();
+    });
+}
+
+</script>
 </body>
 </html>
-
