@@ -290,11 +290,6 @@ alt="Profile">
                     Profile
                 </a>
 
-
-                <a href="setting.php">
-                    Settings
-                </a>
-
                 <a href="../auth/logout.php">
                     Sign Out
                 </a>
@@ -614,9 +609,6 @@ alt="Profile">
     <div class="grid">
 
         <!-- BIN STATUS -->
-
-        <!-- BIN STATUS -->
-
 <div class="box">
 
     <div class="box-header">
