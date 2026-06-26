@@ -96,23 +96,17 @@
         <!-- LOCATION -->
 
         <div class="contact-card">
-
           <div class="icon">
-
             <i class="fa-solid fa-location-dot"></i>
-
           </div>
 
+
           <h3>
-
             Location
-
           </h3>
 
           <p>
-
             Universiti Teknikal Malaysia Melaka (UTeM)
-
           </p>
 
         </div>
