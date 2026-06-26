@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-//profile
-
->>>>>>> hazeeq
 <?php
 
 session_start();

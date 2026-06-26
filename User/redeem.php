@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-//redeem
-
->>>>>>> hazeeq
 <?php
 
 session_start();
@@ -161,13 +156,6 @@ alt="Profile">
                     Leaderboard
                 </a>
 
-<<<<<<< HEAD
-                <a href="setting.php">
-                    Settings
-                </a>
-
-=======
->>>>>>> hazeeq
                 <a href="../auth/logout.php">
                     Sign Out
                 </a>

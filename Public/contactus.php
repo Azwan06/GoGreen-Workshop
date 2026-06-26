@@ -21,9 +21,6 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="assets/css/contactus.css">
-<<<<<<< HEAD
-
-=======
 <style>
     .contact-form form select {
        width: 100%;
@@ -51,7 +48,6 @@
   transition: border-color 0.3s ease;
     }
   </style>
->>>>>>> hazeeq
 </head>
 
 <body>
@@ -201,45 +197,6 @@
 
         </h2>
 
-<<<<<<< HEAD
-        <form action="../auth/process_report.php"
-      method="POST">
-
-          <label for="name">Name</label>
-          <input type="text" name="name" required>
-
-          <label for="email">Email</label>
-          <input type="email" name="email" required>
-
-          <label for="phone">Phone</label>
-          <input type="text" name="phone" required>
-
-          <label for="report_type">Report Type</label>
-          <select
-name="report_type"
-id="reportType"
-onchange="toggleLocation()">
-
-    <option value="Contact">Contact</option>
-    <option value="Pickup">Pickup Request</option>
-
-</select>
-
-          <div id="locationField" style="display:none;">
-
-    <label>Location</label>
-
-    <input
-    type="text"
-    name="location">
-
-</div>
-
-          <label for="subject">Subject</label>
-          <input type="text" name="subject" required>
-
-
-=======
            <form action="../auth/process_report.php"
            method="POST">
 
@@ -277,7 +234,6 @@ onchange="toggleLocation()">
           <input type="text" name="subject" required>
 
 
->>>>>>> hazeeq
 <button type="submit">
     Submit
 </button>
