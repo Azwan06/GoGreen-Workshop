@@ -1,30 +1,34 @@
 <?php
 
 session_start();
-include "../config/database.php";
 
-if(!isset($_SESSION['user_id'])){
-    header("Location: ../login.php");
+if (!isset($_SESSION['user_id'])) {
+
+    header("Location: ../Public/login.php");
     exit();
 }
 
+include "../config/database.php";
+
 $user_id = $_SESSION['user_id'];
 
-$userQuery = mysqli_query(
-    $conn,
-    "SELECT * FROM users WHERE id='$user_id'"
+$user = mysqli_fetch_assoc(
+    mysqli_query(
+        $conn,
+        "SELECT * FROM users WHERE id='$user_id'"
+    )
 );
-
-$user = mysqli_fetch_assoc($userQuery);
 
 $history = mysqli_query(
-    $conn,
-    "SELECT *
-     FROM recycle_submissions
-     WHERE user_id='$user_id'
-     ORDER BY created_at DESC"
-);
 
+    $conn,
+
+    "SELECT *
+    FROM recycle_submissions
+    WHERE user_id = '$user_id'
+    ORDER BY created_at DESC"
+
+);
 ?>
 
 <!DOCTYPE html>
@@ -98,13 +102,13 @@ $history = mysqli_query(
     </div>
 </div>
             
-            <div class="user-card-body">
+           <div class="user-card-body">
                 <h1 class="user-name">
     <?php echo htmlspecialchars($user['fullname']); ?>
 </h1>
                 <div class="user-meta-grid">
                     <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-                    <p><strong>Location:</strong> <?php echo !empty($user['address']) ? $user['address'] : 'Not Set'; ?></p>
+                    
                     <p><strong>Status:</strong> <?php echo ucfirst($user['role']); ?></p>
                 </div>
             </div>
@@ -152,13 +156,16 @@ method="POST">
 
 <hr style="margin:20px 0;">
 
-<form action="../auth/update_profile_image.php"
-      method="POST"
-      enctype="multipart/form-data">
+<form
+class="upload-form"
+action="../auth/update_profile_image.php"
+method="POST"
+enctype="multipart/form-data">
 
-<input type="hidden"
-       name="redirect_page"
-       value="admin">
+    <input
+    type="hidden"
+    name="redirect_page"
+    value="admin">
 
     <label>
         Change Profile Photo
@@ -178,7 +185,7 @@ method="POST">
 
     </button>
 
-</form>  
+</form>
     </div>
 
 </section>

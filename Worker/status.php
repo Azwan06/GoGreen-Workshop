@@ -78,7 +78,6 @@ alt="Profile">>
               </div>
 
               <a href="profile.php">Profile</a>
-              <a href="setting.php">Settings</a>
               <a href="../Public/login.php">Sign Out</a>
               
           </div>
@@ -94,7 +93,7 @@ alt="Profile">>
           <p>View and update your assigned reports for the day.</p>
         </div>
 
-        <input type="date" class="date-picker" />
+        <!-- <input type="date" class="date-picker" /> -->
       </div>
       <div class="table-container">
       <div class="dashboard-table">
