@@ -144,21 +144,11 @@ alt="Profile">
                 Assigned
             </button>
 
-            <button onclick="filter('Collecting')">
-                Collecting
-            </button>
-
             <button onclick="filter('Completed')">
                 Completed
             </button>
 
-            <button onclick="filter('Cancelled')">
-                Cancelled
-            </button>
-
-            <button onclick="filter('Maintenance')">
-                Maintenance
-            </button>
+            
 
         </div>
 
