@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+//map
+
+>>>>>>> hazeeq
 <?php
 session_start();
 
@@ -105,7 +110,6 @@ alt="Profile">
 
                 <a href="profile.php">Profile</a>
                 <a href="leaderboard.php">Leaderboard</a>
-                <a href="setting.php">Settings</a>
                 <a href="../Public/login.php">Sign Out</a>
                 
             </div>
