@@ -157,13 +157,6 @@ alt="Profile">
                     Leaderboard
                 </a>
 
-<<<<<<< HEAD
-                <a href="setting.php">
-                    Settings
-                </a>
-
-=======
->>>>>>> hazeeq
                 <a href="../auth/logout.php">
                     Sign Out
                 </a>
@@ -239,10 +232,6 @@ alt="Profile">
             </div>
 
             <!-- MATERIAL -->
-<<<<<<< HEAD
-
-=======
->>>>>>> hazeeq
             <div id="materialContainer">
 
                 <div class="form-row-grid material-row">
@@ -253,36 +242,6 @@ alt="Profile">
                             Material Category
                         </label>
 
-<<<<<<< HEAD
-                        <select
-                        name="waste_type"
-                        required>
-
-                            <option
-                            value=""
-                            disabled
-                            selected>
-
-                                Select material type
-
-                            </option>
-
-                            <option value="plastic">
-                                Plastic
-                            </option>
-
-                            <option value="paper">
-                                Paper
-                            </option>
-
-                            <option value="aluminum">
-                                Aluminum
-                            </option>
-
-                            <option value="glass">
-                                Glass Bottles
-                            </option>
-=======
                         <select name="waste_type" required>
 
                             <option value="" disabled selected>
@@ -293,7 +252,6 @@ alt="Profile">
                             <option value="paper">Paper</option>
                             <option value="aluminum">Aluminum</option>
                             <option value="glass">Glass Bottles</option>
->>>>>>> hazeeq
 
                         </select>
 
@@ -305,15 +263,6 @@ alt="Profile">
                             Estimated Weight (kg)
                         </label>
 
-<<<<<<< HEAD
-                        <input
-                        type="number"
-                        name="weight"
-                        step="0.1"
-                        min="0.1"
-                        placeholder="Weight(kg)"
-                        required>
-=======
                         <div class="weight-input-wrapper">
 
                             <input type="number" name="weight" step="0.1" min="0.1" placeholder="Weight(kg)" required>
@@ -323,7 +272,6 @@ alt="Profile">
                             </button>
 
                         </div>
->>>>>>> hazeeq
 
                     </div>
 
@@ -352,12 +300,8 @@ alt="Profile">
 
                 <div
                 class="dropzone-wrapper"
-<<<<<<< HEAD
-                onclick="document.getElementById('fileUploadInput').click();">
-=======
                     id="dropzoneArea"
                     onclick="document.getElementById('fileUploadInput').click();">
->>>>>>> hazeeq
 
                     <div class="dropzone-content">
 
@@ -366,13 +310,8 @@ alt="Profile">
                         </p>
 
                         <p class="upload-sub-text">
-<<<<<<< HEAD
-                            Drag and drop files here
-                            or click to browse
-=======
                             CLICK to browse
                             
->>>>>>> hazeeq
                         </p>
 
                     </div>
@@ -386,16 +325,6 @@ alt="Profile">
 
                 </div>
 
-<<<<<<< HEAD
-                <div
-                id="fileInfoDisplay"
-                class="file-info-banner"
-                style="display: none;">
-                </div>
-
-            </div>
-
-=======
                 <div class="file-preview-wrapper" id="filePreviewWrapper" style="display: none;">
                 <div id="fileInfoDisplay" class="file-info-banner"></div>
                 <button type="button" class="clear-row-btn" onclick="clearFileInput()">↺</button>
@@ -404,7 +333,6 @@ alt="Profile">
 
                 
 
->>>>>>> hazeeq
             <!-- LOCATION -->
 
             <div class="form-group">
@@ -487,8 +415,6 @@ value="<?php echo $bin['bin_name']; ?>">
 
 </footer>
 
-<<<<<<< HEAD
-=======
 
 <!-- ============================================================ -->
 <!-- SUCCESS MODAL — shown after form is submitted via AJAX       -->
@@ -561,7 +487,6 @@ value="<?php echo $bin['bin_name']; ?>">
 </div>
 
 
->>>>>>> hazeeq
 <script>
 
     // MOBILE MENU
@@ -612,36 +537,6 @@ value="<?php echo $bin['bin_name']; ?>">
 
     // FILE DISPLAY
 
-<<<<<<< HEAD
-    function updateFileInfo(input){
-
-        var display =
-        document.getElementById(
-            "fileInfoDisplay"
-        );
-
-        if (
-            input.files &&
-            input.files[0]
-        ) {
-
-            display.innerHTML =
-            "Selected File: <strong>" +
-            input.files[0].name +
-            "</strong>";
-
-            display.style.display =
-            "block";
-
-        } else {
-
-            display.style.display =
-            "none";
-
-        }
-
-    }
-=======
     function updateFileInfo(input) {
     var display  = document.getElementById("fileInfoDisplay");
     var wrapper  = document.getElementById("filePreviewWrapper");
@@ -662,7 +557,6 @@ function clearFileInput() {
     document.getElementById("filePreviewWrapper").style.display = "none";
     document.getElementById("dropzoneArea").style.display = "block";
 }
->>>>>>> hazeeq
 
     // ADD MATERIAL ROW
 
@@ -767,13 +661,6 @@ function clearFileInput() {
 
     }
 
-<<<<<<< HEAD
-</script>
-
-</body>
-</html>
-
-=======
     // CLEAR FIRST ROW
 
     function clearRow(button) {
@@ -919,4 +806,3 @@ function clearFileInput() {
 </script>
 </body>
 </html>
->>>>>>> hazeeq
