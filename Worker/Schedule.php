@@ -13,7 +13,6 @@ if (
     !isset($_SESSION['user_id']) ||
     $_SESSION['role'] != 'worker'
 ) {
-
     header("Location: ../Public/login.php");
     exit();
 }
@@ -22,51 +21,47 @@ $worker_id = $_SESSION['user_id'];
 
 $selected_date = date('Y-m-d');
 
-if(isset($_GET['date']) && !empty($_GET['date'])){
+if (isset($_GET['date']) && !empty($_GET['date'])) {
     $selected_date = $_GET['date'];
 }
 
 $routineQuery = "
-
-SELECT
-id,
-task_title,
-location,
-schedule_time,
-priority,
-'Routine Task' AS task_description,
-'pending' AS status
-
-FROM worker_routine
-
-WHERE worker_id = '$worker_id'
-
+    SELECT
+        id,
+        task_title,
+        location,
+        schedule_time,
+        priority,
+        'Routine Task' AS task_description,
+        'pending' AS status
+    FROM worker_routine
+    WHERE worker_id = ?
 ";
 
-$routineResult =
-mysqli_query($conn,$routineQuery);
-
+$routineStmt = mysqli_prepare($conn, $routineQuery);
+mysqli_stmt_bind_param($routineStmt, "s", $worker_id);
+mysqli_stmt_execute($routineStmt);
+$routineResult = mysqli_stmt_get_result($routineStmt);
 
 $scheduleQuery = "
-
-SELECT
-id,
-task_title,
-location,
-schedule_time,
-priority,
-task_description,
-status
-
-FROM schedules
-
-WHERE worker_id = '$worker_id'
-AND schedule_date = '$selected_date'
-
+    SELECT
+        id,
+        task_title,
+        location,
+        schedule_time,
+        priority,
+        task_description,
+        status
+    FROM schedules
+    WHERE worker_id = ?
+    AND schedule_date = ?
 ";
 
-$scheduleResult =
-mysqli_query($conn,$scheduleQuery);
+$scheduleStmt = mysqli_prepare($conn, $scheduleQuery);
+mysqli_stmt_bind_param($scheduleStmt, "ss", $worker_id, $selected_date);
+mysqli_stmt_execute($scheduleStmt);
+$scheduleResult = mysqli_stmt_get_result($scheduleStmt);
+
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +73,6 @@ mysqli_query($conn,$scheduleQuery);
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -87,53 +81,55 @@ mysqli_query($conn,$scheduleQuery);
   </head>
   <body>
 
-  <!-- HEADER -->
+    <!-- HEADER -->
     <header>
 
-    <!-- avatar -->
-    <div class="header-left">
+      <!-- avatar -->
+      <div class="header-left">
 
         <div class="menu-toggle" onclick="toggleMenu()">
-            ☰
-        </div> 
-
-        <div class="logo">
-            <img src="image/recycle_imag.png" alt="GoGreen Logo">
-            GoGreen
+          ☰
         </div>
 
-    </div>
+        <div class="logo">
+          <img src="image/recycle_imag.png" alt="GoGreen Logo">
+          GoGreen
+        </div>
 
-    <div class="header-right">
+      </div>
 
-      <nav id="navMenu">
-        <a href="dashboard.php">Dashboard</a>
-        <a href="schedule.php">Schedule</a>
-        <a href="status.php">Reports</a>
-      </nav>
-    
-      <div class="user-avatar-container">
+      <div class="header-right">
+
+        <nav id="navMenu">
+          <a href="dashboard.php">Dashboard</a>
+          <a href="schedule.php">Schedule</a>
+          <a href="status.php">Reports</a>
+        </nav>
+
+        <div class="user-avatar-container">
           <div class="user-avatar" onclick="toggleProfileMenu()">
-              <img src="<?php echo !empty($user['profile_image'])
-? '../uploads/profile/'.$user['profile_image']
-: '../uploads/profile/default.jpg'; ?>"
-alt="Profile">>
+            <img
+              src="<?php echo !empty($user['profile_image'])
+                ? '../uploads/profile/' . $user['profile_image']
+                : '../uploads/profile/default.jpg'; ?>"
+              alt="Profile">
           </div>
 
           <div class="profile-menu" id="profileMenu">
 
-              <div class="profile-info">
-    <h4><?php echo $_SESSION['fullname']; ?></h4>
-    <p><?php echo $_SESSION['email']; ?></p>
-</div>
+            <div class="profile-info">
+              <h4><?php echo htmlspecialchars($_SESSION['fullname']); ?></h4>
+              <p><?php echo htmlspecialchars($_SESSION['email']); ?></p>
+            </div>
 
-<a href="profile.php">Profile</a>
-<a href="setting.php">Settings</a>
-<a href="../auth/logout.php">Sign Out</a>
-              
+            <a href="profile.php">Profile</a>
+            <a href="setting.php">Settings</a>
+            <a href="../auth/logout.php">Sign Out</a>
+
           </div>
+        </div>
+
       </div>
-    </div>
 
     </header>
 
@@ -145,233 +141,173 @@ alt="Profile">>
         </div>
 
         <form method="GET">
-
-    <input
-        type="date"
-        name="date"
-        class="date-picker"
-        value="<?php echo $selected_date; ?>"
-        onchange="this.form.submit()"
-    >
-
-</form>
+          <input
+            type="date"
+            name="date"
+            class="date-picker"
+            value="<?php echo htmlspecialchars($selected_date); ?>"
+            onchange="this.form.submit()"
+          >
+        </form>
       </div>
+
       <div class="table-container">
-      <div class="dashboard-table">
-<div class="table-header">
+        <div class="dashboard-table">
 
-    <span>Time</span>
-    <span>Task</span>
-    <span>Description</span>
-    <span>Location</span>
-    <span>Priority</span>
-    <span>Status</span>
+          <div class="table-header">
+            <span>Time</span>
+            <span>Task</span>
+            <span>Description</span>
+            <span>Location</span>
+            <span>Priority</span>
+            <span>Status</span>
+          </div>
 
-</div>
+          <!-- ROUTINE TASKS -->
+          <?php while ($task = mysqli_fetch_assoc($routineResult)) { ?>
 
+          <div class="table-row">
 
+            <span>
+              <?php echo date("g:i A", strtotime($task['schedule_time'])); ?>
+            </span>
 
-<?php while($task = mysqli_fetch_assoc($routineResult)) { ?>
+            <span>
+              <?php echo htmlspecialchars($task['task_title']); ?>
+            </span>
 
-<div class="table-row">
+            <span>
+              Daily Collection Route
+            </span>
 
-    <span>
-        <?php echo date(
-            "g:i A",
-            strtotime($task['schedule_time'])
-        ); ?>
-    </span>
+            <span>
+              <?php echo htmlspecialchars($task['location']); ?>
+            </span>
 
-    <span>
-        <?php echo $task['task_title']; ?>
-    </span>
+            <span class="priority-<?php echo strtolower($task['priority']); ?>">
+              <?php echo ucfirst($task['priority']); ?>
+            </span>
 
-    <span>
-        Daily Collection Route
-    </span>
+            <div class="status-cell">
+              <span style="
+                background: #d4edda;
+                color: #155724;
+                padding: 8px 15px;
+                border-radius: 8px;
+                font-weight: 600;
+              ">
+                Routine
+              </span>
+            </div>
 
-    <span>
-        <?php echo $task['location']; ?>
-    </span>
+          </div>
 
-    <span class="priority-<?php echo $task['priority']; ?>">
-        <?php echo ucfirst($task['priority']); ?>
-    </span>
+          <?php } ?>
 
-    <div class="status-cell">
+          <!-- SCHEDULED TASKS -->
+          <?php while ($task = mysqli_fetch_assoc($scheduleResult)) { ?>
 
-        <span
-        style="
-        background:#d4edda;
-        color:#155724;
-        padding:8px 15px;
-        border-radius:8px;
-        font-weight:600;
-        ">
-            Routine
-        </span>
+          <div class="table-row">
 
-    </div>
+            <span>
+              <?php echo date("g:i A", strtotime($task['schedule_time'])); ?>
+            </span>
 
-</div>
+            <span>
+              <?php echo htmlspecialchars($task['task_title']); ?>
+            </span>
 
-<?php } ?>
+            <span>
+              <?php echo htmlspecialchars($task['task_description']); ?>
+            </span>
 
+            <span>
+              <?php echo htmlspecialchars($task['location']); ?>
+            </span>
 
-<?php while($task = mysqli_fetch_assoc($scheduleResult)) { ?>
+            <span class="priority-<?php echo strtolower($task['priority']); ?>">
+              <?php echo htmlspecialchars($task['priority']); ?>
+            </span>
 
-<div class="table-row">
+            <div class="status-cell">
 
-    <span>
-        <?php echo date(
-            "g:i A",
-            strtotime($task['schedule_time'])
-        ); ?>
-    </span>
+              <form action="../auth/update_schedule_status.php" method="POST">
 
-    <span>
-        <?php echo htmlspecialchars(
-            $task['task_title']
-        ); ?>
-    </span>
+                <input
+                  type="hidden"
+                  name="schedule_id"
+                  value="<?php echo $task['id']; ?>"
+                >
 
-    <span>
-        <?php echo htmlspecialchars(
-            $task['task_description']
-        ); ?>
-    </span>
+                <select
+                  name="status"
+                  class="status-select <?php echo htmlspecialchars($task['status']); ?>"
+                  onchange="this.form.submit()"
+                >
+                  <option value="pending"
+                    <?php if ($task['status'] == 'pending') echo 'selected'; ?>>
+                    Pending
+                  </option>
 
-    <span>
-        <?php echo htmlspecialchars(
-            $task['location']
-        ); ?>
-    </span>
+                  <option value="ongoing"
+                    <?php if ($task['status'] == 'ongoing') echo 'selected'; ?>>
+                    Ongoing
+                  </option>
 
-    <span class="priority-<?php echo strtolower($task['priority']); ?>">
-        <?php echo htmlspecialchars(
-            $task['priority']
-        ); ?>
-    </span>
+                  <option value="completed"
+                    <?php if ($task['status'] == 'completed') echo 'selected'; ?>>
+                    Completed
+                  </option>
+                </select>
 
-    <td>
+              </form>
 
-<div class="status-cell">
+            </div>
 
-<form
-action="../auth/update_schedule_status.php"
-method="POST">
+          </div>
 
-    <input
-        type="hidden"
-        name="schedule_id"
-        value="<?php echo $task['id']; ?>">
+          <?php } ?>
 
-        <!-- dropdown status -->
-
-    <select
-        name="status"
-        class="status-select <?php echo $task['status']; ?>"
-        onchange="this.form.submit()">
-
-        <option value="pending"
-        <?php if($task['status']=='pending') echo 'selected'; ?>>
-            Pending
-        </option>
-
-        <option value="ongoing"
-        <?php if($task['status']=='ongoing') echo 'selected'; ?>>
-            Ongoing
-        </option>
-
-        <option value="completed"
-        <?php if($task['status']=='completed') echo 'selected'; ?>>
-            Completed
-        </option>
-
-    </select>
-
-</form>
-
-</div>
-
-</div>
-
-<?php } ?>
-
-
-      </div>
+        </div>
       </div>
     </section>
 
     <footer>
-
       <p class="left-footer">
         © GoGreen. All rights reserved.
       </p>
-
       <p class="right-footer">
         Contact us: Al-Khawarizmi UTeM, Melaka, Malaysia
       </p>
-
     </footer>
 
-  <!-- SCRIPT -->
-  <script>
+    <!-- SCRIPT -->
+    <script>
 
-    function toggleMenu(){
+      function toggleMenu() {
+        document.getElementById("navMenu").classList.toggle("active");
+      }
 
-      document
-      .getElementById("navMenu")
-      .classList.toggle("active");
-
-    }
-
-    // toggle avatar
-    function toggleProfileMenu(){
+      function toggleProfileMenu() {
         document.getElementById("profileMenu").classList.toggle("show");
-    }
+      }
 
-    document.addEventListener("click",function(event){
+      document.addEventListener("click", function (event) {
         const container = document.querySelector(".user-avatar-container");
         const menu = document.getElementById("profileMenu");
-        
-        if(!container.contains(event.target)){
-            menu.classList.remove("show");
+
+        if (!container.contains(event.target)) {
+          menu.classList.remove("show");
         }
-    });
+      });
 
-    // STATUS COLOR CHANGE
+      document.querySelectorAll('.status-select').forEach(select => {
+        select.addEventListener('change', function () {
+          this.classList.remove('pending', 'ongoing', 'completed');
+          this.classList.add(this.value);
+        });
+      });
 
-    function changeStatus(select){
-
-        select.classList.remove(
-            "completed",
-            "accepted",
-            "pending"
-        );
-
-        select.classList.add(select.value);
-
-    }
-
-document.querySelectorAll('.status-select').forEach(select => {
-
-    select.addEventListener('change', function(){
-
-        this.classList.remove(
-            'pending',
-            'ongoing',
-            'completed'
-        );
-
-        this.classList.add(this.value);
-
-    });
-
-});
-
-
-
-</script>
+    </script>
   </body>
 </html>
