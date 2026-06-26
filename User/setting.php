@@ -1,3 +1,8 @@
+<<<<<<<< HEAD:User/setting.php
+========
+//setting
+
+>>>>>>>> hazeeq:Worker/setting.php
 <?php
 
 session_start();
@@ -22,6 +27,7 @@ $user = mysqli_fetch_assoc(
 ?>
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<<< HEAD:User/setting.php
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,25 +41,37 @@ $user = mysqli_fetch_assoc(
     <link rel="stylesheet" href="assets/css/setting.css">
   </head>
   <body>
+========
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoGreen Worker Pickup Status</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/setting.css">
+</head>
+<body>
+>>>>>>>> hazeeq:Worker/setting.php
     
+  <!-- HEADER -->
     <header>
-        
-      <!-- avatar -->
-      <div class="header-left">
 
-          <div class="menu-toggle" onclick="toggleMenu()">
-              ☰
-          </div> 
+    <!-- avatar -->
+    <div class="header-left">
 
-          <div class="logo">
-              <img src="image/recycle_imag.png" alt="GoGreen Logo">
-              GoGreen
-          </div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            ☰
+        </div> 
 
-      </div>
-      
-      <div class="header-right">
+        <div class="logo">
+            <img src="image/recycle_imag.png" alt="GoGreen Logo">
+            GoGreen
+        </div>
 
+<<<<<<<< HEAD:User/setting.php
         <nav id="navMenu">
           
             <a href="home.php">Home</a>
@@ -66,14 +84,50 @@ $user = mysqli_fetch_assoc(
           <!-- <button class="sign-btn" onclick="window.location.href = '../Public/login.php'">
             Sign Out
           </button> -->
+========
+    </div>
 
-        </nav>
+    <div class="header-right">
+>>>>>>>> hazeeq:Worker/setting.php
 
-      </div>
-        
+      <nav id="navMenu">
+        <a href="dashboard.php">Dashboard</a>
+        <a href="schedule.php">Schedule</a>
+        <a href="status.php">Reports</a>
+      </nav>
+
+
+      <div class="user-avatar-container">
+
+    <div class="user-avatar"
+         onclick="toggleProfileMenu()">
+
+        <img src="<?php echo !empty($user['profile_image'])
+? '../uploads/profile/'.$user['profile_image']
+: '../uploads/profile/default.jpg'; ?>"
+alt="Profile">>
+
+    </div>
+
+    <div class="profile-menu" id="profileMenu">
+
+        <div class="profile-header">
+            <h4><?= $user['username']; ?></h4>
+            <p><?= $user['email']; ?></p>
+        </div>
+
+        <a href="profile.php">Profile</a>
+        <a href="setting.php">Settings</a>
+        <a href="../auth/logout.php">Sign Out</a>
+
+    </div>
+
+</div>
+    </div>
+
     </header>
 
-    <main class="page-container">
+<main class="page-container">
 
       <div class="back-wrapper">
         <a href="javascript:history.back()" class="back-btn">← Back</a>
@@ -97,6 +151,7 @@ $user = mysqli_fetch_assoc(
 
           <!-- PICTURE -->
           <div class="profile-picture-row">
+<<<<<<<< HEAD:User/setting.php
             <div class="avatar-circle">
 
     <img
@@ -143,6 +198,34 @@ $user = mysqli_fetch_assoc(
 action="../auth/update_profile.php"
 method="POST"
 class="profile-form">
+========
+            <div class="avatar-circle">??</div>
+            <div class="upload-controls">
+              <span class="upload-label">Profile picture</span>
+              <label class="btn-upload">
+                <form
+action="../auth/update_profile_image.php"
+method="POST"
+enctype="multipart/form-data">
+
+<input type="hidden"
+name="redirect_page"
+value="worker">
+
+<input type="file"
+name="profile_image">
+
+<button type="submit">
+Upload
+</button>
+
+</form>
+                ↑ Upload
+              </label>
+              <span class="upload-hint">PNG, JPG up to 2MB</span>
+            </div>
+          </div>
+>>>>>>>> hazeeq:Worker/setting.php
 
           <div class="form-grid">
             <div class="form-group">
@@ -242,9 +325,40 @@ value="<?php echo htmlspecialchars($user['faculty']); ?>">
     </footer>
 
     <script>
-      function toggleMenu() {
-        document.getElementById("navMenu").classList.toggle("active");
-      }
+        
+       function toggleProfileMenu()
+{
+    document
+    .getElementById("profileMenu")
+    .classList.toggle("active");
+}
+
+        function toggleProfileMenu(){
+            document.getElementById("profileMenu").classList.toggle("show");
+        }
+
+        document.addEventListener("click",function(event){
+            const container = document.querySelector(".user-avatar-container");
+            const menu = document.getElementById("profileMenu");
+            
+            if(!container.contains(event.target)){
+                menu.classList.remove("show");
+            }
+        });
+
+        // toggle avatar
+    function toggleProfileMenu(){
+        document.getElementById("profileMenu").classList.toggle("show");
+    }
+
+    document.addEventListener("click",function(event){
+        const container = document.querySelector(".user-avatar-container");
+        const menu = document.getElementById("profileMenu");
+        
+        if(!container.contains(event.target)){
+            menu.classList.remove("show");
+        }
+    });
     </script>
   </body>
 </html>

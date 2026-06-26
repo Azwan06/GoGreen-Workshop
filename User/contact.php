@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+//contact
+
+>>>>>>> hazeeq
 <?php
 
 session_start();
@@ -97,7 +102,10 @@ alt="Profile">
 
                 <a href="profile.php">Profile</a>
                 <a href="leaderboard.php">Leaderboard</a>
+<<<<<<< HEAD
                 <a href="setting.php">Settings</a>
+=======
+>>>>>>> hazeeq
                 <a href="../Public/login.php">Sign Out</a>
                 
             </div>
@@ -222,7 +230,11 @@ alt="Profile">
         </h2>
 
         <form action="../auth/process_report.php"
+<<<<<<< HEAD
       method="POST">
+=======
+          method="POST">
+>>>>>>> hazeeq
 
           <label for="name">Name</label>
           <input type="text" name="name" required>
@@ -234,7 +246,11 @@ alt="Profile">
           <input type="text" name="phone" required>
 
           <label for="report_type">Report Type</label>
+<<<<<<< HEAD
           <select name="report_type" required>
+=======
+          <select name="report_type" required> 
+>>>>>>> hazeeq
               <option value="Contact">Contact</option>
               <option value="Pickup">Pickup</option>
           </select>
@@ -293,6 +309,17 @@ alt="Profile">
         if(!container.contains(event.target)){
             menu.classList.remove("show");
         }
+    });
+
+    // Mengesan apabila borang (form) dihantar
+    document.querySelector(".contact-form form").addEventListener("submit", function(event) {
+        event.preventDefault(); // Menghalang borang daripada berpindah halaman atau refresh
+        
+        // Paparkan popup success
+        alert("🎉 Your report successfull submited! Thank You!!!.");
+        
+        // Mengosongkan semula semua kotak input borang selepas hantar
+        this.reset(); 
     });
 
   </script>

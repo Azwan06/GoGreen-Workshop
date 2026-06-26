@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+//home
+
+>>>>>>> hazeeq
 <?php
 
 session_start();
@@ -90,7 +95,10 @@ alt="Profile">
 
                 <a href="profile.php">Profile</a>
                 <a href="leaderboard.php">Leaderboard</a>
+<<<<<<< HEAD
                 <a href="setting.php">Settings</a>
+=======
+>>>>>>> hazeeq
                 <a href="../Public/login.php">Sign Out</a>
             </div>
         </div>

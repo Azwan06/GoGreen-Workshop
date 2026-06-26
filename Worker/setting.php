@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:User/setting.php
+========
+//setting
+
+>>>>>>>> hazeeq:Worker/setting.php
+>>>>>>> hazeeq
 <?php
 
 session_start();
@@ -22,6 +30,24 @@ $user = mysqli_fetch_assoc(
 ?>
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:User/setting.php
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile & Settings - GoGreen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/setting.css">
+  </head>
+  <body>
+========
+>>>>>>> hazeeq
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +60,10 @@ $user = mysqli_fetch_assoc(
     <link rel="stylesheet" href="assets/css/setting.css">
 </head>
 <body>
+<<<<<<< HEAD
+=======
+>>>>>>>> hazeeq:Worker/setting.php
+>>>>>>> hazeeq
     
   <!-- HEADER -->
     <header>
@@ -50,9 +80,30 @@ $user = mysqli_fetch_assoc(
             GoGreen
         </div>
 
+<<<<<<< HEAD
     </div>
 
     <div class="header-right">
+=======
+<<<<<<<< HEAD:User/setting.php
+        <nav id="navMenu">
+          
+            <a href="home.php">Home</a>
+            <a href="map.php">Map</a>
+            <a href="media.php">Media</a>
+            <a href="recycle.php">Recycle</a>
+            <a href="redeem.php">Redeem</a>
+            <a href="contact.php">Contact</a>
+
+          <!-- <button class="sign-btn" onclick="window.location.href = '../Public/login.php'">
+            Sign Out
+          </button> -->
+========
+    </div>
+
+    <div class="header-right">
+>>>>>>>> hazeeq:Worker/setting.php
+>>>>>>> hazeeq
 
       <nav id="navMenu">
         <a href="dashboard.php">Dashboard</a>
@@ -115,6 +166,57 @@ alt="Profile">>
 
           <!-- PICTURE -->
           <div class="profile-picture-row">
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:User/setting.php
+            <div class="avatar-circle">
+
+    <img
+    src="<?php echo !empty($user['profile_image'])
+        ? '../uploads/profile/'.$user['profile_image']
+        : '../uploads/profile/default.jpg'; ?>"
+    alt="Profile">
+
+</div>
+           <div class="upload-controls">
+
+    <span class="upload-label">
+        Profile picture
+    </span>
+
+    <form
+    action="../auth/update_profile_image.php"
+    method="POST"
+    enctype="multipart/form-data">
+
+        <label class="btn-upload">
+
+            <input
+            type="file"
+            name="profile_image"
+            accept="image/*"
+            onchange="this.form.submit()"
+            hidden>
+
+            ↑ Upload
+
+        </label>
+
+    </form>
+
+    <span class="upload-hint">
+        PNG, JPG up to 2MB
+    </span>
+
+</div>
+</div>
+
+<form
+action="../auth/update_profile.php"
+method="POST"
+class="profile-form">
+========
+>>>>>>> hazeeq
             <div class="avatar-circle">??</div>
             <div class="upload-controls">
               <span class="upload-label">Profile picture</span>
@@ -141,34 +243,85 @@ Upload
               <span class="upload-hint">PNG, JPG up to 2MB</span>
             </div>
           </div>
+<<<<<<< HEAD
+=======
+>>>>>>>> hazeeq:Worker/setting.php
+>>>>>>> hazeeq
 
           <div class="form-grid">
             <div class="form-group">
               <label class="input-label">Full name</label>
+<<<<<<< HEAD
               <input type="text" class="form-input" />
+=======
+              <input
+type="text"
+class="form-input"
+name="fullname"
+value="<?php echo htmlspecialchars($user['fullname']); ?>">
+>>>>>>> hazeeq
             </div>
 
             <div class="form-group">
               <label class="input-label">Email</label>
+<<<<<<< HEAD
               <input type="email" class="form-input" />
             </div>
 
             <div class="form-group">
               <label class="input-label">Department</label>
               <input type="text" class="form-input" />
+=======
+              <input
+type="email"
+class="form-input"
+name="email"
+value="<?php echo htmlspecialchars($user['email']); ?>"
+required>
+            </div>
+
+            <div class="form-group">
+              <label class="input-label">Faculty</label>
+              <input
+type="text"
+class="form-input"
+name="faculty"
+value="<?php echo htmlspecialchars($user['faculty']); ?>">
+>>>>>>> hazeeq
             </div>
 
             <div class="form-group">
               <label class="input-label">Role</label>
+<<<<<<< HEAD
               <input type="text" class="form-input "value="Administrator" readonly/>
+=======
+              <input type="text" class="form-input" value="<?php echo ucfirst($user['role']); ?>" readonly/>
+>>>>>>> hazeeq
             </div>
           </div>
 
           <div class="form-footer">
+<<<<<<< HEAD
             <button type="button" class="btn-save">Save changes</button>
           </div>
         </div>
 
+=======
+
+    <button
+    type="submit"
+    class="btn-save">
+
+        Save Changes
+
+    </button>
+
+</div>
+
+</form>
+
+</div>
+>>>>>>> hazeeq
         <!-- CARD SECOND -->
         <div class="card-container">
             <h2>Preferences</h2>
