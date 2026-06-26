@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-//leaderboard
-
->>>>>>> hazeeq
 <?php
 
 include "../config/database.php";
