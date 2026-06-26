@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2026 at 08:03 PM
+-- Generation Time: Jun 26, 2026 at 05:12 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -58,7 +58,8 @@ CREATE TABLE `bins` (
 INSERT INTO `bins` (`id`, `bin_name`, `latitude`, `longitude`, `address`, `bin_type`, `status`, `created_at`) VALUES
 (14, 'Pusat Sukan UTeM', 2.31671500, 102.32073900, '', 'Mixed Recyclable', '', '2026-06-22 17:20:07'),
 (15, 'Cafe Satria', 2.31001000, 102.31498400, '', 'Mixed Recyclable', '', '2026-06-22 17:20:27'),
-(16, 'Fakulti Teknologi dan Komunikasi', 2.30812800, 102.31930300, '', 'Mixed Recyclable', '', '2026-06-22 17:20:56');
+(16, 'Fakulti Teknologi dan Komunikasi', 2.30812800, 102.31930300, '', 'Mixed Recyclable', '', '2026-06-22 17:20:56'),
+(17, 'Masjid', 2.31185300, 102.31873000, '', 'Mixed Recyclable', '', '2026-06-23 01:19:20');
 
 -- --------------------------------------------------------
 
@@ -162,7 +163,10 @@ CREATE TABLE `recycle_submissions` (
 INSERT INTO `recycle_submissions` (`id`, `user_id`, `waste_type`, `weight`, `image`, `location`, `pickup_date`, `pickup_time`, `points_earned`, `status`, `admin_remark`, `created_at`) VALUES
 (8, 13, 'plastic', 33.00, '1782133686_download.jpg', 'FTMK Recycle Bin', '2026-06-18', '12:08:00', 330, 'approved', NULL, '2026-06-22 13:08:06'),
 (9, 13, 'plastic', 20.00, '', 'FTMK Recycle Bin', '2026-06-23', '22:15:00', 200, 'approved', NULL, '2026-06-22 14:11:20'),
-(10, 13, 'paper', 20.00, '1782144549_download.jpg', 'MASJID', '0000-00-00', '00:00:00', 200, 'approved', NULL, '2026-06-22 16:09:09');
+(10, 13, 'paper', 20.00, '1782144549_download.jpg', 'MASJID', '0000-00-00', '00:00:00', 200, 'approved', NULL, '2026-06-22 16:09:09'),
+(11, 17, 'paper', 1.00, '1782176430_images (3).jpg', 'Fakulti Teknologi dan Komunikasi', '0000-00-00', '00:00:00', 10, 'approved', NULL, '2026-06-23 01:00:30'),
+(18, 13, 'plastic', 10.00, '1782441713_images (4).jpg', 'Pusat Sukan UTeM', '0000-00-00', '00:00:00', 0, 'pending', NULL, '2026-06-26 02:41:53'),
+(19, 13, 'paper', 10.00, '1782441713_images (4).jpg', 'Pusat Sukan UTeM', '0000-00-00', '00:00:00', 0, 'pending', NULL, '2026-06-26 02:41:53');
 
 -- --------------------------------------------------------
 
@@ -195,7 +199,9 @@ INSERT INTO `reports` (`id`, `user_id`, `worker_id`, `name`, `email`, `phone`, `
 (3, 15, 2, 'FAHRUL AZWAN BIN MONJAMIL', 'fahrulazwan89@gmail.com', '0149124116', 'Contact', 'ww', 'ww', 'ww', 'Assigned', '2026-06-22 09:18:01'),
 (4, 13, 16, 'FAHRUL AZWAN BIN MONJAMIL', 'fahrulazwan89@gmail.com', '0149124116', 'Contact', 'aaa', 'aaaa', 'aaa', 'Completed', '2026-06-22 09:38:24'),
 (5, 13, 16, 'FAHRUL AZWAN BIN MONJAMIL', 'fahrulazwan89@gmail.com', '0149124116', 'Contact', 'dd', 'dd', '0', 'Completed', '2026-06-22 09:48:20'),
-(6, 13, 16, 'FAHRUL AZWAN BIN MONJAMIL', 'd032410282@student.utem.edu.my', '0149124116', 'Contact', 'qqq', 'qq', 'qqq', 'Completed', '2026-06-22 10:12:03');
+(6, 13, 16, 'FAHRUL AZWAN BIN MONJAMIL', 'd032410282@student.utem.edu.my', '0149124116', 'Contact', 'qqq', 'qq', 'qqq', 'Completed', '2026-06-22 10:12:03'),
+(7, 13, NULL, 'FAHRUL AZWAN BIN MONJAMIL', 'fahrulazwan89@gmail.com', '0149124116', 'Contact', 'ww', '', '0', 'Pending', '2026-06-23 12:17:02'),
+(8, 15, NULL, 'terimakasih', 'ahhhh@yahoo.com', 'Boboiboymental_00!', 'Pickup', 'Meletop', '', 'Johor lama', 'Pending', '2026-06-23 12:53:21');
 
 -- --------------------------------------------------------
 
@@ -252,7 +258,8 @@ INSERT INTO `reward_redeems` (`id`, `user_id`, `reward_id`, `quantity`, `total_p
 (14, 13, 1, 1, 100, 'approved', '2026-06-22 15:38:36', NULL, NULL, NULL),
 (15, 13, 1, 1, 100, 'rejected', '2026-06-22 16:09:18', NULL, NULL, NULL),
 (16, 13, 8, 1, 10, 'approved', '2026-06-22 17:52:29', 'GG-20260622-0016', '2026-06-23 01:53:16', 15),
-(17, 13, 1, 1, 100, 'approved', '2026-06-22 17:52:31', 'GG-20260622-0017', '2026-06-23 01:52:47', 15);
+(17, 13, 1, 1, 100, 'approved', '2026-06-22 17:52:31', 'GG-20260622-0017', '2026-06-23 01:52:47', 15),
+(18, 17, 8, 1, 10, 'approved', '2026-06-23 01:13:21', 'GG-20260623-0018', '2026-06-23 09:15:08', 15);
 
 -- --------------------------------------------------------
 
@@ -282,7 +289,8 @@ INSERT INTO `schedules` (`id`, `worker_id`, `task_title`, `task_description`, `l
 (1, 2, 'ss', 's', 'ss', '2026-06-24', '12:04:00', 'medium', 'pending', '2026-06-22 04:01:22', NULL),
 (2, 16, 'ww', '2', '0', '2026-06-18', '14:05:00', 'medium', 'pending', '2026-06-22 04:05:39', NULL),
 (3, 16, 'collect bin', 'pls update stat', 'bin1', '2026-06-22', '14:37:00', 'low', 'completed', '2026-06-22 06:38:03', NULL),
-(4, 16, 'collect bin', 'cek pending', 'bin2', '2026-06-22', '14:38:00', 'high', 'completed', '2026-06-22 06:38:25', NULL);
+(4, 16, 'collect bin', 'cek pending', 'bin2', '2026-06-22', '14:38:00', 'high', 'completed', '2026-06-22 06:38:25', NULL),
+(5, 16, 'bin rosak', 'bin', 'library', '2026-06-23', '09:17:00', 'high', 'pending', '2026-06-23 01:18:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -318,9 +326,10 @@ INSERT INTO `users` (`id`, `fullname`, `username`, `email`, `matric_id`, `phone`
 (1, 'Administrator', 'admin', 'admin@utem.edu.my', 'A000000001', '0123456789', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin', 'Administration', 'default.png', 0, NULL, 1, NULL, NULL, 'active', '2026-06-06 12:38:48'),
 (2, 'GoGreen Worker', 'worker', 'worker@utem.edu.my', 'W000000001', '0111111111', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'worker', 'GoGreen Unit', 'default.png', 0, NULL, 1, NULL, NULL, 'active', '2026-06-06 12:38:48'),
 (3, 'Test User', 'testuser', 'b032410001@student.utem.edu.my', 'B032410001', '0100000000', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'user', 'FTMK', 'default.png', 150, NULL, 1, NULL, NULL, 'active', '2026-06-06 12:38:48'),
-(13, 'Azwan', 'wan', 'd032410282@student.utem.edu.my', 'd032410282', NULL, '$2y$10$VR.dZzfqLmfpQnS9shPM4ecNENKGhPKbtNGgtAnTQ3AY.GZk2U44.', 'user', '', '1782151289_9877.jpg', 1880, NULL, 0, NULL, NULL, 'active', '2026-06-22 02:16:59'),
+(13, 'Azwan', 'wan', 'd032410282@student.utem.edu.my', 'd032410282', NULL, '$2y$10$VR.dZzfqLmfpQnS9shPM4ecNENKGhPKbtNGgtAnTQ3AY.GZk2U44.', 'user', 'FTMK', '1782151289_9877.jpg', 2, NULL, 0, NULL, NULL, 'active', '2026-06-22 02:16:59'),
 (15, 'wan', 'wan1', 'wan@utem.edu.my', 'd032410287', NULL, '$2y$10$rSBqsKf5tKGLWwA3y7ABzu2MJUfMFIbkdHK9Rm/wU7XXG2WORmjLS', 'admin', '', '1782143812_1108.jpg', 0, NULL, 0, NULL, NULL, 'active', '2026-06-22 02:35:40'),
-(16, 'fahrul', 'fahrul', 'fahrul@utem.edu.my', 'd032410283', NULL, '$2y$10$tmv94EwoMLFSqQX6onpxX.UBRI1cOYR69VLsvdwX43gR1F9NwLdR6', 'worker', NULL, '1782146019_1933.jpg', 0, NULL, 0, NULL, NULL, 'active', '2026-06-22 04:03:06');
+(16, 'fahrul', 'fahrul', 'fahrul@utem.edu.my', 'd032410283', NULL, '$2y$10$tmv94EwoMLFSqQX6onpxX.UBRI1cOYR69VLsvdwX43gR1F9NwLdR6', 'worker', NULL, '1782146019_1933.jpg', 0, NULL, 0, NULL, NULL, 'active', '2026-06-22 04:03:06'),
+(17, 'Datu Amirul', 'Datu', 'd032410441@student.utem.edu.my', 'd032410441', NULL, '$2y$10$/Z4bLwr1Wf5MA.JmvHrlHObjPsiuN91ErgTo6TodVMlJy9x6jw8ne', 'user', NULL, 'default.png', 10, NULL, 0, NULL, NULL, 'active', '2026-06-23 00:53:23');
 
 -- --------------------------------------------------------
 
@@ -358,7 +367,8 @@ CREATE TABLE `worker_routine` (
 INSERT INTO `worker_routine` (`id`, `worker_id`, `task_title`, `location`, `schedule_time`, `priority`) VALUES
 (1, 16, 'Collect Bin', 'FTMK Bin', '08:00:00', 'medium'),
 (2, 16, 'Collect Bin', 'Library Bin', '10:00:00', 'medium'),
-(3, 16, 'Collect Bin', 'Cafeteria Bin', '14:00:00', 'low');
+(3, 16, 'Collect Bin', 'Cafeteria Bin', '14:00:00', 'low'),
+(4, 16, 'collect bin', 'library', '09:16:00', 'low');
 
 --
 -- Indexes for dumped tables
@@ -473,7 +483,7 @@ ALTER TABLE `activity_logs`
 -- AUTO_INCREMENT for table `bins`
 --
 ALTER TABLE `bins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `contact_messages`
@@ -503,13 +513,13 @@ ALTER TABLE `pickup_requests`
 -- AUTO_INCREMENT for table `recycle_submissions`
 --
 ALTER TABLE `recycle_submissions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `rewards`
@@ -521,19 +531,19 @@ ALTER TABLE `rewards`
 -- AUTO_INCREMENT for table `reward_redeems`
 --
 ALTER TABLE `reward_redeems`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `schedules`
 --
 ALTER TABLE `schedules`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `user_settings`
@@ -545,7 +555,7 @@ ALTER TABLE `user_settings`
 -- AUTO_INCREMENT for table `worker_routine`
 --
 ALTER TABLE `worker_routine`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
