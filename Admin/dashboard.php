@@ -140,7 +140,7 @@
 
         <!-- CARD 3 -->
 
-        <div class="card">
+        <div class="card" onclick="window.location.href='pendingreview.php'" style="cursor:pointer;">
 
             <div class="card-info">
                 <p>Pending Review</p>
@@ -156,7 +156,7 @@
 
         <!-- CARD 4 -->
 
-        <div class="card">
+        <div class="card" onclick="window.location.href='pointredeem.php'" style="cursor:pointer;">
 
             <div class="card-info">
                 <p>Points Redeemed</p>
