@@ -115,7 +115,7 @@ alt="Profile">>
     <main class="profile-container">
 
         <div class="page-header">
-            <a href="javascript:history.back()" class="back-btn">← Back</a>
+            <a href="dashboard.php" class="back-btn">← Back</a>
 
             <h1 class="page-main-title">Profile</h1>
         </div>

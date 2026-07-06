@@ -83,7 +83,7 @@ $history = mysqli_query(
     <main class="profile-container">
 
         <div class="page-header">
-            <a href="javascript:history.back()" class="back-btn">← Back</a>
+            <a href="home.php" class="back-btn">← Back</a>
 
             <h1 class="page-main-title">Profile</h1>
         </div>
@@ -108,11 +108,6 @@ $history = mysqli_query(
 </h1>
                 <div class="user-meta-grid">
                     <p><strong>Email:</strong> <?php echo htmlspecialchars($user['email']); ?></p>
-                    <p><strong>Faculty:</strong>
-<?php echo !empty($user['faculty'])
-? $user['faculty']
-: 'Not Set'; ?>
-</p>
                     <p><strong>Status:</strong> <?php echo ucfirst($user['role']); ?></p>
                 </div>
             </div>

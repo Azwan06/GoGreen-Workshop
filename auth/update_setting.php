@@ -62,7 +62,6 @@ mysqli_query(
 
 );
 
-header("Location: ../User/setting.php");
-exit();
+
 
 ?>

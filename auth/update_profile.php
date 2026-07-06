@@ -15,47 +15,32 @@ $fullname = mysqli_real_escape_string(
     $_POST['fullname']
 );
 
-$email = mysqli_real_escape_string(
-    $conn,
-    $_POST['email']
-);
-
-$faculty = mysqli_real_escape_string(
-    $conn,
-    $_POST['faculty']
-);
-
-/* Check duplicate email */
-
-$check = mysqli_query(
-    $conn,
-    "SELECT id
-     FROM users
-     WHERE email='$email'
-     AND id != '$user_id'"
-);
-
-if (mysqli_num_rows($check) > 0) {
-
-    echo "<script>
-            alert('Email already exists!');
-            window.history.back();
-          </script>";
-    exit();
-}
-
 /* Update profile */
 
 mysqli_query(
     $conn,
     "UPDATE users
-     SET fullname='$fullname',
-         email='$email',
-         faculty='$faculty'
+     SET fullname='$fullname'
      WHERE id='$user_id'"
 );
 
-header("Location: ../User/setting.php");
-exit();
+/* Get user role */
+$result = mysqli_query(
+    $conn,
+    "SELECT role FROM users WHERE id='$user_id'"
+);
 
+$user = mysqli_fetch_assoc($result);
+
+/* Redirect based on role */
+if ($user['role'] == 'admin') {
+    header("Location: ../Admin/profile.php");
+} elseif ($user['role'] == 'worker') {
+    header("Location: ../Worker/profile.php");
+} else {
+    header("Location: ../User/profile.php");
+}
+
+exit();
+?>
 ?>

@@ -76,7 +76,7 @@ $history = mysqli_query(
         <button class="close-btn" onclick="toggleMenu()">✕</button>
         <h2 class="sidebar-logo">GoGreen</h2>
 
-        <a href="dashboard.php">Dashboard</a>
+        <!-- <a href="dashboard.php">Dashboard</a>
         <a href="reqsub.php">Submissions</a>
         <a href="reqreward.php">Redemptions</a>
         <a href="addschedule.php">Schedule</a>
@@ -84,14 +84,14 @@ $history = mysqli_query(
         <a href="reports.php">Reports</a>
         <a href="addreward.php">Rewards</a>
         <a href="userrole.php">Users</a>
-        <a href="media.php">Media</a>
+        <a href="media.php">Media</a> -->
         
     </div>
  
     <main class="profile-container">
 
         <div class="page-header">
-            <a href="javascript:history.back()" class="back-btn">← Back</a>
+            <a href="dashboard.php" class="back-btn">← Back</a>
 
             <h1 class="page-main-title">Profile</h1>
         </div>
